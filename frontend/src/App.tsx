@@ -1,11 +1,26 @@
-import Home from "./screens/Home/Home"
+import {Button} from "@mui/material"
+import { Router } from "./routes"
+import { BrowserRouter, RouterProvider } from "react-router-dom"
+import { MenuProvider } from "./shared/contexts/MenuContext"
+import { AppThemeProvider } from "./shared/contexts/ThemeContext"
+import { SideMenu } from "./shared/components/side-menu/SideMenu"
 
 function App() {
+
   return (
-    <>
-      <h1 className="text-red-400 font-bold text-[2rem] text-center mt-5 font-mono">Hello, world</h1>
-      <Home/> 
-    </>
+  
+    <MenuProvider>
+    <AppThemeProvider>
+    <BrowserRouter>
+        
+        <SideMenu>
+          <Router/>
+        </SideMenu>
+
+    </BrowserRouter>
+    </AppThemeProvider>
+    </MenuProvider>
+
   )
 }
 
