@@ -5,24 +5,24 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ## Estrutura do Projeto
 
 ```plaintext
-├── documentação/            # Documentação do projeto
-│   ├── requisitos/          # Documentos de requisitos
-│   └── diagramas/           # Diagramas de arquitetura e fluxo
-├── frontend/                # Aplicação frontend
-│   ├── public/              # Arquivos públicos (não processados pelo bundler)
-│   └── src/                 # Código-fonte do frontend
-│       ├── pages/           # Páginas do aplicativo
-│       ├── routes/          # Definições de rotas
-│       └── shared/          # Código compartilhado
-│           ├── components/  # Componentes reutilizáveis
-│           ├── contexts/    # Contextos de estado global
-│           └── theme/       # Configuração de temas e estilos globais
-├── backend/                 # Aplicação backend
-│   ├── dist/                # Código transpilado e pronto para produção
-│   └── src/                 # Código-fonte do backend
-│       ├── routes/          # Definições de rotas do backend
-│       ├── app.ts           # Arquivo principal de configuração da aplicação
-│       └── server.ts        # Arquivo de inicialização do servidor
+├── documentação/                # Documentação do projeto
+│   ├── requisitos/              # Documentos de requisitos
+│   └── diagramas/               # Diagramas de arquitetura 
+├── frontend/                    # Aplicação frontend
+│   ├── public/                  # Arquivos públicos
+│   └── src/                     # Código-fonte do frontend
+│       ├── pages/               # Páginas do aplicativo
+│       ├── routes/              # Definições de rotas
+│       └── shared/              # Código compartilhado
+│           ├── components/      # Componentes reutilizáveis
+│           ├── contexts/        # Contextos de estado global
+│           └── theme/           # Configuração de temas e estilos globais
+├── backend/                     # Aplicação backend
+│   ├── dist/                    # Código transpilado e pronto para produção
+│   └── src/                     # Código-fonte do backend
+│       ├── routes/              # Definições de rotas do backend
+│       ├── app.ts               # Arquivo principal de configuração da aplicação
+│       └── server.ts            # Arquivo de inicialização do servidor
 
 
 ## Empresa 
