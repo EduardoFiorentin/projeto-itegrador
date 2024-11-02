@@ -23,7 +23,7 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 │       ├── routes/              # Definições de rotas do backend
 │       ├── app.ts               # Arquivo principal de configuração da aplicação
 │       └── server.ts            # Arquivo de inicialização do servidor
-
+```
 
 ## Empresa 
 **Empresa**: Escola Nobre Arte Boxe.
