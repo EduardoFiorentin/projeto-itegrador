@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
+import { userController } from "../controllers/userControllers";
+import { StatusCodes } from "http-status-codes";
 
 const authRouter = Router()
 
-authRouter.post("/login", (req, res) => {
-    res.status(200).send("Login efetuado")
-})
+
+authRouter.post("/login", userController.acessController)
 
 authRouter.post("/recover", (req, res) => {
     res.status(200).send("Codigo de recuperação enviado por e-mail")
