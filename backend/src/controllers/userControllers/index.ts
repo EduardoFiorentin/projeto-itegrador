@@ -1,5 +1,5 @@
-import * as SignIn from "./acessController"
+import {signIn} from "./signIn"
 
 export const userController = {
-    ...SignIn
+    signIn
 }

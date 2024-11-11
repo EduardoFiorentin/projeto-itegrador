@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 const authRouter = Router()
 
 
-authRouter.post("/login", userController.acessController)
+authRouter.post("/login", userController.signIn)
 
 authRouter.post("/recover", (req, res) => {
     res.status(200).send("Codigo de recuperação enviado por e-mail")

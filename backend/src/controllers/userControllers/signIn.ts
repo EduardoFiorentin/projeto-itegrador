@@ -1,0 +1,55 @@
+import { Request, Response } from "express";
+import {StatusCodes} from "http-status-codes"
+import { MailService } from "../../services";
+import { JwtService } from "../../services";
+
+
+export const signIn = async (req: Request, res: Response) => {
+    try {
+
+        const { email, senha } = req.body
+        const token = req.headers['authorization'] || undefined
+
+        if (token) {
+            console.log("Decodificação de token: ", JwtService.validateToken(token), " - ", JwtService.getTokenPayload(token))
+        }
+
+
+        console.log(email, senha)
+        // chamada do banco 
+
+        // const acessToken = "acesstokenjwt"
+        // const code = 15474
+
+        // await sendMail(
+        //     "Nobre Arte <eduardoviniciusforentin@gmail.com>",
+        //     "eduardofiorentin336@gmail.com",
+        //     "Recuperação de senha",
+
+        //     `<h1>Recuperar sua senha</h1>
+        //     </br>
+        //     <p>Utilize o seguinte código para recuperar sua senha: <strong>${code}</strong> </p> 
+        //     </br> 
+        //     <p style="color: red;">ATENÇÃO! Não compartilhe este código com ninguém!</p>`
+        // )
+
+        const data = {
+            name: "Eduardo",
+        }
+
+        const novoJwt = JwtService.generateToken({name: data.name, palavra: "Babuxca"})
+
+        if (data && token) {
+            const response = {name: data.name, token: novoJwt}
+            res.status(StatusCodes.OK).json(response)
+        }
+        else res.status(StatusCodes.BAD_REQUEST).json({message: "Usuário ou senha incorretos"})
+
+    }
+    catch (err) {
+        console.log(err)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
+    
+    }
+
+}
