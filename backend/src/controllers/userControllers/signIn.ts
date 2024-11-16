@@ -1,21 +1,33 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
 import { JwtService } from "../../services";
+import { ValidationExcept } from "../../services/Exceptions";
+import jwt from "jsonwebtoken"
 
+
+export const signInValidations = (req: Request, res: Response, next: NextFunction) => { 
+    
+    const {email, password} = req.body
+
+    if (!email || !password) 
+        res.status(StatusCodes.BAD_REQUEST).json({error: "Corpo de requisição inválido!"})
+    else next()
+
+}
 
 export const signIn = async (req: Request, res: Response) => {
     try {
 
         const { email, senha } = req.body
-        const token = req.headers['authorization'] || undefined
+        // const token = req.headers['authorization'] || undefined
 
-        if (token) {
-            console.log("Decodificação de token: ", JwtService.validateToken(token), " - ", JwtService.getTokenPayload(token))
-        }
+        // if (token) {
+        //     console.log("Decodificação de token: ", JwtService.validateToken(token), " - ", JwtService.getTokenPayload(token))
+        // }
 
 
-        console.log(email, senha)
+        // console.log(email, senha)
         // chamada do banco 
 
         // const acessToken = "acesstokenjwt"
@@ -37,13 +49,20 @@ export const signIn = async (req: Request, res: Response) => {
             name: "Eduardo",
         }
 
-        const novoJwt = JwtService.generateToken({name: data.name, palavra: "Babuxca"})
+        // const novoJwt = JwtService.generateToken({name: data.name, palavra: "Babuxca"})
 
-        if (data && token) {
-            const response = {name: data.name, token: novoJwt}
-            res.status(StatusCodes.OK).json(response)
-        }
-        else res.status(StatusCodes.BAD_REQUEST).json({message: "Usuário ou senha incorretos"})
+        // if (data && token) {
+        //     const response = {name: data.name, token: novoJwt}
+        //     res.status(StatusCodes.OK).json(response)
+        // }
+        // else res.status(StatusCodes.BAD_REQUEST).json({message: "Usuário ou senha incorretos"})
+
+        // Cria o token JWT
+		const token = jwt.sign({ username: req.body.email, teste: "Info nova" }, "your-secret-key", {
+			expiresIn: "1h",
+		});
+
+		res.json({ message: "Login successful", token: token });
 
     }
     catch (err) {

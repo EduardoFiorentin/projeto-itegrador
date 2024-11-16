@@ -1,15 +1,28 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
 import { JwtService } from "../../services";
+import { ValidationExcept } from "../../services/Exceptions";
 
+// Altera a senha do usuário
 
-export const recoverPassword = async (req: Request, res: Response) => {
+export const changePasswordValidate = (req: Request, res: Response, next: NextFunction) => {
+
+    const { newPassword } = req.body
+
+    if ( !newPassword) 
+        res.status(StatusCodes.BAD_REQUEST).json({error: "Formato da nova senha é inválido!"})
+
+    else next() 
+
+}
+
+export const changePassword = async (req: Request, res: Response) => {
     try {
 
         // receber request 
         const { newPassword } = req.body
-
+        
         // alteração no banco 
 
         // resposta
