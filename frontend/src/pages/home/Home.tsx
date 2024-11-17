@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { BaseLayout } from "../../shared/layouts";
 
 
 export const Home = () => {
@@ -26,6 +27,13 @@ export const Home = () => {
     const navigate = useNavigate()
     // useEffect(() => setIsMenuHidden(true), [])
     return (
-        <h1>Home</h1>
+
+        <BaseLayout title="Home" returnPath="/">
+            <Typography variant="h4" sx={{
+                backgroundColor: "inherit"
+            }}>
+                home body
+            </Typography>
+        </BaseLayout>
     )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useMenuContext } from "../../shared/contexts"
+import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
 import { Box, Button, CircularProgress, Icon, TextField, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 
@@ -26,6 +26,10 @@ export const Login = () => {
             navigate("/recover")
         }, 1000)
     }
+
+    const {user, setUser} = useUserInfoContext()
+
+    console.log(user)
 
     // Desabilitar menu
     useEffect(() => {

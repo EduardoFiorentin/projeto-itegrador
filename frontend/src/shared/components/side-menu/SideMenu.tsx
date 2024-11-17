@@ -122,7 +122,9 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                 </Box>
             </Drawer>
 
-            <Box height="100vh" marginLeft={(smDown || isMenuHidden) ? 0 : theme.spacing(28)}>
+            <Box height="100vh" paddingLeft={(smDown || isMenuHidden) ? 0 : theme.spacing(28)} sx={{
+                backgroundColor: "inherit"
+            }}>
                 {children}
             </Box>
         </>

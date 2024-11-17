@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { createContext, Dispatch, SetStateAction, useCallback, useContext, useMemo, useState } from "react";
 
 
@@ -49,8 +50,9 @@ export const MenuProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                     setIsMenuHidden: setIsMenuHidden
                 }
             }>
-            
-            {children}
+            <Box marginLeft={!isMenuHidden ? "30px" : "0px"}>
+                {children}
+            </Box>
         </MenuContext.Provider>
     )
 }
