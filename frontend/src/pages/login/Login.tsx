@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
 import { Box, Button, CircularProgress, Icon, TextField, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { api } from "../../shared/services"
 
 export const Login = () => {
 
@@ -29,7 +30,27 @@ export const Login = () => {
 
     const {user, setUser} = useUserInfoContext()
 
-    console.log(user)
+    // console.log(user)
+
+    // Controle de login
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    
+    const handleLogin = () => {
+        if (email && password) {
+            api.post("/auth/login", {email: email, password: password})
+            .then((data) => {
+                localStorage.setItem("na_token", data.data.token)
+                setUser(data.data)
+                navigate("/home")
+                
+                console.log("Sucesso", data)
+            })
+            .catch((err) => {
+                console.log("Falha", err)
+            })
+        }
+    }
 
     // Desabilitar menu
     useEffect(() => {
@@ -70,13 +91,13 @@ export const Login = () => {
                 </Typography>
 
                 <Box display={"flex"} flexDirection={"column"} gap={2} width={"80%"}>
-                    <TextField label="Usuário" type="text"/>
-                    <TextField label="Senha" type="password"/>
+                    <TextField label="Email" type="text" value={email} onChange={event => setEmail(event.target.value)}/>
+                    <TextField label="Senha" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                 </Box>
 
                 <Box display={"flex"} flexDirection={"column"} gap={2} width={"80%"} alignItems={"center"}>
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
-                        <Button variant="contained" disabled={buttonsDisable}>Entrar</Button>
+                        <Button variant="contained" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
                     </Box>
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
                         <Button variant="outlined" onClick={handleRequestChangePassword} disabled={buttonsDisable}>

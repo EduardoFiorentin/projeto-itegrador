@@ -8,6 +8,7 @@ import { IUser } from "./Interfaces/IUser"
 import { authRouter, classRouter, planRoutes, scheduleRoutes, userRouter, acessRoutes } from "./routes"
 import { authServiceConfig, requireJWTAuth } from "./services/AuthService";
 import { database } from "./services/PostgresDB";
+import cors from "cors"
 
 
 declare global {
@@ -17,7 +18,7 @@ declare global {
 }
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 
 app.use(
 	session({

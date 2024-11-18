@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useMenuContext } from "../../shared/contexts"
+import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
 import React from "react";
 import {
   AppBar,
@@ -22,17 +22,26 @@ import { BaseLayout } from "../../shared/layouts";
 
 export const Home = () => {
     const { setIsMenuHidden } = useMenuContext()
-    // setIsMenuHidden(true)
-
     const navigate = useNavigate()
+    
+    setIsMenuHidden(false)
+
+    const {user} = useUserInfoContext()
+
+    useEffect(() => {
+        if (user == null)navigate('/login')
+        // console.log(user)
+    }, [user])
+
     // useEffect(() => setIsMenuHidden(true), [])
+
     return (
 
         <BaseLayout title="Home" returnPath="/">
             <Typography variant="h4" sx={{
                 backgroundColor: "inherit"
             }}>
-                home body
+                {user ? user.name : ""}
             </Typography>
         </BaseLayout>
     )

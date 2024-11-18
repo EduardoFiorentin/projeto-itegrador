@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from "@mui/material"
 // import { useAppThemeContext, useDrawerContext } from "../../contexts"
-import { useAppThemeContext, useMenuContext } from "../../contexts"
+import { useAppThemeContext, useMenuContext, useUserInfoContext } from "../../contexts"
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom"
 
 
@@ -45,6 +45,8 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
     // pegar tamanho atual da tela
     // retorna true se o tamanho está abaixo de md (900px)
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+    const {user} = useUserInfoContext()
+
 
     const {isMenuOpen, toggleMenuOpen, menuOptions, isMenuHidden} = useMenuContext() 
     const { themeName, toggleTheme } = useAppThemeContext()
@@ -77,7 +79,7 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                         <Box width={"40%"}> 
                             <Typography height={theme.spacing(2)} fontSize={12}>Olá,</Typography>
                         </Box>
-                        <Typography variant="h5">João</Typography>
+                        <Typography variant="h5">{user && user.name}</Typography>
 
                     </Box>
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {StatusCodes} from "http-status-codes"
+import {OK, StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
 import { JwtService } from "../../services";
 import { ValidationExcept } from "../../services/Exceptions";
@@ -62,7 +62,7 @@ export const signIn = async (req: Request, res: Response) => {
 			expiresIn: "1h",
 		});
 
-		res.json({ message: "Login successful", token: token });
+		res.status(StatusCodes.OK).json({ name: "Eduardo", email: email, role: 1, token });
 
     }
     catch (err) {

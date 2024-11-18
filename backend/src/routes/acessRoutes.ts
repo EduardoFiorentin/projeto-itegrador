@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { StatusCodes } from "http-status-codes";
 
 const acessRoutes = Router()
 
@@ -12,8 +13,20 @@ const acessRoutes = Router()
 // })
 
 acessRoutes.post("/",  (req, res) => {
-    res.status(200).send("Acesso liberado")
-    // res.status(400).send("Acesso negado")
+
+    console.log(req.body.codigo)
+
+    if (req.body.codigo == "648e6ad") {
+        res.status(StatusCodes.OK).send("ok")
+    
+       
+            // res.status(200).send("Acesso liberado")
+        // res.status(400).send("Acesso negado")
+    }
+    else {
+        res.status(StatusCodes.UNAUTHORIZED).send("not")
+    } 
+
 })
 
-export { acessRoutes }
+    export { acessRoutes }
