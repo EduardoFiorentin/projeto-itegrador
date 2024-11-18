@@ -57,7 +57,7 @@ export const Router = () => {
 
 
             {/* Rota de direcionamento */}
-            <Route path="*" element={<Navigate to="/"/>} />
+            {/* <Route path="*" element={<Navigate to="/"/>} /> */}
         </Routes>
     )
 }

@@ -70,13 +70,6 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                         alignItems="center" 
                         justifyContent="center">
                         
-                        {/* <Avatar 
-                            sx={{
-                                height: theme.spacing(12),
-                                width: theme.spacing(12)
-                            }}
-                            src="https://avatars.githubusercontent.com/u/95770285?v=4"/> */}
-                        
                         <Box width={"40%"}> 
                             <Typography height={theme.spacing(2)} fontSize={12}>Olá,</Typography>
                         </Box>
