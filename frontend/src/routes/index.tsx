@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { useMenuContext } from "../shared/contexts/MenuContext"
-import { ChangePassword, LandingPage, Login, RecoverCode } from "../pages"
+import { ChangePassword, LandingPage, Login, RecoverCode, Schedules } from "../pages"
 import { Home } from "../pages/home/Home"
 
 
@@ -12,24 +12,25 @@ export const Router = () => {
     useEffect(() => {
 
         const menu_options_1 = [
-            {label: "Inicio", icon: "home", path: "pagina-inicial"},
-            {label: "Horários", icon: "star", path: "star"},
-            {label: "Alunos", icon: "star", path: "star"},
-            {label: "Aulas", icon: "star", path: "star"},
-            {label: "Solicitações", icon: "star", path: "star"},
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Alunos", icon: "star", path: "/alunos"},
+            {label: "Aulas", icon: "star", path: "/aulas"},
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+            {label: "Planos", icon: "star", path: "/planos"},
         ] // SECRETÁRIA
 
         const menu_options_2 = [
-            {label: "Inicio", icon: "home", path: "pagina-inicial"},
-            {label: "Horários", icon: "star", path: "star"},
-            {label: "Aulas", icon: "star", path: "star"},
-            {label: "Solicitações", icon: "star", path: "star"},
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Aulas", icon: "star", path: "/aulas"},
+            {label: "Solicitações", icon: "star", path: "/agendamentos"},
         ] // PROFESSOR 
-
+        
         const menu_options_3 = [
-            {label: "Inicio", icon: "home", path: "pagina-inicial"},
-            {label: "Agendamentos", icon: "star", path: "star"},
-            {label: "Solicitações", icon: "star", path: "star"},
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Minhas Solicitações", icon: "star", path: "star"},
             {label: "Meu Plano", icon: "star", path: "star"},
             {label: "Aulas", icon: "star", path: "star"},
         ] // ALUNOS
@@ -40,18 +41,19 @@ export const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<LandingPage/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/recover" element={<RecoverCode/>}/>
-            <Route path="/change-pass" element={<ChangePassword/>}/>
+            <Route path="/entrar" element={<Login/>}/>
+            <Route path="/recuperacao" element={<RecoverCode/>}/>
+            <Route path="/trocar-senha" element={<ChangePassword/>}/>
 
             {/* Geral */}
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/time" element={<Home/>}/>
-            <Route path="/students" element={<Home/>}/>
-            <Route path="/classes" element={<Home/>}/>
-            <Route path="/requests" element={<Home/>}/>
+            <Route path="/inicio" element={<Home/>}/>
+            <Route path="/horarios" element={<Schedules/>}/>
+            <Route path="/aulas" element={<Home/>}/>
+            <Route path="/agendamentos" element={<Home/>}/>
 
-
+            {/* Secretária */}
+            <Route path="/alunos" element={<Home/>}/>
+            <Route path="/agendamentos" element={<Home/>}/>
 
 
             {/* Rota de direcionamento */}

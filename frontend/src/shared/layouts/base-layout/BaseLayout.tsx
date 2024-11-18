@@ -9,7 +9,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
     
     return (
         
-        <Box minHeight={"100vh"} sx={{
+        <Box minHeight={"100vh"} width="100vw" sx={{
             // backgroundColor: "primary.light"
         }}>
             <Typography 
@@ -25,7 +25,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
                 {title}
             </Typography>
             <Divider/>
-            <Box paddingTop={"20px"}>
+            <Box paddingTop={"20px"} width={"100%"} height={"100%"}>
                 {children}
             </Box>
         </Box>

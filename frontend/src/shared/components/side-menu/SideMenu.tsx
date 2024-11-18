@@ -45,6 +45,7 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
     // pegar tamanho atual da tela
     // retorna true se o tamanho está abaixo de md (900px)
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     const {user} = useUserInfoContext()
 
 
@@ -53,9 +54,9 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
 
     return (
         <>
-            <Drawer variant={smDown ? "temporary":"permanent"} open={isMenuOpen} onClose={toggleMenuOpen} hidden={isMenuHidden}>
+            <Drawer variant={mdDown ? "temporary":"permanent"} open={isMenuOpen} onClose={toggleMenuOpen} hidden={isMenuHidden}>
                 <Box 
-                    width={theme.spacing(28)} 
+                    width={"200px"} 
                     height="100%" 
                     display="flex" 
                     flexDirection="column">
@@ -124,7 +125,7 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                 </Box>
             </Drawer>
 
-            <Box height="100vh" paddingLeft={(smDown || isMenuHidden) ? 0 : theme.spacing(28)} sx={{
+            <Box height="100vh" width={"90%"} paddingLeft={(mdDown || isMenuHidden) ? 0 : "200px"} sx={{
                 backgroundColor: "inherit"
             }}>
                 {children}
