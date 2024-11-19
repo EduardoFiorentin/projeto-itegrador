@@ -47,7 +47,7 @@ export const Schedules = () => {
 
     return (
         <BaseLayout title="Horários" returnPath="/">
-            <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"}>
+            <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"}>
                 <Box width={"95%"} height="80vh" maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"}>
                     <Box width={"100%"} height={"80px"} display={"flex"} sx={{backgroundColor: "primary.dark"}}>
                         <Box height={"100%"} width={"15%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>

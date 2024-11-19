@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { useMenuContext } from "../shared/contexts/MenuContext"
-import { ChangePassword, LandingPage, Login, RecoverCode, Schedules } from "../pages"
+import { ChangePassword, LandingPage, Login, RecoverCode, Schedules, Appointment } from "../pages"
 import { Home } from "../pages/home/Home"
 
 
@@ -15,27 +15,27 @@ export const Router = () => {
             {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
             {label: "Alunos", icon: "star", path: "/alunos"},
-            {label: "Aulas", icon: "star", path: "/aulas"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
             {label: "Solicitações", icon: "star", path: "/solicitacoes"},
-            {label: "Planos", icon: "star", path: "/planos"},
+            {label: "Planos", icon: "star", path: "/planos"},                // novo plano / contratação de planos
         ] // SECRETÁRIA
 
         const menu_options_2 = [
             {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
-            {label: "Aulas", icon: "star", path: "/aulas"},
-            {label: "Solicitações", icon: "star", path: "/agendamentos"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
         ] // PROFESSOR 
         
         const menu_options_3 = [
             {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
-            {label: "Minhas Solicitações", icon: "star", path: "star"},
+            {label: "Agendamento", icon: "star", path: "/agendamento"},
             {label: "Meu Plano", icon: "star", path: "star"},
-            {label: "Aulas", icon: "star", path: "star"},
+            // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
         ] // ALUNOS
 
-        setMenuOptions (menu_options_2)
+        setMenuOptions (menu_options_3)
     }, [])
 
     return (
@@ -48,12 +48,12 @@ export const Router = () => {
             {/* Geral */}
             <Route path="/inicio" element={<Home/>}/>
             <Route path="/horarios" element={<Schedules/>}/>
-            <Route path="/aulas" element={<Home/>}/>
-            <Route path="/agendamentos" element={<Home/>}/>
+            {/* <Route path="/aulas" element={<Home/>}/> Já substituido pelo /horarios (mostra as aulas) */}
+            <Route path="/agendamento" element={<Appointment/>}/>
 
             {/* Secretária */}
             <Route path="/alunos" element={<Home/>}/>
-            <Route path="/agendamentos" element={<Home/>}/>
+            {/* <Route path="/agendamento" element={<Home/>}/> */}
 
 
             {/* Rota de direcionamento */}

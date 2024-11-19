@@ -34,7 +34,7 @@ export const AppThemeProvider: React.FC<{children: React.ReactNode}> = ({childre
     return (
         <ThemeProvider theme={theme}>
             <ThemeContext.Provider value={{themeName, toggleTheme}}>
-                <Box width="100vw" height="100vh" bgcolor={theme.palette.background.default}>
+                <Box bgcolor={theme.palette.background.default}>
                     {children}
                 </Box>
             </ThemeContext.Provider>

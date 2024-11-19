@@ -25,7 +25,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
                 {title}
             </Typography>
             <Divider/>
-            <Box paddingTop={"20px"} width={"100%"} height={"100%"}>
+            <Box paddingTop={"20px"} height="auto" width={"80vw"}>
                 {children}
             </Box>
         </Box>
