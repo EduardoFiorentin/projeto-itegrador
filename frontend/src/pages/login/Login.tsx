@@ -24,7 +24,7 @@ export const Login = () => {
 
         setTimeout(() => {
             console.log("Requisição de troca de senha")
-            navigate("/recover")
+            navigate("/recuperacao")
         }, 1000)
     }
 
@@ -41,8 +41,9 @@ export const Login = () => {
             api.post("/auth/login", {email: email, password: password})
             .then((data) => {
                 localStorage.setItem("na_token", data.data.token)
+                console.log(data.data)
                 setUser(data.data)
-                navigate("/home")
+                navigate("/inicio")
                 
                 console.log("Sucesso", data)
             })
@@ -62,7 +63,7 @@ export const Login = () => {
             
             display={"flex"}
             justifyContent={"center"}
-            height={"100%"}
+            height={"100vh"}
             width={"100%"}
             flex={1}
             overflow={"auto"}
@@ -72,7 +73,7 @@ export const Login = () => {
 
             <Box 
                 border={1}
-                borderColor={"primary.light"}
+                borderColor={"secondary.light"}
                 boxShadow={2}
                 height={"50%"}
                 width={smDown ? "100%" : mdDown ? "70%" : "40%"}
@@ -91,16 +92,16 @@ export const Login = () => {
                 </Typography>
 
                 <Box display={"flex"} flexDirection={"column"} gap={2} width={"80%"}>
-                    <TextField label="Email" type="text" value={email} onChange={event => setEmail(event.target.value)}/>
-                    <TextField label="Senha" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
+                    <TextField label="Email" type="text" value={email} onChange={event => setEmail(event.target.value)} color="secondary"/>
+                    <TextField label="Senha" type="password" value={password} onChange={event => setPassword(event.target.value)}  color="secondary"/>
                 </Box>
 
                 <Box display={"flex"} flexDirection={"column"} gap={2} width={"80%"} alignItems={"center"}>
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
-                        <Button variant="contained" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
+                        <Button variant="contained"  color="secondary" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
                     </Box>
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
-                        <Button variant="outlined" onClick={handleRequestChangePassword} disabled={buttonsDisable}>
+                        <Button variant="outlined" color="secondary" onClick={handleRequestChangePassword} disabled={buttonsDisable}>
                             
                                 <Typography variant="button" color="inherit">
                                     {!btn_2_Loading ? (<>Recuperar Senha </>): (<CircularProgress size="25px"/>)}

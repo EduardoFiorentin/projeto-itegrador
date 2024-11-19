@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { userController } from "../controllers/userControllers";
+import { userController } from "../controllers/authControllers";
 import { StatusCodes } from "http-status-codes";
 import passport from "passport";
 import { requireJWTAuth } from "../services/AuthService";

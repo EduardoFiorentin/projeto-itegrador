@@ -18,7 +18,7 @@ export function authServiceConfig() {
                 try {
                     // busca o usuário no banco de dados
                     const user = await database.oneOrNone(
-                    	"SELECT email, password FROM users WHERE email = $1;",
+                    	"SELECT name, email, password, role FROM users WHERE email = $1;",
                     	[email],
                     );
     
@@ -40,7 +40,7 @@ export function authServiceConfig() {
                     // se senha está ok, retorna o objeto usuário
                     if (passwordMatch) {
                         console.log("Usuário autenticado!");
-                        return done(null, user);
+                        return done(null, {name: user.name, email: user.email, role: user.role});
                     } else {
                         // senão, retorna um erro
                         console.log("Deu certo - não autorizado")

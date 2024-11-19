@@ -4,6 +4,7 @@ import { MailService } from "../../services";
 import { JwtService } from "../../services";
 import { ValidationExcept } from "../../services/Exceptions";
 import jwt from "jsonwebtoken"
+import { IUser } from "../../Interfaces/IUser";
 
 
 export const signInValidations = (req: Request, res: Response, next: NextFunction) => { 
@@ -45,10 +46,6 @@ export const signIn = async (req: Request, res: Response) => {
         //     <p style="color: red;">ATENÇÃO! Não compartilhe este código com ninguém!</p>`
         // )
 
-        const data = {
-            name: "Eduardo",
-        }
-
         // const novoJwt = JwtService.generateToken({name: data.name, palavra: "Babuxca"})
 
         // if (data && token) {
@@ -58,11 +55,14 @@ export const signIn = async (req: Request, res: Response) => {
         // else res.status(StatusCodes.BAD_REQUEST).json({message: "Usuário ou senha incorretos"})
 
         // Cria o token JWT
-		const token = jwt.sign({ username: req.body.email, teste: "Info nova" }, "your-secret-key", {
+
+        const user = req.user as IUser
+
+		const token = jwt.sign({ role: user.role}, "your-secret-key", {
 			expiresIn: "1h",
 		});
 
-		res.status(StatusCodes.OK).json({ name: "Eduardo", email: email, role: 1, token });
+		res.status(StatusCodes.OK).json({ email: user?.email, name: user.name, role: user.role, token });
 
     }
     catch (err) {
