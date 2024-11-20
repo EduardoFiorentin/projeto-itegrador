@@ -35,7 +35,7 @@ export const Router = () => {
             // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
         ] // ALUNOS
 
-        setMenuOptions (menu_options_3)
+        setMenuOptions (menu_options_1)
     }, [])
 
     return (

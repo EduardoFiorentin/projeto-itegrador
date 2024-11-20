@@ -1,10 +1,9 @@
 import { Router } from "express";
+import { scheduleController } from "../controllers";
 
 const scheduleRoutes = Router()
 
-scheduleRoutes.post("/", (req, res) => {
-    res.status(200).send("Novo horario criado")
-})
+scheduleRoutes.post("/getbyday", scheduleController.getAllByDay.getAllByDay)
 
 scheduleRoutes.get("/", (req, res) => {
     res.status(200).send("Lista de horarios retornados")

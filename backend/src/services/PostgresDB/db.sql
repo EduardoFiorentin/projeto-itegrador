@@ -28,43 +28,69 @@ create table modality (
     name VARCHAR(20)
 )
 
-create table class_types (
-    code NUMERIC PRIMARY KEY,
-    name varchar(20)
-)
 
-create table if not exists classes (
-    code SERIAL,
+create table if not exists group_classes (
+    code SERIAL UNIQUE,
     canceled BOOLEAN DEFAULT false not null,
-    type NUMERIC not null,
+    -- type NUMERIC not null,
     modality NUMERIC NOT NULL,
     teacher VARCHAR(11) not null, 
     
     wday numeric not null,  -- dia da semana
     starth TIME not null, -- hora de inicio
     endh TIME NOT NULL, -- hora de fim 
-    cdate DATE not null, -- data (yy-mm-dddd) - vale para aulas de apenas uma data
-    recurrent BOOLEAN not null, -- vale para aulas que acontecem toda semana
+    -- cdate DATE, -- data (yy-mm-dddd) - vale para aulas de apenas uma data
+    -- recurrent BOOLEAN not null, -- vale para aulas que acontecem toda semana
     
-    constraint pk_classes PRIMARY KEY (code),
+    constraint pk_classes PRIMARY KEY (wday, starth, endh),
     constraint fk_classes_modality Foreign Key (modality) REFERENCES modality(code),
-    constraint fk_classes_type Foreign Key (type) REFERENCES class_types(code),
+    -- constraint fk_classes_type Foreign Key (type) REFERENCES class_types(code),
     constraint fk_classes_schedule Foreign Key (wday, starth, endh) REFERENCES schedules(wday, starth, endh),
     constraint fk_classes_teacher Foreign Key (teacher) REFERENCES users(cpf)
 );
 
+create table if not exists personal_classes (
+    -- code SERIAL UNIQUE,
+    canceled BOOLEAN DEFAULT false not null,
+    -- type NUMERIC not null,
+    modality NUMERIC NOT NULL,
+    teacher VARCHAR(11) not null, 
+    student VARCHAR(11) not null, 
+    
+    wday numeric not null,  -- dia da semana
+    starth TIME not null, -- hora de inicio
+    endh TIME NOT NULL, -- hora de fim 
+    cdate DATE, -- data (yy-mm-dddd) - vale para aulas de apenas uma data
+    -- recurrent BOOLEAN not null, -- vale para aulas que acontecem toda semana
+    
+    constraint pk_personal_classes PRIMARY KEY (wday, starth, endh, cdate),
+    constraint fk_classes_modality Foreign Key (modality) REFERENCES modality(code),
+    -- constraint fk_classes_type Foreign Key (type) REFERENCES class_types(code),
+    constraint fk_classes_schedule Foreign Key (wday, starth, endh) REFERENCES schedules(wday, starth, endh),
+    constraint fk_classes_teacher Foreign Key (teacher) REFERENCES users(cpf),
+    constraint fk_classes_student Foreign Key (student) REFERENCES users(cpf)
+);
+
+-- Associação de estudantes para aulas em grupo
 create table if not exists classes_student (
     class_code INTEGER,
     student_cpf varchar(11), 
     constraint pk_classes_student PRIMARY KEY (class_code, student_cpf),
-    constraint fk_classes_student_classes FOREIGN KEY (class_code) REFERENCES classes(code),
+    constraint fk_classes_student_classes FOREIGN KEY (class_code) REFERENCES group_classes(code),
     constraint fk_classes_student_users FOREIGN KEY (student_cpf) REFERENCES users(cpf)
 );
 
-drop table classes;
+insert into group_classes ( modality, teacher, starth, endh, wday) values 
+-- (1, 4, 1, '07:00:00', '07:59:00', '2024-11-19', 'teste', false),
+(1, 'teste', '08:00:00', '08:59:00', 2);
 
-insert into classes ( type, modality, wday, starth, endh, cdate, teacher) values 
-(1, 4, 1, '07:00:00', '07:59:00', '2024-11-19', 'teste');
+insert into personal_classes(modality, teacher, student, wday, starth, endh, cdate) values 
+(1, 'teste', '00000000001', 2, '08:00:00', '08:59:00', '2024-12-04' );
+
+drop table classes_student;
+drop table group_classes;
+
+
 
 insert into class_types(code, name) values 
 (1, 'Personal'),
@@ -203,3 +229,6 @@ insert into users (name, cpf, email, password, role) values
 ('Joao','00000000004','joao@joao.com','joao', 3)
 
 select * from users;
+
+
+select * from classes;
