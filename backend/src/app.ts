@@ -41,10 +41,13 @@ app.use("/classes", classRouter)
 app.use("/schedules", scheduleRoutes)
 app.use("/acess", acessRoutes)
 
-app.use("/admin/new-user", requireJWTAuth, async (req: Request, res: Response) => {
+app.use("/admin/new-user", 
+	requireJWTAuth, 
+	
+	async (req: Request, res: Response) => {
 
 	try {
-
+		console.log(req.user)
 		const { name, cpf, email, password, role } = req.body
 	
 		const salt = bcrypt.genSaltSync(10);
@@ -60,7 +63,7 @@ app.use("/admin/new-user", requireJWTAuth, async (req: Request, res: Response) =
 
 })
 
- 
+   
 
 
 export { app }

@@ -4,6 +4,8 @@ import { Box, Button, CircularProgress, Icon, TextField, Typography, useMediaQue
 import { useNavigate } from "react-router-dom"
 import { api } from "../../shared/services"
 
+
+
 export const Login = () => {
 
     const { setIsMenuHidden } = useMenuContext()
@@ -57,6 +59,46 @@ export const Login = () => {
     useEffect(() => {
         setIsMenuHidden(true)
     }, [])
+
+
+    // opções de menu
+    const {setMenuOptions, isMenuOpen, toggleMenuOpen} = useMenuContext()
+
+    useEffect(() => {
+
+        const menu_options_1 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Alunos", icon: "star", path: "/alunos"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+            {label: "Planos", icon: "star", path: "/planos"},                // novo plano / contratação de planos
+        ] // SECRETÁRIA
+
+        const menu_options_2 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+        ] // PROFESSOR 
+        
+        const menu_options_3 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Agendamento", icon: "star", path: "/agendamento"},
+            {label: "Meu Plano", icon: "star", path: "star"},
+            // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
+        ] // ALUNOS
+
+        setMenuOptions (menu_options_1)
+        if (user) {
+            if (user.role == 1) setMenuOptions(menu_options_1)
+            if (user.role == 2) setMenuOptions(menu_options_2)
+            if (user.role == 3) setMenuOptions(menu_options_3)
+        }
+
+
+    }, [user])
 
     return (
         <Box 

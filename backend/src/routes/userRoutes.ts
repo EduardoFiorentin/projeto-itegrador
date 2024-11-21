@@ -1,12 +1,16 @@
 import { Router } from "express";
+import { requireJWTAuth } from "../services/AuthService";
+import { StudentsController } from "../controllers";
 
 const userRouter = Router()
 
 
 // Estudantes
-userRouter.post("/new-student", (req, res) => {
-    res.status(200).send("Novo estudante cadastrado")
-})
+userRouter.post("/new-student",
+    requireJWTAuth,
+    StudentsController.CreateStudent.createStudentValidate,
+    StudentsController.CreateStudent.createStudent
+)
 
 userRouter.get("/students", (req, res) => {
     res.status(200).send("Lista de estudantes retornada")

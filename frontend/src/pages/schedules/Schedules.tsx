@@ -125,13 +125,22 @@ export const Schedules = () => {
                                         <Typography fontSize={10}>{sch.starth + " : " + sch.endh}</Typography>
                                         <Typography variant="h5">{sch.teacher_name}</Typography>
                                     </Box>
-                                    <Box height={"100%"} width={"65%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                                    <Box height={"100%"} width={ "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                                         <Typography variant="h5" fontWeight={"bold"}>{sch.modality_name}</Typography>
                                     </Box>
-                                    <Box height={"100%"} width={"10%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                                    <Box height={"100%"} width={"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                                         <Typography variant="h5" display={"flex"} justifyContent={"center"} alignItems={"center"} fontSize={20}>
-                                            <Person/>
-                                            {sch.num_participants}
+                                            {
+                                                sch.student_name == null ? (
+                                                    <>
+                                                        <Person/>
+                                                        <>{sch.num_participants}</>
+                                                    </>
+                                                ) : (
+                                                    <>Al: {sch.student_name}</>
+                                                )
+
+                                            }
                                         </Typography>
                                     </Box>
                                 </Box>

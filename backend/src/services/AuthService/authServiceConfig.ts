@@ -62,24 +62,25 @@ export function authServiceConfig() {
             },
             async (payload, done) => {
                 try {
-                    console.log(payload)
+                    console.log("ps", payload.name)
                     const user = await database.oneOrNone(
                     	"SELECT * FROM users WHERE email = $1;",
-                    	[payload.username],
+                    	[payload.email],
                     );
+                    console.log(user)
                     const pl = {name: user.name, email: user.email, role: user.role}
-                    // console.log("Vendo payload", pl)
+                    console.log("Vendo payload", pl)
     
                     if (user) {
                         done(null, pl);
                     } else {
-                        done(null, false);
+                        done(null, false);  
                         console.log("[authService.ts] Usuário não encontrado na autenticação")
                     }
                 } catch (error) {
                     done(error, false);
                 }
-            },
+            }, 
         ),
     );
     

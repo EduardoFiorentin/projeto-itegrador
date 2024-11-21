@@ -20,7 +20,7 @@ export const signInValidations = (req: Request, res: Response, next: NextFunctio
 export const signIn = async (req: Request, res: Response) => {
     try {
 
-        const { email, senha } = req.body
+        // const { email, senha } = req.body
         // const token = req.headers['authorization'] || undefined
 
         // if (token) {
@@ -58,7 +58,7 @@ export const signIn = async (req: Request, res: Response) => {
 
         const user = req.user as IUser
 
-		const token = jwt.sign({ role: user.role}, "your-secret-key", {
+		const token = jwt.sign({ role: user.role, name: user.name, email: user.email}, "your-secret-key", {
 			expiresIn: "1h",
 		});
 
