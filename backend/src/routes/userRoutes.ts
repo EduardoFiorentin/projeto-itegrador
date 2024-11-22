@@ -5,21 +5,33 @@ import { StudentsController } from "../controllers";
 const userRouter = Router()
 
 
-// Estudantes
+// Crud Estudantes
 userRouter.post("/new-student",
     requireJWTAuth,
     StudentsController.CreateStudent.createStudentValidate,
     StudentsController.CreateStudent.createStudent
 )
+userRouter.post("/delete-student",
+    requireJWTAuth,
+    StudentsController.DeleteStudent.deleteStudentValidate,
+    StudentsController.DeleteStudent.deleteStudent,
+)
+userRouter.post("/getbyname-student",
+    requireJWTAuth,
+    StudentsController.GetByName.getStudentByNameValidate,
+    StudentsController.GetByName.getStudentByName
+)
+userRouter.post("/update-student/:cpf",
+    requireJWTAuth,
+    StudentsController.UpdateStudent.updateStudentValidate,
+    StudentsController.UpdateStudent.updateStudent
+)
+
+
 
 userRouter.get("/students", (req, res) => {
     res.status(200).send("Lista de estudantes retornada")
 })
-
-userRouter.get("/students/:cpf", (req, res) => {
-    res.status(200).send("Estudante relativo ao cpf informado retornado")
-})
-
 
 // Funcionários
 userRouter.post("/new-employer", (req, res) => {

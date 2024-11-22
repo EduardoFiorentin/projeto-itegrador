@@ -2,25 +2,16 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 import { schedulesQuery } from "../../queries";
-
-const days_of_w = {
-    "Segunda-feira": 1,
-    "Terça-feira": 2,
-    "Quarta-feira": 3,
-    "Quinta-feira": 4,
-    "Sexta-feira": 5,
-    "Sábado": 5,
-    "Domingo": 5
-}
+import { DAYS_OF_WEEK } from "../../constants/Days";
 
 export const getAllByDay = async (req: Request, res: Response) => {
     try {
 
         const {day, date} = req.body
 
-        console.log("Dia: ", days_of_w[day])
+        // console.log("Dia: ", days_of_w[day])
 
-        const groupSchedules = await database.many(schedulesQuery.getByDate,[date, days_of_w[day]])
+        const groupSchedules = await database.many(schedulesQuery.getByDate,[date, DAYS_OF_WEEK[day]])
 
 
         res.status(200).json(groupSchedules)

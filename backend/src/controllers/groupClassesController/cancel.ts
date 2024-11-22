@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
-export const deleteStudentValidate = (req: Request, res: Response, next: NextFunction,) => {
+export const CancelGrupeClassValidate = (req: Request, res: Response, next: NextFunction,) => {
     try {
 
-        const { cpf } = req.body
+        const { code } = req.body
         const role = req.user?.role
         
         if (role && role != "1") {
@@ -14,8 +14,7 @@ export const deleteStudentValidate = (req: Request, res: Response, next: NextFun
         }
         
         if (
-            !cpf 
-            // cpf.length != 11
+            !code 
 
         ) {
             res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
@@ -30,16 +29,16 @@ export const deleteStudentValidate = (req: Request, res: Response, next: NextFun
     }
 }
 
-export const deleteStudent = async (req: Request, res: Response) => {
+export const CancelGrupeClass = async (req: Request, res: Response) => {
     try {
 
-        const { cpf } = req.body
+        const { code } = req.body
 
         await database.none(`
-                DELETE FROM users WHERE cpf=$1;
-            `, [cpf])
+                UPDATE group_classes SET canceled=true WHERE code=$1;
+            `, [code])
 
-        res.status(StatusCodes.CREATED).send("Usuário deletado com sucesso!")
+        res.status(StatusCodes.CREATED).send("Aula cancelada com sucesso!")
 
     }
     catch(err) {

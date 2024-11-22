@@ -1,14 +1,31 @@
 import { Router } from "express";
+import { requireJWTAuth } from "../services/AuthService";
+import { GroupClassesController } from "../controllers";
 
 const classRouter = Router()
 
-classRouter.post("/new", (req, res) => {
-    res.status(200).send("Nova aula cadastrada")
-})
+classRouter.get("/getbyday-groupclass/:day", 
+    // requireJWTAuth,
+    GroupClassesController.GetByDay.getAllByDayValidate,
+    GroupClassesController.GetByDay.getAllByDay
+)
 
-classRouter.get("/", (req, res) => {
-    res.status(200).send("Lista de aulas retornada")
-})
+classRouter.post("/create-groupclass", 
+    requireJWTAuth,
+    GroupClassesController.CreateGroupClass.createGroupClassesValidate,
+    GroupClassesController.CreateGroupClass.createGroupClasses
+)
+
+classRouter.post("/cancel-groupClass",
+    requireJWTAuth,
+    GroupClassesController.CancelGroupClass.CancelGrupeClass,
+    GroupClassesController.CancelGroupClass.CancelGrupeClassValidate
+)
+classRouter.post("/update-groupClass/:code",
+    requireJWTAuth,
+    GroupClassesController.UpdateGroupClass.updateGroupClassValidate,
+    GroupClassesController.UpdateGroupClass.updateGroupClass
+)
 
 // solicitação de agendamento de aulas
 classRouter.post("/subscribe-group", (req, res) => {
