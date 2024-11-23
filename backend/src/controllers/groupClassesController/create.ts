@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
-import { start } from "repl";
 
 export const createGroupClassesValidate = async (req: Request, res: Response, next: NextFunction,) => {
     try {

@@ -46,8 +46,6 @@ export const updateStudentValidate = (req: Request, res: Response, next: NextFun
         
         if (
             !cpf 
-            // cpf.length != 11
-
         ) {
             res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
             return

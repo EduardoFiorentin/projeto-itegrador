@@ -27,6 +27,28 @@ classRouter.post("/update-groupClass/:code",
     GroupClassesController.UpdateGroupClass.updateGroupClass
 )
 
+
+classRouter.get("/getbyday-personalclass/:day", 
+    // requireJWTAuth,
+    
+)
+
+classRouter.post("/create-personalclass", 
+    requireJWTAuth,
+
+)
+
+classRouter.post("/cancel-personalClass",
+    requireJWTAuth,
+
+)
+classRouter.post("/update-personalClass/:code",
+    requireJWTAuth,
+
+)
+
+
+
 // solicitação de agendamento de aulas
 classRouter.post("/subscribe-group", (req, res) => {
     res.status(200).send("Inscrição concluída")
