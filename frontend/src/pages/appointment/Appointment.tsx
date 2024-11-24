@@ -31,7 +31,7 @@ export const Appointment = () => {
                     
                         <TextField type="date"  sx={{width: "350px"}}/>
                     
-                        <Select defaultValue={0} sx={{width: "350px"}}>
+                        <Select defaultValue={0} sx={{width: "350px"}} label="professor">
                             <MenuItem value={0}>Professor</MenuItem>
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
@@ -69,7 +69,7 @@ export const Appointment = () => {
                         </Select>
 
                         <Box m={"auto"}>
-                            <Button variant="contained" color="secondary">Solicitar agendamento</Button>
+                            <Button variant="contained" color="secondary">Participar</Button>
                         </Box>
                     </Box>
                 )

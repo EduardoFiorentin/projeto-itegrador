@@ -2,13 +2,57 @@ import { Button, Select, TextField, Typography, useMediaQuery, useTheme } from "
 import MenuItem from '@mui/material/MenuItem';
 import { BaseLayout } from "../../shared/layouts"
 import { Box } from "@mui/system"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
+import { useSnackbar } from "notistack";
+import { api } from "../../shared/services";
 
+type Inputs = {
+    name: string,
+    cpf: string,
+    email: string,
+    password: string,
+    birth_date: string,
+    address: string,
+    phone_number: string,
+    plan: string
+}
 
 export const Students = () => {
 
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<Inputs>()
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
+        console.log(errors)
+
+        api.post("/user/new-student", data, {
+            headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoxLCJuYW1lIjoic2VjcmV0YXJpYSIsImVtYWlsIjoic2VjcmV0YXJpYSIsImlhdCI6MTczMjQyNDI0OSwiZXhwIjoxNzMyNDI3ODQ5fQ.d6OKscoxVN2cywV8p9ewoYnike20Jh68JRa7kDlwjjw`
+            }
+        })
+        .then(data => {
+            console.log(data)
+            enqueueSnackbar("Usuário cadastrado com sucesso!", {variant: "success"})
+        })
+        .catch(error => {
+            console.log(error)
+            enqueueSnackbar("Erro ao cadastrar usuário!", {variant: "error"})
+        })
+        
+    }
+
+    // useEffect(() => console.log(errors), [errors])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 
@@ -19,24 +63,24 @@ export const Students = () => {
                     {
                         btnSelect == 1 ? (
 
-                            <Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={4}>
+                            <Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={4} component={"form"} onSubmit={handleSubmit(onSubmit)}>
                                 <Typography variant="h4" textAlign={"center"}>Cadastro de aluno</Typography>
-                                <Box width={"50%"} display={"flex"} flexDirection={"column"} gap={3}>
-                                    <TextField label="Nome" color="secondary"/>
-                                    <TextField label="CPF" color="secondary"/>
-                                    <TextField label="Email" color="secondary" type="email"/>
-                                    <TextField label="Password" color="secondary"/>
-                                    <TextField label="Data de Nascimento" color="secondary" type="date" variant="outlined"/>
-                                    <TextField label="Endereço" color="secondary"/>
-                                    <TextField label="Telefone" color="secondary" type="tel"/>
+                                <Box width={smDown ? "90%" : "50%"} display={"flex"} flexDirection={"column"} gap={3}>
+                                    <TextField label="Nome" color="secondary" {...register("name", {required: true})}/>
+                                    <TextField label="CPF" color="secondary" {...register("cpf", {required: true})}/>
+                                    <TextField label="Email" color="secondary" type="email" {...register("email", {required: true})}/>
+                                    <TextField label="Password" color="secondary" {...register("password", {required: true})}/>
+                                    <TextField label="Data de Nascimento" color="secondary" type="date" variant="outlined" {...register("birth_date", {required: true})}/>
+                                    <TextField label="Endereço" color="secondary" {...register("address", {required: true})}/>
+                                    <TextField label="Telefone" color="secondary" type="tel" {...register("phone_number", {required: true})}/>
 
-                                    <Select color="secondary" label="Plano">
+                                    <Select color="secondary" label="Plano" {...register("plan", {required: true})}>
                                         <MenuItem value={1}>Golt 1 mes ruim</MenuItem>
                                         <MenuItem value={2}>Silver 3 meses pior ainda</MenuItem>
                                         <MenuItem value={3}>lata de lixo 24 meses ruim pkr</MenuItem>
                                     </Select>
 
-                                    <Button variant={"contained"} color="secondary">Cadastrar</Button>
+                                    <Button variant={"contained"} color="secondary" type="submit">Cadastrar</Button>
                                 </Box>
                             </Box>
 

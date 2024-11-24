@@ -33,17 +33,6 @@ export const handle = async (req: Request, res: Response) => {
 
         const { data, wday, starth, endh, change } = req.body
 
-        // const classes = await database.many(`
-        //     SELECT rc.status, su.name as student_name, tu.name as teacher_name, rc.data, dw.name as wday, rc.starth, rc.endh, m.name as modality
-        //     FROM request_classes rc
-        //     JOIN users su on rc.student_cpf=su.cpf
-        //     JOIN users tu on rc.teacher_cpf=tu.cpf
-        //     JOIN days_of_week dw on rc.wday=dw.code
-        //     JOIN modality m on m.code=rc.modality
-        //     order by data, starth
-        //     ;
-        //     `,)
-
         const class_request = await database.oneOrNone(`
             SELECT modality, teacher_cpf, wday, starth, endh, student_cpf, TO_CHAR(data, 'YYYY-MM-DD') AS data
             FROM request_classes WHERE data=$1 and wday=$2 and starth=$3 and endh=$4;`, [data, wday, starth, endh])
@@ -76,14 +65,3 @@ export const handle = async (req: Request, res: Response) => {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 
-
-// {
-//     status: 'accepted',
-//     student_cpf: 'teste',
-//     teacher_cpf: 'teste',
-//     data: 2024-11-24T03:00:00.000Z,
-//     wday: '3',
-//     starth: '08:00:00',
-//     endh: '08:59:00',
-//     modality: '1'
-//   }

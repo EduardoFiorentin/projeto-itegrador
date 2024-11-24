@@ -7,7 +7,35 @@ import { Home } from "../pages/home/Home"
 
 export const Router = () => {
 
+    const {setMenuOptions, isMenuOpen, toggleMenuOpen} = useMenuContext()
 
+    useEffect(() => {
+        const menu_options_1 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Alunos", icon: "star", path: "/alunos"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+            {label: "Planos", icon: "star", path: "/planos"},                // novo plano / contratação de planos
+        ] // SECRETÁRIA
+      
+        const menu_options_2 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
+            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+        ] // PROFESSOR 
+        
+        const menu_options_3 = [
+            {label: "Inicio", icon: "home", path: "/inicio"},
+            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Agendamento", icon: "star", path: "/agendamento"},
+            {label: "Meu Plano", icon: "star", path: "star"},
+            // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
+        ] // ALUNOS
+      
+        setMenuOptions(menu_options_3)
+    }, [])
 
     return (
         <Routes>
