@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { requireJWTAuth } from "../services/AuthService";
 import { GroupClassesController } from "../controllers";
+import { RequestClassesController } from "../controllers/requestClassesController";
 
 const classRouter = Router()
 
@@ -45,6 +46,32 @@ classRouter.post("/cancel-personalClass",
 classRouter.post("/update-personalClass/:code",
     requireJWTAuth,
 
+)
+
+
+// classes/getall-requestClass
+classRouter.get("/getall-requestClasses", 
+    requireJWTAuth,
+    RequestClassesController.GetAll.getAllValidate,
+    RequestClassesController.GetAll.getAll
+)
+
+classRouter.post("/create-requestclass", 
+    requireJWTAuth,
+    RequestClassesController.CreateRequestClass.createRequestClassValidate,
+    RequestClassesController.CreateRequestClass.createRequestClass
+)
+
+classRouter.post("/handle-requestClass",
+    requireJWTAuth,
+    RequestClassesController.Handle.handleValidate,
+    RequestClassesController.Handle.handle
+
+)
+classRouter.post("/delete-requestClass",
+    requireJWTAuth,
+    RequestClassesController.DeleteRequestClass.deleteRequestClassValidate,
+    RequestClassesController.DeleteRequestClass.deleteRequestClass,
 )
 
 

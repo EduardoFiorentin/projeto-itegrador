@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
+// não testado
+
 export const createPersonalClassesValidate = async (req: Request, res: Response, next: NextFunction,) => {
     try {
 
@@ -27,8 +29,11 @@ export const createPersonalClassesValidate = async (req: Request, res: Response,
         const g_class = await database.oneOrNone("SELECT * FROM group_classes WHERE wday=$1 and starth=$2 and endh=$3;", 
             [wday, starth, endh]
         )
+        const p_class = await database.oneOrNone("SELECT * FROM personal_classes WHERE wday=$1 and starth=$2 and endh=$3;", 
+            [wday, starth, endh]
+        )
 
-        if (g_class) {
+        if (g_class || p_class) {
             res.status(StatusCodes.BAD_REQUEST).send("Horário não disponível!")
             return
         }
