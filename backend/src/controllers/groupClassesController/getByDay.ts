@@ -5,10 +5,16 @@ import { database } from "../../services";
 export const getAllByDayValidate = (req: Request, res: Response, next: NextFunction) => {
     try {
 
+        const day = req.params.day
         const role = req.user?.role
         
         if (role && (role != "1" && role != "2" && role != "3")) {
             res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
+            return
+        }
+
+        if (!day) {
+            res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
             return
         }
 

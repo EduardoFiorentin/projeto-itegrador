@@ -9,21 +9,10 @@ import axios from "axios";
 import { api } from "../../shared/services";
 import { ISchedules } from "../../shared/Interfaces/ISchedules";
 
-// const data = [
-//     {sched: "08:00 - 08:59", teacher: "João", modality: "Classic Sparring", participants: 6},
-//     {sched: "09:00 - 09:59", teacher: "João", modality: "Classic Sparring", participants: 6},
-//     {sched: "09:00 - 09:59", teacher: "João", modality: "Classic Sparring", participants: 6},
-//     {sched: "09:00 - 09:59", teacher: "João", modality: "Classic Sparring", participants: 6},
-// ]
 
 export const Schedules = () => {
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
-    // const smDown = useMediaQuery(theme.breakpoints.down("sm"))
-    // const mdDown = useMediaQuery(theme.breakpoints.down("md"))
-
-    // Navegar para o próximo dia
-
 
     const getWeekDay = (data: Date) => {
         const texto = data.toLocaleDateString('pt-BR', { weekday: 'long' });
@@ -72,8 +61,12 @@ export const Schedules = () => {
 
     // requisições - pegar horarios pelo dia 
     const updateSchedules = () => {
-        console.log("Data da req: ", reqDate)
-        api.post("/schedules/getbyday", {day, date: reqDate})
+        console.log("Data da req: ", reqDate, day)
+        api.post("/schedules/getbyday", { day, date: reqDate }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("na_token")}`
+            }
+        })
         .then(data => {
             console.log("deu certo: ", data)
             setData(data.data)
@@ -165,11 +158,6 @@ export const Schedules = () => {
 
                     </Box>
                 </Box>
-
-                {/* Botões */}
-                {/* <Box width={"250px"} height={"100px"} sx={{backgroundColor: "yellow"}}>
-
-                </Box> */}
             </Box>
         </BaseLayout>
     )

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { requireJWTAuth } from "../services/AuthService";
 import { StudentsController } from "../controllers";
+import { usersController } from "../controllers/usersController";
 
 const userRouter = Router()
 
@@ -32,6 +33,13 @@ userRouter.post("/update-student/:cpf",
 userRouter.get("/students", (req, res) => {
     res.status(200).send("Lista de estudantes retornada")
 })
+
+
+userRouter.get("/getTeachers", 
+    requireJWTAuth,
+    usersController.getFreeTeachersByDate.getFreeTeachersByDateValidate,
+    usersController.getFreeTeachersByDate.getFreeTeachersByDate
+)
 
 // Funcionários
 userRouter.post("/new-employer", (req, res) => {

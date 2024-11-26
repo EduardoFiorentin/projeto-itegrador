@@ -5,7 +5,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import bcrypt from "bcrypt";
 import { IUser } from "./Interfaces/IUser"
-import { authRouter, classRouter, planRoutes, scheduleRoutes, userRouter, acessRoutes } from "./routes"
+import { authRouter, classRouter, planRoutes, scheduleRoutes, userRouter, acessRoutes, modalityRoutes } from "./routes"
 import { authServiceConfig, requireJWTAuth } from "./services/AuthService";
 import { database } from "./services/PostgresDB";
 import cors from "cors"
@@ -40,6 +40,7 @@ app.use("/plans", planRoutes)
 app.use("/classes", classRouter)
 app.use("/schedules", scheduleRoutes)
 app.use("/acess", acessRoutes)
+app.use("/modality", modalityRoutes)
 
 app.use("/admin/new-user", 
 	requireJWTAuth, 

@@ -6,7 +6,7 @@ import { RequestClassesController } from "../controllers/requestClassesControlle
 const classRouter = Router()
 
 classRouter.get("/getbyday-groupclass/:day", 
-    // requireJWTAuth,
+    requireJWTAuth,
     GroupClassesController.GetByDay.getAllByDayValidate,
     GroupClassesController.GetByDay.getAllByDay
 )

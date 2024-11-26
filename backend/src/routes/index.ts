@@ -4,6 +4,7 @@ import { planRoutes } from "./planRoutes"
 import { classRouter } from "./classRoutes"
 import { scheduleRoutes } from "./scheduleRoutes."
 import { acessRoutes } from "./acessRoutes"
+import {modalityRoutes} from './modalityRoutes'
 
 export {
     userRouter, 
@@ -11,5 +12,6 @@ export {
     planRoutes, 
     classRouter, 
     scheduleRoutes,
-    acessRoutes
+    acessRoutes,
+    modalityRoutes
 }

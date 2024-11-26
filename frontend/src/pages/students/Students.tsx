@@ -38,7 +38,7 @@ export const Students = () => {
 
         api.post("/user/new-student", data, {
             headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoxLCJuYW1lIjoic2VjcmV0YXJpYSIsImVtYWlsIjoic2VjcmV0YXJpYSIsImlhdCI6MTczMjQyNDI0OSwiZXhwIjoxNzMyNDI3ODQ5fQ.d6OKscoxVN2cywV8p9ewoYnike20Jh68JRa7kDlwjjw`
+                Authorization: `Bearer ${localStorage.getItem("na_token")}`
             }
         })
         .then(data => {
@@ -52,7 +52,6 @@ export const Students = () => {
         
     }
 
-    // useEffect(() => console.log(errors), [errors])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
-export const deleteRequestClassValidate = (req: Request, res: Response, next: NextFunction,) => {
+export const deleteRequestClassValidate = (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { wday, starth, endh, date } = req.body
