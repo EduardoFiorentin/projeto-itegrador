@@ -10,7 +10,9 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ```plaintext
 ├── documentação/                # Documentação do projeto
 │   ├── requisitos/              # Documentos de requisitos
-│   └── diagramas/               # Diagramas de arquitetura 
+│   └── diagramas/               # Diagramas de arquitetura
+|       ├── Arquitetura/         # Páginas do aplicativo
+│       └── Banco de dados/      # Definições de rotas
 ├── frontend/                    # Aplicação frontend
 │   ├── public/                  # Arquivos públicos
 │   └── src/                     # Código-fonte do frontend
