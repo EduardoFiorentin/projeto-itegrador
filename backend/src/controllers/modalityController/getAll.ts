@@ -38,7 +38,7 @@ export const getAll = async (req: Request, res: Response) => {
 
         // const {day, date} = req.body
 
-        const modality = await database.many(`select name from modality;`)
+        const modality = await database.many(`select name, code from modality;`)
 
         // const groupmodality = await database.many(modalityQuery.getByDate,[date, DAYS_OF_WEEK[day]])
 

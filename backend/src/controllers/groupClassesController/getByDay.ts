@@ -32,17 +32,17 @@ export const getAllByDay = async (req: Request, res: Response) => {
 
         const day = req.params.day
         
-        const classes = await database.many(`
+        const classes = await database.manyOrNone(`
             SELECT gc.code, m.name as modality, up.name as teacher, dk.name as day, gc.starth, gc.endh
             FROM group_classes gc
             LEFT JOIN users up ON gc.teacher=up.cpf
             LEFT JOIN modality m ON gc.modality=m.code
             LEFT JOIN days_of_week dk on gc.wday=dk.code
-            WHERE wday=$1 and canceled=false;
+            WHERE gc.wday=$1 and gc.canceled=false;
             `, [day])
 
-        res.status(StatusCodes.OK).json(classes)
-
+        if (classes) res.status(StatusCodes.OK).json(classes)
+        else res.status(StatusCodes.OK).json([])
     } 
     catch(err) {
         console.log(err)

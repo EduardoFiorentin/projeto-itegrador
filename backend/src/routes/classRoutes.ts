@@ -77,9 +77,11 @@ classRouter.post("/delete-requestClass",
 
 
 // solicitação de agendamento de aulas
-classRouter.post("/subscribe-group", (req, res) => {
-    res.status(200).send("Inscrição concluída")
-})
+classRouter.post("/subscribe-group", 
+    requireJWTAuth,
+    GroupClassesController.Subscribe.subscribeValidate,
+    GroupClassesController.Subscribe.subscribe
+)
 
 classRouter.post("/request-personal", (req, res) => {
     res.status(200).send("Solicitação de agendamento de aula enviada")

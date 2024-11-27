@@ -38,6 +38,8 @@ export const getFreeSchedulesByDate = async (req: Request, res: Response) => {
 
         const {day, date} = req.body
 
+        console.log("Data pesquisada: ", DAYS_OF_WEEK[day], date)
+
         const schedules = await database.many(`
             with 
             group_shedules_date as (select * from group_classes where wday=$1 and canceled=FALSE),
@@ -48,7 +50,7 @@ export const getFreeSchedulesByDate = async (req: Request, res: Response) => {
             left join group_shedules_date gc on s.wday=gc.wday and s.starth=gc.starth and s.endh=gc.endh
             left join personal_shedules_date pc on s.wday=pc.wday and s.starth=pc.starth and s.endh=pc.endh
             left join requests_schedules_date rc on s.wday = rc.wday and s.starth = rc.starth and s.endh = rc.endh
-            where s.wday = 1 
+            where s.wday = $1 
             and gc.code is null and pc.cdate is null and rc.data is null
             order by s.starth;
 

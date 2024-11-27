@@ -48,14 +48,21 @@ export const createPersonalClassesValidate = async (req: Request, res: Response,
         req.body.teacher_cpf = teacher.cpf
 
 
-        // Verificação do nome do professor
+        // Verificação do nome do aluno
         const student = await database.oneOrNone("SELECT cpf FROM users WHERE name = $1;", [student_name])
         if (!student) {
             res.status(StatusCodes.BAD_REQUEST).send("Aluno não encontrado!")
             return
         } 
-
         req.body.student_cpf = student.cpf
+
+        // verificação do codigo da modalidade 
+        // const modality_code = await database.oneOrNone("SELECT code from modality WHERE name=$1", [modality])
+        // if (!modality_code) {
+        //     res.status(StatusCodes.BAD_REQUEST).send("Modalidade não encontrado!")
+        //     return
+        // }
+        // req.body.modality_code = modality_code
 
         next()
 

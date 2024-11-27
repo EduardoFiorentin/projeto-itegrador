@@ -59,6 +59,14 @@ export const createRequestClassValidate = async (req: Request, res: Response, ne
             return
         }
 
+        // verificação do codigo da modalidade
+        // const modality_code = await database.oneOrNone("SELECT code from modality WHERE name=$1", [modality])
+        // if (!modality_code) {
+        //     res.status(StatusCodes.BAD_REQUEST).send("Modalidade não encontrado!")
+        //     return
+        // }
+        // req.body.modality_code = modality_code
+
         next()
 
     } catch (err) {
@@ -77,7 +85,7 @@ export const createRequestClass = async (req: Request, res: Response) => {
         await database.none(`
                 INSERT INTO request_classes (status, student_cpf, teacher_cpf, data, wday, starth, endh, modality) 
                 VALUES ('pendent', $1, $2, $3, $4, $5, $6, $7);
-            `, [student_cpf, teacher_cpf, date, wday, starth, endh, modality])
+            `, [student_cpf, teacher_cpf, date, wday, starth, endh, parseInt(modality)])
 
         res.status(StatusCodes.CREATED).send("Solicitação cadastrada com sucesso!")
 
