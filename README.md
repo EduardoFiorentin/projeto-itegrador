@@ -1,6 +1,9 @@
 # Projeto integrador 
 ## Introdução
 Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Banco de dados 1 e Engenharia de Software 1 com o objetivo de entrevistar e desenvolver um sistema para uma empresa.
+### Integrantes 
+- Fabricio S. Maia          - 2221100005
+- Eduardo V. P. Fiorentin   - 2211100002
 
 ## Estrutura do Projeto
 
