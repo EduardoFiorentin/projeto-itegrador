@@ -35,19 +35,8 @@ export const Appointment = () => {
     }[]>([])
     const [gcSelected, setGcSelected] = useState<number>(0)
 
-    // {
-    //     "code": 1,
-    //     "modality": "Boxe Clássico",
-    //     "teacher": "Teste",
-    //     "day": "Segunda-Feira",
-    //     "starth": "07:00:00",
-    //     "endh": "07:59:00"
-    // },
-
-
     const {user} = useUserInfoContext()
     const navigate = useNavigate()
-
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -59,6 +48,10 @@ export const Appointment = () => {
         getGroupClasses()
         getSchedules()
     }, [date])
+
+    useEffect(() => {
+        if (user == null) navigate('/entrar')
+    }, [user])
 
     // useEffect(() => {
     // }, [date])
@@ -262,17 +255,6 @@ export const Appointment = () => {
                     
                         <TextField type="date"  sx={{width: "350px"}} value={date} onChange={event => setDate(event.target.value)}/>
                         
-                        {/* <Select defaultValue={0}  sx={{width: "350px"}}>
-                            <MenuItem value={0}>Aulas Disponíveis</MenuItem>
-
-                            {
-                                groupClasses && groupClasses.map(data => (
-                                    <MenuItem value={data.code}>
-                                        {data.starth + " - " + data.endh + " : " + data.modality}
-                                    </MenuItem>
-                                ))
-                            }
-                        </Select> */}
                         <Select defaultValue={0}  sx={{width: "350px"}} value={gcSelected} onChange={event => setGcSelected(event.target.value)}>
                             <MenuItem value={0}>Aulas Disponiveis</MenuItem>
                             {

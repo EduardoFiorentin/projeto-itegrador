@@ -42,9 +42,17 @@ export const handle = async (req: Request, res: Response) => {
             return
         }
 
-        await database.none(`
-            UPDATE request_classes SET status = $1 where data=$2 and wday=$3 and starth=$4 and endh=$5;
-            `, [change, data, wday, starth, endh])
+        if (change === 'accepted') {
+            await database.none(`
+                UPDATE request_classes SET status = $1 where data=$2 and wday=$3 and starth=$4 and endh=$5;
+                `, [change, data, wday, starth, endh])
+        }
+        
+        else if (change === 'rejected') {
+            await database.none(`
+                DELETE FROM request_classes WHERE data=$1 and wday=$2 and starth=$3 and endh=$4;
+            `, [ data, wday, starth, endh])
+        }
 
         console.log("Verificação: ", class_request)
         

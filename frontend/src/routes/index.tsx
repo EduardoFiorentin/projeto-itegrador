@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { useMenuContext } from "../shared/contexts/MenuContext"
 import { ChangePassword, LandingPage, Login, RecoverCode, Schedules, Appointment, Students } from "../pages"
 import { Home } from "../pages/home/Home"
+import { HandleRequestClasses } from "../pages/handleRequestClasses/HandleRequestClasses"
 
 
 export const Router = () => {
@@ -52,6 +53,7 @@ export const Router = () => {
 
             {/* Secretária */}
             <Route path="/alunos" element={<Students/>}/>
+            <Route path="/confirma-agendamento" element={<HandleRequestClasses/>}/>
             {/* <Route path="/agendamento" element={<Home/>}/> */}
 
 

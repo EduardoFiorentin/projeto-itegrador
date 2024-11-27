@@ -8,11 +8,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../shared/services";
 import { ISchedules } from "../../shared/Interfaces/ISchedules";
+import { useUserInfoContext } from "../../shared/contexts";
+import { useNavigate } from "react-router-dom";
 
 
 export const Schedules = () => {
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
+    const {user} = useUserInfoContext()
+    const navigate = useNavigate()
+
 
     const getWeekDay = (data: Date) => {
         const texto = data.toLocaleDateString('pt-BR', { weekday: 'long' });
@@ -74,10 +79,15 @@ export const Schedules = () => {
         .catch(data => console.log("deu Errado: ", data))
 
     }
+
+
     useEffect(() => {
         updateSchedules()
     }, [day])
 
+    useEffect(() => {
+        if (user == null) navigate('/entrar')
+    }, [user])
 
 
 
