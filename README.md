@@ -2,8 +2,8 @@
 ## Introdução
 Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Banco de dados 1 e Engenharia de Software 1 com o objetivo de entrevistar e desenvolver um sistema para uma empresa.
 ### Integrantes 
-- Fabricio S. Maia          - 2221100005
 - Eduardo V. P. Fiorentin   - 2211100002
+- Fabricio S. Maia          - 2221100005
 
 ## Estrutura do Projeto
 
@@ -29,9 +29,13 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ```
 
 ## Empresa 
+
 **Empresa**: Escola Nobre Arte Boxe.
+
 **Sede**: Chapecó-SC.
+
 **Área de atuação**: Arte Marciais, especificamente Boxe.
+
 **Negócio**:
 A Escola Nobre Arte Boxe nasceu e está sediada no Brasil desde 2011, liderada pelo
 treinador Andrew Mattos, visa aproveitar o poder do esporte para o desenvolvimento humano.
