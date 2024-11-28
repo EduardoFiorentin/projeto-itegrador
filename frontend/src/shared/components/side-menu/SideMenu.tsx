@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Divider, Drawer, Icon, List, ListItemButton, ListI
 // import { useAppThemeContext, useDrawerContext } from "../../contexts"
 import { useAppThemeContext, useMenuContext, useUserInfoContext } from "../../contexts"
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom"
-
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 interface IListItemLinkProps {
     label: string,
@@ -47,10 +47,17 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     const {user} = useUserInfoContext()
-
+    const navigate = useNavigate()
 
     const {isMenuOpen, toggleMenuOpen, menuOptions, isMenuHidden} = useMenuContext() 
-    const { themeName, toggleTheme } = useAppThemeContext()
+    // const { themeName, toggleTheme } = useAppThemeContext()
+
+    const handleLogOut = () => {
+        
+        localStorage.removeItem("na_token")
+        navigate("/entrar")
+
+    }
 
     return (
         <>
@@ -103,13 +110,13 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                         
                         <List component={"nav"}>
                             {
-                               <ListItemButton onClick={toggleTheme}>
-                               <ListItemIcon>
-                                    <Icon>
-                                       {themeName === 'light' ? <>dark_mode</>:<>light_mode</>}
-                                    </Icon>
-                                    </ListItemIcon>
-                                    <ListItemText primary={"Alternar tema"} />
+                            <ListItemButton onClick={handleLogOut}>
+                                <ListItemIcon>
+                                     <Icon>
+                                        <ExitToAppIcon color="action"/>
+                                     </Icon>
+                                     </ListItemIcon>
+                                     <ListItemText primary={"Sair"} />
                                 </ListItemButton>
                             }
                         </List>
