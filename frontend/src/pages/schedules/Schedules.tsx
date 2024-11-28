@@ -118,7 +118,7 @@ export const Schedules = () => {
                             </Button>
                         </Box>
                     </Box>
-                    <Box sx={{backgroundColor: "primary.main"}} width={"90%"} height={"70%"} ml={"5%"} mt={"5%"} display={"flex"} flexDirection={"column"} alignItems={"center"} gap={2} pt={2} overflow={"auto"}  borderRadius={"16px"}>
+                    <Box sx={{backgroundColor: "primary.main"}} width={"90%"} height={"70%"} ml={"5%"} mt={"5%"} display={"flex"} flexDirection={"column"} alignItems={"center"} gap={2} pt={2} borderRadius={"16px"} overflow={"auto"} >
                     
                         {data ? (
                             data.map( (sch) => (

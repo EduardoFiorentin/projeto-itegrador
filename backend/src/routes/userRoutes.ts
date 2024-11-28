@@ -2,6 +2,7 @@ import { Router } from "express";
 import { requireJWTAuth } from "../services/AuthService";
 import { StudentsController } from "../controllers";
 import { usersController } from "../controllers/usersController";
+import { DashbordController } from "../controllers/dashbordController";
 
 const userRouter = Router()
 
@@ -28,12 +29,11 @@ userRouter.post("/update-student/:cpf",
     StudentsController.UpdateStudent.updateStudent
 )
 
-
-
-userRouter.get("/students", (req, res) => {
-    res.status(200).send("Lista de estudantes retornada")
-})
-
+userRouter.get("/dashbord", 
+    requireJWTAuth,
+    DashbordController.GetInfo.getInfoValidate,
+    DashbordController.GetInfo.getInfo
+)
 
 userRouter.get("/getTeachers", 
     requireJWTAuth,
