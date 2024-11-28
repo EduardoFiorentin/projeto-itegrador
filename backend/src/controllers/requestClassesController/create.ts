@@ -42,6 +42,16 @@ export const createRequestClassValidate = async (req: Request, res: Response, ne
         req.body.student_cpf = student.cpf
 
 
+        // verifica o codigo da modalidade 
+        const modality_name = await database.oneOrNone("SELECT code FROM modality WHERE name = $1;", [modality])
+        if (!modality_name) {
+            res.status(StatusCodes.BAD_REQUEST).send("Modalidade não encontrada!")
+            return
+        } 
+
+        req.body.modality_code = modality_name.code
+
+
         // Verificação de liberação do horario
         const group_class = await database.oneOrNone("SELECT wday FROM group_classes WHERE wday=$1 and starth=$2 and endh=$3;", 
             [wday, starth, endh]
@@ -78,14 +88,14 @@ export const createRequestClassValidate = async (req: Request, res: Response, ne
 export const createRequestClass = async (req: Request, res: Response) => {
     try {
 
-        const { modality, teacher_cpf, student_cpf, wday, starth, endh, date } = req.body
+        const { modality_code, teacher_cpf, student_cpf, wday, starth, endh, date } = req.body
 
-        console.log(modality, teacher_cpf, student_cpf, wday, starth, endh)
+        console.log(modality_code, teacher_cpf, student_cpf, wday, starth, endh)
 
         await database.none(`
                 INSERT INTO request_classes (status, student_cpf, teacher_cpf, data, wday, starth, endh, modality) 
                 VALUES ('pendent', $1, $2, $3, $4, $5, $6, $7);
-            `, [student_cpf, teacher_cpf, date, wday, starth, endh, parseInt(modality)])
+            `, [student_cpf, teacher_cpf, date, wday, starth, endh, parseInt(modality_code)])
 
         res.status(StatusCodes.CREATED).send("Solicitação cadastrada com sucesso!")
 

@@ -24,17 +24,20 @@ export const getAllValidate = (req: Request, res: Response, next: NextFunction) 
 export const getAll = async (req: Request, res: Response) => {
     try {
 
-        const classes = await database.many(`
+        const classes = await database.manyOrNone(`
             SELECT rc.status, su.name as student_name, tu.name as teacher_name, rc.data, dw.name as wday, rc.starth, rc.endh, m.name as modality
             FROM request_classes rc
             JOIN users su on rc.student_cpf=su.cpf
             JOIN users tu on rc.teacher_cpf=tu.cpf
             JOIN days_of_week dw on rc.wday=dw.code
             JOIN modality m on m.code=rc.modality
+            where rc.status = 'pendent'
             order by data, starth
             ;
             `,)
 
+            console.log("Classes: ", classes)
+    
         res.status(StatusCodes.OK).json(classes)
 
     } 

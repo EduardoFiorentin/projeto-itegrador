@@ -58,7 +58,11 @@ export const Login = () => {
     // Desabilitar menu
     useEffect(() => {
         setIsMenuHidden(true)
+        // setEmail("secretaria")
+        // setPassword("secretaria")
     }, [])
+
+    // useEffect(() => handleLogin(), [password])
 
 
     // opções de menu
@@ -109,6 +113,9 @@ export const Login = () => {
             width={"100%"}
             flex={1}
             overflow={"auto"}
+
+            flexDirection={"column"}
+            alignItems={"center"}
             > 
 
            
@@ -153,7 +160,20 @@ export const Login = () => {
                     </Box>
                 </Box>
             </Box>
-
+            <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("secretaria")
+                    setPassword("secretaria")
+                }}>Secretaria</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("professor")
+                    setPassword("professor")
+                }}>Professor</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("aluno")
+                    setPassword("aluno")
+                }}>Aluno</Button>
+            </Box>
         </Box>
     )
 }

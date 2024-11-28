@@ -4,11 +4,15 @@ import { useMenuContext } from "../shared/contexts/MenuContext"
 import { ChangePassword, LandingPage, Login, RecoverCode, Schedules, Appointment, Students } from "../pages"
 import { Home } from "../pages/home/Home"
 import { HandleRequestClasses } from "../pages/handleRequestClasses/HandleRequestClasses"
+import { useUserInfoContext } from "../shared/contexts"
 
 
 export const Router = () => {
 
     const {setMenuOptions, isMenuOpen, toggleMenuOpen} = useMenuContext()
+
+    const {user} = useUserInfoContext()
+
 
     useEffect(() => {
         const menu_options_1 = [
@@ -35,8 +39,17 @@ export const Router = () => {
             // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
         ] // ALUNOS
       
-        setMenuOptions(menu_options_3)
-    }, [])
+        if (user?.role === 1) {
+            setMenuOptions(menu_options_1)
+        }
+        else if (user?.role === 2) {
+            setMenuOptions(menu_options_2)
+        }
+        else if (user?.role === 3) {
+            setMenuOptions(menu_options_3)
+        }
+
+    }, [user])
 
     return (
         <Routes>
@@ -53,7 +66,7 @@ export const Router = () => {
 
             {/* Secretária */}
             <Route path="/alunos" element={<Students/>}/>
-            <Route path="/confirma-agendamento" element={<HandleRequestClasses/>}/>
+            <Route path="/solicitacoes" element={<HandleRequestClasses/>}/>
             {/* <Route path="/agendamento" element={<Home/>}/> */}
 
 

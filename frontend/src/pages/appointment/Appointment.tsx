@@ -137,7 +137,7 @@ export const Appointment = () => {
             // console.log(mod)
 
             const data = {
-                modality: mod[0].code,
+                modality: mod[0].name,
                 teacher_name: teacher,
                 starth: schedules[schedule].starth,
                 endh: schedules[schedule].endh,
