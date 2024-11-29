@@ -11,8 +11,8 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ├── documentação/                # Documentação do projeto
 │   ├── requisitos/              # Documentos de requisitos
 │   └── diagramas/               # Diagramas de arquitetura
-|       ├── Arquitetura/         # Páginas do aplicativo
-│       └── Banco de dados/      # Definições de rotas
+|       ├── Arquitetura/         # Diagramas da arquitetura do sistema
+│       └── Banco de dados/      # Diagramas da arquitetura do banco de dados 
 ├── frontend/                    # Aplicação frontend
 │   ├── public/                  # Arquivos públicos
 │   └── src/                     # Código-fonte do frontend
