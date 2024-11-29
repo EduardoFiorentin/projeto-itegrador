@@ -13,9 +13,14 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
     
     return (
         
-        <Box minHeight={"100vh"} width="100vw" sx={{
-            // backgroundColor: "primary.light"
-        }}>
+        <Box minHeight={"100vh"} width={mdDown ? "100%": "100%"} sx={{
+            // backgroundColor: "red",
+        }}
+        maxWidth="1200px"
+        display={"flex"}
+        flexDirection={"column"}
+        // overflow={"hidden"}
+        >
             <Box display={"flex"} alignItems={"center"} gap={1}>
                 {mdDown && (
                     <Button onClick={() => toggleMenuOpen()}>
@@ -34,7 +39,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
                 </Typography>
             </Box>
             <Divider/>
-            <Box paddingTop={"20px"} height="auto" width={"80vw"}>
+            <Box paddingTop={"20px"} height="auto" width={"100%"} alignSelf={"center"} >
                 {children}
             </Box>
         </Box>
