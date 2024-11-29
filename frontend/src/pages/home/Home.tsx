@@ -75,8 +75,15 @@ export const Home = () => {
                                 height={mdDown ? "auto" : "75vh"} 
                                 maxWidth={"800px"} 
                                 pt={"20px"} 
-                                // sx={{ backgroundColor: "primary.light" }} 
+                                // justifySelf={"center"}
+                                // m={"auto"}
+                                sx={{ backgroundColor: "red" }} 
                                 borderRadius={"16px"}
+                                textAlign={"center"}
+                                // display={"flex"}
+                                // flexDirection={"column"}
+                                // alignItems={"center"}
+                                // justifyContent={"center"}
                                 p={1}
                                 >
                                     <Box 

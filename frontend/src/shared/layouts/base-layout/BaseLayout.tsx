@@ -21,7 +21,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
         flexDirection={"column"}
         // overflow={"hidden"}
         >
-            <Box display={"flex"} alignItems={"center"} gap={1}>
+            <Box display={"flex"} alignItems={"center"} gap={1} marginLeft={"20px"}>
                 {mdDown && (
                     <Button onClick={() => toggleMenuOpen()}>
                         <MenuIcon color="action" fontSize="large"/>

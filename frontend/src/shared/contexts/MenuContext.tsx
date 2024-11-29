@@ -50,7 +50,9 @@ export const MenuProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                     setIsMenuHidden: setIsMenuHidden
                 }
             }>
-            <Box marginLeft={!isMenuHidden ? "30px" : "0px"}>
+            <Box 
+            // marginLeft={!isMenuHidden ? "30px" : "0px"}
+            >
                 {children}
             </Box>
         </MenuContext.Provider>

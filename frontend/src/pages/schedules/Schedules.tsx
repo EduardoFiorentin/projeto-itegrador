@@ -15,6 +15,9 @@ import { useNavigate } from "react-router-dom";
 export const Schedules = () => {
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"))
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+
     const {user} = useUserInfoContext()
     const navigate = useNavigate()
 
@@ -121,15 +124,15 @@ export const Schedules = () => {
                         {data ? (
                             data.map( (sch) => (
                                 sch.teacher_name ? (
-                                <Box width={"95%"} minHeight={"70px"} display={"flex"} sx={{backgroundColor: "primary.dark"}}>
-                                    <Box height={"100%"} width={"25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}  >
-                                        <Typography fontSize={10}>{sch.starth + " : " + sch.endh}</Typography>
-                                        <Typography variant="h5">{sch.teacher_name}</Typography>
+                                <Box width={"95%"} minHeight={smDown ? "170px" : "70px"} display={"flex"} sx={{backgroundColor: "primary.dark"}} flexDirection={smDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"} gap={smDown ? 2 : 0}>
+                                    <Box height={smDown ? "auto" : "100%"} width={smDown ? "auto" : "25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}  >
+                                        <Typography fontSize={mdDown ? 15 : 15}>{sch.starth + " : " + sch.endh}</Typography>
+                                        <Typography variant="h6">Prof. {sch.teacher_name}</Typography>
                                     </Box>
-                                    <Box height={"100%"} width={ "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
-                                        <Typography variant="h5" fontWeight={"bold"}>{sch.modality_name}</Typography>
+                                    <Box height={smDown ? "auto" : "100%"} width={smDown ? "auto" :  "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                                        <Typography variant="h6" fontWeight={"bold"}>{sch.modality_name}</Typography>
                                     </Box>
-                                    <Box height={"100%"} width={"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                                    <Box height={smDown ? "auto" : "100%"} width={smDown ? "auto" : "25%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                                         <Typography variant="h5" display={"flex"} justifyContent={"center"} alignItems={"center"} fontSize={20}>
                                             {
                                                 sch.student_name == null ? (
@@ -147,15 +150,15 @@ export const Schedules = () => {
                                 </Box>
                                 
                                 ) : (
-                                    <Box width={"95%"} minHeight={"70px"} display={"flex"} sx={{backgroundColor: "primary.dark"}}>
-                                    <Box height={"100%"} width={"25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}  >
-                                        <Typography fontSize={10}>{sch.starth + " : " + sch.endh}</Typography>
-                                        <Typography variant="h5">{sch.teacher_name}</Typography>
+                                    <Box width={"95%"} minHeight={smDown ? "170px" : "70px"} display={"flex"} sx={{backgroundColor: "primary.dark"}} flexDirection={smDown ? "column" : "row"}  justifyContent={"center"}>
+                                        <Box height={"100%"} width={smDown ? "auto" : "25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}  >
+                                            <Typography fontSize={mdDown ? 15 : 10}>{sch.starth + " : " + sch.endh}</Typography>
+                                            <Typography variant="h5">{sch.teacher_name}</Typography>
+                                        </Box>
+                                        <Box height={"100%"} width={smDown ? "auto" : "65%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                                            <Typography variant="h5" fontWeight={"bold"}>Horário disponível</Typography>
+                                        </Box>
                                     </Box>
-                                    <Box height={"100%"} width={"65%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
-                                        <Typography variant="h5" fontWeight={"bold"}>Horário disponível</Typography>
-                                    </Box>
-                                </Box>
                                 )
                             )
                         )) : (
