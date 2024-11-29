@@ -27,7 +27,7 @@ export const Home = () => {
     const { setIsMenuHidden } = useMenuContext()
     const navigate = useNavigate()
     const theme = useTheme() 
-    // const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     
     setIsMenuHidden(false)
@@ -140,12 +140,12 @@ export const Home = () => {
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
                                         >
-                                            <Typography variant="subtitle1" sx={{ padding: "8px" }}>Solicitações em Aberto</Typography>
-                                            <Box width="100%" height={"70%"} display="flex" flexDirection={"column"} alignItems="center" justifyContent="center" gap={2} pb="20px" overflow={"auto"}>
+                                            <Typography variant="subtitle1" sx={{ padding: "8px" }}>Solicitações de aulas em Aberto</Typography>
+                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center" justifyContent="center">
                                                 {
                                                     data !== null ? (
                                                         data.open_requests.map(item => (
-                                                            <Box width={"90%"} sx={{backgroundColor: "primary.light"}} display={"flex"}>
+                                                            <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
                                                                 <Box>
                                                                     <Typography>
                                                                         Prof. {item.student}
@@ -184,38 +184,50 @@ export const Home = () => {
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
                                         maxWidth={"500px"}
+                                        overflow={"auto"}
+
                                     >
-                                        <Typography variant="subtitle1" sx={{ padding: "8px" }}>Aulas do Dia</Typography>
-                                        <Box width="100%" minHeight="80%" display="flex" flexDirection={"column"} alignItems="center" justifyContent="center" overflow={"auto"} gap={2}  pb="20px">
+                                        <Typography variant="subtitle1" sx={{ padding: "8px", backgroundColor: "primary.dark" }}>Aulas do Dia</Typography>
+                                        <Box width="100%" minHeight="80%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"}> 
                                             {
                                                 data !== null ? (
                                                     <>
                                                         {
                                                             data.today_classes_list.length !== 0 ? (
                                                                 <>
-                                                                {
+                                                                    {
 
-                                                                    data.today_classes_list.map(item => (
-                                                                        <Box width={"90%"} height={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"} borderRadius={"8px"} alignItems={"center"}>
-                                                                            <Box>
-                                                                                <Typography>
-                                                                                    Prof. {item.teacher}
-                                                                                </Typography>
+                                                                        data.today_classes_list.map(item => (
+                                                                            <Box 
+                                                                                width={"90%"} 
+                                                                                minHeight={smDown ? "auto" : "70px"} 
+                                                                                sx={{backgroundColor: "primary.light"}} 
+                                                                                display={"flex"} flexDirection={smDown ? "column" : "row"} 
+                                                                                justifyContent={"space-evenly"} 
+                                                                                borderRadius={"8px"} 
+                                                                                alignItems={"center"} 
+                                                                                gap={smDown ? 1 : 0}
+                                                                                p={smDown ? 1 : 0}
+                                                                                >
+                                                                                <Box>
+                                                                                    <Typography>
+                                                                                        Prof. {item.teacher}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <Typography fontWeight={"bold"}>
+                                                                                        {item.modality}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <Typography variant="body2">
+                                                                                        {`${item.starth.split(":")[0]}:${item.starth.split(":")[1]} - ${item.endh.split(":")[0]}:${item.endh.split(":")[1]}`}
+                                                                                    </Typography>
+                                                                                </Box>
                                                                             </Box>
-                                                                            <Box>
-                                                                                <Typography fontWeight={"bold"}>
-                                                                                    {item.modality}
-                                                                                </Typography>
-                                                                            </Box>
-                                                                            <Box>
-                                                                                <Typography variant="body2">
-                                                                                    {`${item.starth.split(":")[0]}:${item.starth.split(":")[1]} - ${item.endh.split(":")[0]}:${item.endh.split(":")[1]}`}
-                                                                                </Typography>
-                                                                            </Box>
-                                                                        </Box>
-                                                                    ))
+                                                                        ))
 
-                                                                }
+                                                                    }
                                                                 </>
                                                             ) : (
                                                                 <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há aulas cadastradas hoje!</Typography>

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { StatusCodes } from "http-status-codes";
+import { AcessController } from "../controllers/acessController";
 
 const acessRoutes = Router()
 
@@ -12,21 +13,13 @@ const acessRoutes = Router()
 //     res.status(200).send("Acesso autorizado")
 // })
 
-acessRoutes.post("/",  (req, res) => {
-
-    console.log(req.body.codigo)
-
-    if (req.body.codigo == "648e6ad") {
-        res.status(StatusCodes.OK).send("ok")
-    
-       
-            // res.status(200).send("Acesso liberado")
-        // res.status(400).send("Acesso negado")
-    }
-    else {
-        res.status(StatusCodes.UNAUTHORIZED).send("not")
-    } 
-
-})
+acessRoutes.post("/",
+    AcessController.Access.accessValidate,
+    AcessController.Access.access
+    // (req: Request, res: Response) => {
+    //     console.log("Acesso...")
+    //     res.status(200).send()
+    // }
+)
 
 export { acessRoutes }
