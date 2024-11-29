@@ -27,7 +27,7 @@ export const Home = () => {
     const { setIsMenuHidden } = useMenuContext()
     const navigate = useNavigate()
     const theme = useTheme() 
-    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+    // const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     
     setIsMenuHidden(false)

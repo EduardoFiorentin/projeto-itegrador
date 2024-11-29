@@ -29,9 +29,6 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
                     height={"80px"}
                     display={"flex"}
                     alignItems={"center"}
-                    // paddingBottom={2}
-                    // paddingTop={2}
-                    
                     >
                     {title}
                 </Typography>

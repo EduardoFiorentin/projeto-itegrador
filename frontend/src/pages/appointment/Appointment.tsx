@@ -120,7 +120,6 @@ export const Appointment = () => {
             .catch(err => {
                 console.log("Erro ao pegar modalidades", err)
             })
-        // } else console.log("Erro ----------------------------------")
     }
 
     const submitClassRequest = async () => {

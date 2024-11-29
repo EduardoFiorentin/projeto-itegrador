@@ -5,6 +5,7 @@ import { ChangePassword, LandingPage, Login, RecoverCode, Schedules, Appointment
 import { Home } from "../pages/home/Home"
 import { HandleRequestClasses } from "../pages/handleRequestClasses/HandleRequestClasses"
 import { useUserInfoContext } from "../shared/contexts"
+import { Plans } from "../pages/plans/Plans"
 
 
 export const Router = () => {
@@ -67,6 +68,7 @@ export const Router = () => {
             {/* Secretária */}
             <Route path="/alunos" element={<Students/>}/>
             <Route path="/solicitacoes" element={<HandleRequestClasses/>}/>
+            <Route path="/planos" element={<Plans/>}/>
             {/* <Route path="/agendamento" element={<Home/>}/> */}
 
 

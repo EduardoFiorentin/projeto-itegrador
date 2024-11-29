@@ -15,7 +15,17 @@ type Inputs = {
     birth_date: string,
     address: string,
     phone_number: string,
-    plan: string
+    plan_code: string
+}
+
+interface IPlan {
+    name: string;       
+    plancode: number;   
+    wclasses: string;   
+    totalvalue: string; 
+    months: string;     
+    active: boolean;    
+    renewable: boolean; 
 }
 
 export const Students = () => {
@@ -32,10 +42,12 @@ export const Students = () => {
         watch,
         formState: { errors },
     } = useForm<Inputs>()
+    
+    
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data)
         console.log(errors)
-
+        
         api.post("/user/new-student", data, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
@@ -52,6 +64,26 @@ export const Students = () => {
         
     }
 
+    const [plans, setPlans] = useState<IPlan[]>()
+
+    const getPlans = () => {
+        api.get("/plans/getall", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("na_token")}`
+            }
+        })
+        .then(data => {
+            console.log(data)
+            setPlans(data.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+    useEffect(() => {
+        getPlans()
+    }, [])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 
@@ -73,10 +105,13 @@ export const Students = () => {
                                     <TextField label="Endereço" color="secondary" {...register("address", {required: true})}/>
                                     <TextField label="Telefone" color="secondary" type="tel" {...register("phone_number", {required: true})}/>
 
-                                    <Select color="secondary" label="Plano" {...register("plan", {required: true})}>
-                                        <MenuItem value={1}>Golt 1 mes ruim</MenuItem>
-                                        <MenuItem value={2}>Silver 3 meses pior ainda</MenuItem>
-                                        <MenuItem value={3}>lata de lixo 24 meses ruim pkr</MenuItem>
+                                    <Select color="secondary" label="Plano" {...register("plan_code", {required: true})}>
+                                        <MenuItem value={0}>Nenhum</MenuItem>
+                                        {
+                                            plans?.map(item => (
+                                                <MenuItem value={item.plancode}>{item.name}</MenuItem>
+                                            ))
+                                        }
                                     </Select>
 
                                     <Button variant={"contained"} color="secondary" type="submit">Cadastrar</Button>

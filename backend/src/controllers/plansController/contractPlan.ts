@@ -3,10 +3,10 @@ import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 import { addMonthsToDate } from "../../utils/addMonthsToDate";
 
-export const createStudentValidate = async (req: Request, res: Response, next: NextFunction,) => {
+export const contractPlanValidate = async (req: Request, res: Response, next: NextFunction,) => {
     try {
 
-        const { name, cpf, email, password, birth_date, address, phone_number, plan_code } = req.body
+        const { user_cpf, plan_code } = req.body
         const role = req.user?.role
         
         if (role && role != "1") {
@@ -15,8 +15,7 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
         }
         
         if (
-            !name || !cpf || !email || !password || !birth_date || !address || !phone_number || !plan_code || 
-            cpf.length != 11
+            !user_cpf || !plan_code
 
         ) {
             res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
@@ -35,6 +34,23 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
 
         req.body.plan = plan
 
+        // pegar usuário 
+        const student = await database.oneOrNone("SELECT name FROM users WHERE cpf = $1;", [user_cpf])
+        if (!student) {
+            res.status(StatusCodes.BAD_REQUEST).send("Aluno não encontrado!")
+            return
+        } 
+
+        
+        // verificar se o usuário já tem planos contratados 
+        const today = new Date().toISOString().split("T")[0]    
+        const plan_student = await database.manyOrNone("SELECT * FROM users_plans WHERE user_cpf = $1 and expdate >= $2;", [user_cpf, today])
+        if (plan_student.length !== 0) {
+            res.status(StatusCodes.BAD_REQUEST).send("Aluno já possui um plano contratado!")
+            return
+        }
+
+
         next()
 
     } catch (err) {
@@ -43,37 +59,19 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
     }
 }
 
-export const createStudent = async (req: Request, res: Response) => {
+export const contractPlan = async (req: Request, res: Response) => {
     try {
 
-        const { name, cpf, email, password, birth_date, address, phone_number, plan } = req.body
-
-        // cadastrar usuário 
-        await database.none(`
-                INSERT INTO users (name, cpf, email, password, role, dtbirth, address, pnumber) 
-                VALUES ($1, $2, $3, $4, 3, $5, $6, $7);
-            `, [name, cpf, email, password, birth_date, address, phone_number])
-
-       
-        // cadastrar plano contratado 
-
+        const { user_cpf, plan_code, plan } = req.body
         const today = new Date().toISOString().split("T")[0]    
-
-        console.log("Antes: ", today, plan.months)
-
         const new_date = addMonthsToDate(today, parseInt(plan.months))
-
-        console.log("new date: ", new_date)
-
-        console.log("Verificação: ", today, addMonthsToDate(today, parseInt(plan.months)))
 
         await database.none(`
             insert into users_plans (plancode, user_cpf, cdate, expdate)
             values ($1, $2, $3, $4);
-        `, [plan.plancode, cpf, today, new_date])
+        `, [plan_code, user_cpf, today, new_date])
 
-
-        res.status(StatusCodes.CREATED).send("Usuário criado com sucesso!")
+        res.status(StatusCodes.CREATED).send("Plano contratado com sucesso!")
 
     }
     catch(err) {
