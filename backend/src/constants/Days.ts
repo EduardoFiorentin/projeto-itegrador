@@ -4,6 +4,6 @@ export const DAYS_OF_WEEK = {
     "Quarta-feira": 3,
     "Quinta-feira": 4,
     "Sexta-feira": 5,
-    "Sábado": 5,
-    "Domingo": 5
+    "Sábado": 6,
+    "Domingo": 7
 }

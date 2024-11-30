@@ -29,7 +29,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
                 
                 )}
                 <Typography 
-                    variant="h4" 
+                    variant={mdDown ? "h5":"h4"} 
                     component="h2"
                     height={"80px"}
                     display={"flex"}

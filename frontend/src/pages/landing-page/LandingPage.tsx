@@ -14,8 +14,9 @@ import {
   CardMedia,
   Paper,
   Avatar,
+  useMediaQuery,
 } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
@@ -38,6 +39,10 @@ import bgHeaderImage from "../../assets/images/land_page_header_bg.jpg"
 
 export const LandingPage = () => {
     const { setIsMenuHidden } = useMenuContext()
+    const mainTheme = useTheme() 
+    const lgDown = useMediaQuery(mainTheme.breakpoints.down("lg"))
+    const mdDown = useMediaQuery(mainTheme.breakpoints.down("md"))
+    const smDown = useMediaQuery(mainTheme.breakpoints.down("sm"))
     // setIsMenuHidden(true)
 
     const navigate = useNavigate()
@@ -52,10 +57,10 @@ export const LandingPage = () => {
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
                   Nobre Arte
                 </Typography>
-                <Button color="inherit">Sobre</Button>
-                <Button color="inherit">Treinamentos</Button>
-                <Button color="inherit">Contato</Button>
-                <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
+                {!smDown && <Button color="inherit">Sobre</Button>}
+                {!smDown && <Button color="inherit">Treinamentos</Button>}
+                {!smDown && <Button color="inherit">Contato</Button>}
+                <Button color="inherit" onClick={() => navigate("/entrar")}>Login</Button>
               </Toolbar>
             </AppBar>
             {/* Hero Section */}
@@ -115,7 +120,7 @@ export const LandingPage = () => {
               </Grid>
             </Container>
             {/* Galeria */}
-            {/* <Box sx={{ py: 6, bgcolor: "grey.100" }}>
+            <Box sx={{ py: 6, bgcolor: "grey.100" }}>
               <Container>
                 <Typography variant="h4" textAlign="center" gutterBottom>
                   Galeria
@@ -135,7 +140,7 @@ export const LandingPage = () => {
                   ))}
                 </Grid>
               </Container>
-            </Box> */}
+            </Box>
             {/* Depoimentos */}
             <Container sx={{ py: 6 }}>
               <Typography variant="h4" textAlign="center" gutterBottom>

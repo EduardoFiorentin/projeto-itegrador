@@ -28,8 +28,11 @@ export const HandleRequestClasses = () => {
     const theme = useTheme() 
     const { enqueueSnackbar } = useSnackbar();
 
+    
     setIsMenuHidden(false)
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"))
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
 
     
     const navigate = useNavigate()
@@ -96,13 +99,24 @@ export const HandleRequestClasses = () => {
             <BaseLayout title="Solicitações de Agendamento" returnPath="/">
                 <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"}>
                     <Box width={"95%"} height="80vh" maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"}>
-                        <Box sx={{backgroundColor: "primary.main"}} width={"90%"} height={"80%"} ml={"5%"} mt={"5%"} display={"flex"} flexDirection={"column"} alignItems={"center"} gap={2} pt={2} overflow={"auto"}  borderRadius={"16px"}>
-                        
+                        <Box 
+                            sx={{backgroundColor: "primary.main"}} 
+                            width={"90%"} 
+                            height={"80%"} 
+                            ml={"5%"} 
+                            mt={"5%"} 
+                            display={"flex"} 
+                            flexDirection={"column"} 
+                            alignItems={"center"} 
+                            gap={2} pt={2} 
+                            overflow={"auto"} 
+                            borderRadius={"16px"}>
+
                             {data.length != 0 ? (
                                 data.map((sch) => (
                                    
-                                    <Box width={"95%"} minHeight={"90px"} display={"flex"} sx={{backgroundColor: "primary.dark"}}>
-                                        <Box height={"100%"} width={"25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} gap={0} >
+                                    <Box width={"95%"} minHeight={smDown ? "auto" : "90px"} display={"flex"} sx={{backgroundColor: "primary.dark"}} flexDirection={smDown ? "column" : "row"} gap={smDown ? 2 : 0} p={smDown ? 2 : 0}>
+                                        <Box height={"100%"} width={smDown ? "auto" :"25%"} display={"flex"} flexDirection={smDown ? "row" : "column"} justifyContent={smDown ? "space-evenly" : "center"} alignItems={"center"} gap={0} >
                                             <Box>
                                                 <Typography variant="body1">{sch.wday}</Typography>
                                                 <Typography variant="body1">{sch.data.split("T")[0]}</Typography> 
@@ -112,27 +126,27 @@ export const HandleRequestClasses = () => {
                                                 <Typography variant="body1">{`${sch.starth.split(":")[0]}:${sch.starth.split(":")[1]} - ${sch.endh.split(":")[0]}:${sch.endh.split(":")[1]}`}</Typography> 
                                             </Box>
                                         </Box>
-                                        <Box height={"100%"} width={ "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
+                                        <Box height={"100%"} width={smDown ? "auto" : "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
                                             <Box>
-                                                <Typography variant="h6">{sch.modality}</Typography> 
+                                                <Typography variant={smDown ? "h6" : "h5"} fontWeight={"bold"}>{sch.modality}</Typography> 
                                             </Box>
                                             <Box display={"flex"} justifyContent={"space-around"} alignContent={"center"} gap={5}>
                                                 <Typography variant="body1">Prof. {sch.teacher_name}</Typography> 
-                                                <Typography variant="body1">Al. {sch.student_name }</Typography> 
+                                                <Typography variant="body1">Al. {sch.student_name }</Typography>
                                             </Box>
                                             {/* <Typography variant="h5" fontWeight={"bold"}>{sch.teacher_name}</Typography> */}
                                         </Box>
-                                        <Box height={"100%"} width={"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={2}>
+                                        <Box height={"100%"} width={smDown ? "auto" :"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={2}>
                                             {/* <Typography variant="h5" display={"flex"} justifyContent={"center"} alignItems={"center"} fontSize={20}>
                                                 
                                             </Typography> */}
                                             <Box>
-                                                <Button sx={{backgroundColor: "#46FF3Dbb"}} onClick={() => handleRequest(sch, "accepted")}>
+                                                <Button sx={{backgroundColor: "#46FF3Ddd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "accepted")}>
                                                     <CheckIcon color="primary"/>
                                                 </Button>
                                             </Box>
                                             <Box>
-                                                <Button sx={{backgroundColor: "#FF3D40bb"}} onClick={() => handleRequest(sch, "rejected")}>
+                                                <Button sx={{backgroundColor: "#FF3D40dd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "rejected")}>
                                                     <ClearIcon color="primary"/>
                                                 </Button>
                                             </Box>

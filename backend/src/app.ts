@@ -43,18 +43,18 @@ app.use("/acess", acessRoutes)
 app.use("/modality", modalityRoutes)
 
 app.use("/admin/new-user", 
-	requireJWTAuth, 
+	// requireJWTAuth, 
 	
 	async (req: Request, res: Response) => {
 
 	try {
 		console.log(req.user)
-		const { name, cpf, email, password, role } = req.body
+		const { name, cpf, email, password, role, dtbirth, address, pnumber, accesscode } = req.body
 	
 		const salt = bcrypt.genSaltSync(10);
 		const hashedPasswd = bcrypt.hashSync(password, salt);
 	
-		database.none("insert into users(name, cpf, email, password, role) values ($1, $2, $3, $4, $5)", [name, cpf, email, hashedPasswd, role])
+		database.none("insert into users(name, cpf, email, password, role, dtbirth, address, pnumber, accesscode) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [name, cpf, email, hashedPasswd, role, dtbirth, address, pnumber, accesscode])
 	
 		res.status(200).send("Usuário cadastrado") 
 	} 

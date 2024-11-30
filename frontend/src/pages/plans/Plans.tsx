@@ -86,7 +86,7 @@ export const Plans = () => {
                 <Box width={"95%"} maxHeight="80vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"} overflow={"auto"}>
                     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={4}>
                         <Typography variant="h4" textAlign={"center"}>Planos</Typography>
-                        <Box width={"50%"} display={"flex"} flexDirection={"column"} gap={3}>
+                        <Box width={smDown ? "90%" : "50%"} display={"flex"} flexDirection={"column"} gap={3}>
                             <TextField label="CPF do Aluno" color="secondary" {...register("user_cpf", {required: true})}/>
                             <Select color="secondary" label="Plano" {...register("plan_code", {required: true})} defaultValue={0}>
                                         <MenuItem value={0}>Nenhum</MenuItem>

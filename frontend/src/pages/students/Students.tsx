@@ -89,8 +89,8 @@ export const Students = () => {
 
     return (
         <BaseLayout title="Alunos" returnPath="/">
-            <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"} justifyContent={"center"}>
-                <Box width={"95%"} maxHeight="80vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"} overflow={"auto"}>
+            <Box display={"flex"} gap={2} flexDirection={lgDown ? "column-reverse" : "row"} justifyContent={"center"} alignItems={lgDown ? "center" : "flex-start"}>
+                <Box width={"95%"} maxHeight="75vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"} overflow={"auto"}>
                     {
                         btnSelect == 1 ? (
 
@@ -122,7 +122,7 @@ export const Students = () => {
 
                             <Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={4}>
                                 <Typography variant="h4" textAlign={"center"}>Pesquisar aluno</Typography>
-                                <Box width={"50%"} display={"flex"} flexDirection={"column"} gap={3}>
+                                <Box width={smDown ? "90%" : "50%"} display={"flex"} flexDirection={"column"} gap={3}>
                                     <TextField label="Nome" color="secondary"/>
                                     <Button variant={"contained"} color="secondary">Pesquisar</Button>
                                 </Box>
@@ -134,7 +134,7 @@ export const Students = () => {
                         )
                     }
                 </Box>
-                <Box width={"250px"} height={"100px"} display={"flex"} flexDirection={"column"} gap={2}>
+                <Box width={lgDown ? "100%" : "250px"} height={lgDown ? "auto" : "100px"} display={"flex"} flexDirection={lgDown ? "row" : "column"} gap={2} justifyContent={"center"}>
                     <Button variant={btnSelect == 1 ? "contained": "outlined"} onClick={() => setBtnSelect(1)} color="secondary">Cadastrar</Button>
                     <Button variant={btnSelect == 1 ? "outlined": "contained"} onClick={() => setBtnSelect(2)} color="secondary">Pesquisar</Button>
                 </Box>

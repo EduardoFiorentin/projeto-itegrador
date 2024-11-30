@@ -80,7 +80,7 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                         <Box width={"40%"}> 
                             <Typography height={theme.spacing(2)} fontSize={12}>Olá,</Typography>
                         </Box>
-                        <Typography variant="h5">{user && user.name}</Typography>
+                        <Typography variant="h5">{user && user.name.split(" ")[0]}</Typography>
 
                     </Box>
 

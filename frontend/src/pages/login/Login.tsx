@@ -162,16 +162,16 @@ export const Login = () => {
             </Box>
             <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>
                 <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("secretaria")
-                    setPassword("secretaria")
+                    setEmail("emanuela@gmail.com")
+                    setPassword("emanuela")
                 }}>Secretaria</Button>
                 <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("professor")
-                    setPassword("professor")
+                    setEmail("joao@gmail.com")
+                    setPassword("joao")
                 }}>Professor</Button>
                 <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("aluno")
-                    setPassword("aluno")
+                    setEmail("fabricio@gmail.com")
+                    setPassword("fabricio")
                 }}>Aluno</Button>
             </Box>
         </Box>

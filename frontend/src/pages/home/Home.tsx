@@ -64,12 +64,15 @@ export const Home = () => {
     return (
         user && (
             <BaseLayout title="Inicio" returnPath="/">
-                <Typography variant="h4" sx={{
+                <Box sx={{
                     backgroundColor: "inherit"
-                }}>
+                }}
+                display={"flex"}
+                justifyContent={"center"}
+                >
                     {
-                        user.role === 1 || user.role == 2 ? 
-                        (
+                         
+                         (user.role === 1 || user.role == 2) && (
                             <Box 
                                 width={mdDown ? "100vw" : "95%"} 
                                 height={mdDown ? "auto" : "75vh"} 
@@ -77,7 +80,7 @@ export const Home = () => {
                                 pt={"20px"} 
                                 // justifySelf={"center"}
                                 // m={"auto"}
-                                sx={{ backgroundColor: "red" }} 
+                                // sx={{ backgroundColor: "red" }} 
                                 borderRadius={"16px"}
                                 textAlign={"center"}
                                 // display={"flex"}
@@ -85,12 +88,13 @@ export const Home = () => {
                                 // alignItems={"center"}
                                 // justifyContent={"center"}
                                 p={1}
+
                                 >
                                     <Box 
                                         display={"flex"} 
                                         flexDirection={mdDown ? "column" : "row"} 
                                         width={"100%"} 
-                                        height={"48%"}
+                                        height={mdDown ? "auto" : "48%"}
                                         gap={2} // Adiciona um espaço entre os blocos
                                     >
                                         {/* Bloco da esquerda */}
@@ -148,10 +152,10 @@ export const Home = () => {
                                         borderRadius={"8px"}
                                         >
                                             <Typography variant="subtitle1" sx={{ padding: "8px" }}>Solicitações de aulas em Aberto</Typography>
-                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center" justifyContent="center">
+                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center">
                                                 {
                                                     data !== null ? (
-                                                        data.open_requests.map(item => (
+                                                        data.open_requests.length !== 0 ? data.open_requests.map(item => (
                                                             <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
                                                                 <Box>
                                                                     <Typography>
@@ -164,7 +168,9 @@ export const Home = () => {
                                                                     </Typography>
                                                                 </Box>
                                                             </Box>
-                                                        ))
+                                                        )) : (
+                                                            <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
+                                                        )
                                                     ) : (
                                                         <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                     )
@@ -191,11 +197,12 @@ export const Home = () => {
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
                                         maxWidth={"500px"}
-                                        overflow={"auto"}
-
+                                        
+                                        // mt={}
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px", backgroundColor: "primary.dark" }}>Aulas do Dia</Typography>
-                                        <Box width="100%" minHeight="80%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"}> 
+                                        
+                                        <Box width="100%" minHeight="80%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} overflow={"auto"}> 
                                             {
                                                 data !== null ? (
                                                     <>
@@ -265,13 +272,10 @@ export const Home = () => {
                                 </Box>
                             </Box>
                         ) 
-                        : 
-                        (
-                            <>Aluno</>
-                        )
+                        
                         
                     }
-            </Typography>
+            </Box>
         </BaseLayout>
         
     ))

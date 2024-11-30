@@ -1,24 +1,24 @@
 export function addMonthsToDate(dateString: string, monthsToAdd: number): string {
-    const originalDate = new Date(dateString);
+    const [year, month, day] = dateString.split("-").map(Number);
+    const date = new Date(year, month - 1, day);
 
-    if (isNaN(originalDate.getTime())) {
+    if (isNaN(date.getTime())) {
         throw new Error("Data inválida no formato yyyy-mm-dd.");
     }
 
-    const year = parseInt(dateString.split("-")[0]);
-    const month = parseInt(dateString.split("-")[1]);
-    const day = parseInt(dateString.split("-")[2]);
+    const newMonth = date.getMonth() + monthsToAdd;
+    const newYear = date.getFullYear() + Math.floor(newMonth / 12);
+    const adjustedMonth = newMonth % 12;
 
-    console.log("Ano original: ", year, month, day)
+    const adjustedDate = new Date(newYear, adjustedMonth, day);
 
-    const sum_month = month + monthsToAdd
-    const new_month = sum_month % 12
-    const add_year = Math.floor(sum_month / 12)
+    if (adjustedDate.getMonth() !== adjustedMonth) {
+        adjustedDate.setDate(0); 
+    }
 
-    console.log(sum_month, new_month, add_year)
+    const resultYear = adjustedDate.getFullYear();
+    const resultMonth = String(adjustedDate.getMonth() + 1).padStart(2, "0");
+    const resultDay = String(adjustedDate.getDate()).padStart(2, "0");
 
-    const final_year = (year + add_year).toString().padStart(2, "0");
-    const final_month = new_month.toString().padStart(2, "0");
-
-    return `${final_year}-${final_month}-${day}`;
+    return `${resultYear}-${resultMonth}-${resultDay}`;
 }
