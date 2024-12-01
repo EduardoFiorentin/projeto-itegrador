@@ -15,7 +15,8 @@ type Inputs = {
     birth_date: string,
     address: string,
     phone_number: string,
-    plan_code: string
+    plan_code: string,
+    accesscode: string
 }
 
 interface IPlan {
@@ -104,6 +105,7 @@ export const Students = () => {
                                     <TextField label="Data de Nascimento" color="secondary" type="date" variant="outlined" {...register("birth_date", {required: true})}/>
                                     <TextField label="Endereço" color="secondary" {...register("address", {required: true})}/>
                                     <TextField label="Telefone" color="secondary" type="tel" {...register("phone_number", {required: true})}/>
+                                    <TextField label="Codigo de Acesso" color="secondary" type="text" {...register("accesscode", {required: true})}/>
 
                                     <Select color="secondary" label="Plano" {...register("plan_code", {required: true})}>
                                         <MenuItem value={0}>Nenhum</MenuItem>

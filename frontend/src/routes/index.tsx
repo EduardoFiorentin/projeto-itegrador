@@ -10,7 +10,7 @@ import { Plans } from "../pages/plans/Plans"
 
 export const Router = () => {
 
-    const {setMenuOptions, isMenuOpen, toggleMenuOpen} = useMenuContext()
+    const {setMenuOptions } = useMenuContext()
 
     const {user} = useUserInfoContext()
 
@@ -33,7 +33,7 @@ export const Router = () => {
         ] // PROFESSOR 
         
         const menu_options_3 = [
-            {label: "Inicio", icon: "home", path: "/inicio"},
+            // {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
             {label: "Agendamento", icon: "star", path: "/agendamento"},
             {label: "Meu Plano", icon: "star", path: "star"},

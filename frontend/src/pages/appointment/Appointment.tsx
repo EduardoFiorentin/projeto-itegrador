@@ -68,6 +68,13 @@ export const Appointment = () => {
         })
         .catch(err => {
             console.log("Erro ao pegar professores", err)
+            if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else {
+                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+            }
         })
     }
 
@@ -85,7 +92,14 @@ export const Appointment = () => {
             setSchedules(data.data)
         })
         .catch(err => {
-            console.log("Erro ao pegar horarios", err)
+            console.log(err)
+            if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else {
+                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+            }
         })
     }
 
@@ -102,6 +116,14 @@ export const Appointment = () => {
         })
         .catch(err => {
             console.log("Erro ao pegar modalidades", err)
+            console.log(err)
+            if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else {
+                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+            }
         })
     }
 
@@ -119,6 +141,14 @@ export const Appointment = () => {
             })
             .catch(err => {
                 console.log("Erro ao pegar modalidades", err)
+                console.log(err)
+                if (err.response.status === 401) {
+                    enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                    navigate("/entrar")
+                }
+                else {
+                    enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+                }
             })
     }
 
@@ -131,6 +161,12 @@ export const Appointment = () => {
         console.log("Operador: ", classType)
 
         if (classType == 1) {
+
+            // evitar agendamentos no domingo 
+            if (new Date(date).getDay() + 1 === 7) {
+                enqueueSnackbar("Não é possível agendar aulas nos Domingos!", {variant: "warning"})
+                return
+            }
 
             const mod = modality.filter(mod => mod.name == chModality)
             // console.log(mod)
@@ -153,11 +189,17 @@ export const Appointment = () => {
             })
             .then(data => {
                 enqueueSnackbar("Solicitação de aula enviada!", {variant: "success"})
+                getSchedules()
             })
             .catch(err => {
                 console.log(err)
-                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
-                
+                if (err.response.status === 401) {
+                    enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                    navigate("/entrar")
+                }
+                else {
+                    enqueueSnackbar(err.response.data, {variant: "error"})
+                }
             }) 
         } 
         else if (classType == 2) {
@@ -187,7 +229,11 @@ export const Appointment = () => {
                 })
                 .catch(err => {
                     console.log(err)
-                    enqueueSnackbar(err.response.data, {variant: "error"})
+                    if (err.response.status === 401) {
+                        enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                        navigate("/entrar")
+                    }
+                    else {enqueueSnackbar(err.response.data, {variant: "error"})}
                 })
             }
         } 

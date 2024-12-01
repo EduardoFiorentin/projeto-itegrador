@@ -29,7 +29,7 @@ export const Home = () => {
     const theme = useTheme() 
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
-    
+      
     setIsMenuHidden(false)
 
     const {user} = useUserInfoContext()
@@ -40,9 +40,7 @@ export const Home = () => {
         if (user == null) navigate('/entrar')
     }, [user])
 
-    useEffect(() => {
-    getData()   
-    }, []) 
+    useEffect(() => {getData()}, []) 
 
 
     const getData = async () => {
@@ -57,7 +55,13 @@ export const Home = () => {
         })
         .catch(data => {
             console.log("deu Errado: ", data)
-            enqueueSnackbar("Não foi possível carregar os dados!", {variant: "error"})
+            if (data.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else {
+                enqueueSnackbar("Não foi possível carregar os dados!", {variant: "error"})
+            }
         })
     }
 
@@ -77,16 +81,9 @@ export const Home = () => {
                                 width={mdDown ? "100vw" : "95%"} 
                                 height={mdDown ? "auto" : "75vh"} 
                                 maxWidth={"800px"} 
-                                pt={"20px"} 
-                                // justifySelf={"center"}
-                                // m={"auto"}
-                                // sx={{ backgroundColor: "red" }} 
+                                pt={"20px"}  
                                 borderRadius={"16px"}
                                 textAlign={"center"}
-                                // display={"flex"}
-                                // flexDirection={"column"}
-                                // alignItems={"center"}
-                                // justifyContent={"center"}
                                 p={1}
 
                                 >
@@ -95,14 +92,14 @@ export const Home = () => {
                                         flexDirection={mdDown ? "column" : "row"} 
                                         width={"100%"} 
                                         height={mdDown ? "auto" : "48%"}
-                                        gap={2} // Adiciona um espaço entre os blocos
+                                        gap={2} 
                                     >
                                         {/* Bloco da esquerda */}
                                         <Box 
                                         display={"flex"} 
                                         flexDirection={"column"} 
                                         gap={2} 
-                                        width={mdDown ? "100%" : "50%"} // Ocupa metade da largura
+                                        width={mdDown ? "100%" : "50%"} 
                                         >
                                         <Box 
                                             width={"100%"} 
@@ -145,7 +142,7 @@ export const Home = () => {
 
                                         {/* Bloco da direita */}
                                         <Box 
-                                        width={mdDown ? "100%" : "50%"} // Ocupa metade da largura
+                                        width={mdDown ? "100%" : "50%"}
                                         maxWidth={"500px"}
                                         height={"100%"} 
                                         sx={{ backgroundColor: "primary.dark" }}
@@ -184,7 +181,7 @@ export const Home = () => {
                                     <Box 
                                     display={"flex"} 
                                     flexDirection={mdDown ? "column" : "row"} 
-                                    width={"100%"} // Metade da largura
+                                    width={"100%"}
                                     height={"45%"}
                                     mt={3}
                                     gap={2}
@@ -197,12 +194,11 @@ export const Home = () => {
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
                                         maxWidth={"500px"}
-                                        
-                                        // mt={}
+                                        overflow={"auto"}
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px", backgroundColor: "primary.dark" }}>Aulas do Dia</Typography>
                                         
-                                        <Box width="100%" minHeight="80%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} overflow={"auto"}> 
+                                        <Box width="100%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} > 
                                             {
                                                 data !== null ? (
                                                     <>
@@ -214,6 +210,7 @@ export const Home = () => {
                                                                         data.today_classes_list.map(item => (
                                                                             <Box 
                                                                                 width={"90%"} 
+                                                                                // height={"auto"}
                                                                                 minHeight={smDown ? "auto" : "70px"} 
                                                                                 sx={{backgroundColor: "primary.light"}} 
                                                                                 display={"flex"} flexDirection={smDown ? "column" : "row"} 
@@ -225,7 +222,7 @@ export const Home = () => {
                                                                                 >
                                                                                 <Box>
                                                                                     <Typography>
-                                                                                        Prof. {item.teacher}
+                                                                                        Prof. {item.teacher.split(" ")[0]}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>

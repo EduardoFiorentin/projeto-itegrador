@@ -45,7 +45,9 @@ export const Login = () => {
                 localStorage.setItem("na_token", data.data.token)
                 console.log(data.data)
                 setUser(data.data)
-                navigate("/inicio")
+
+                if (data.data.role === 1 || data.data.role === 2 ) navigate("/inicio")
+                else navigate("/horarios")
                 
                 console.log("Sucesso", data)
             })

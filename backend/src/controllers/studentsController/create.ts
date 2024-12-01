@@ -2,11 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 import { addMonthsToDate } from "../../utils/addMonthsToDate";
+import bcrypt from "bcrypt";
+
 
 export const createStudentValidate = async (req: Request, res: Response, next: NextFunction,) => {
     try {
 
-        const { name, cpf, email, password, birth_date, address, phone_number, plan_code } = req.body
+        const { name, cpf, email, password, birth_date, address, phone_number, plan_code, accesscode } = req.body
         const role = req.user?.role
         
         if (role && role != "1") {
@@ -15,7 +17,7 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
         }
         
         if (
-            !name || !cpf || !email || !password || !birth_date || !address || !phone_number || !plan_code || 
+            !name || !cpf || !email || !password || !birth_date || !address || !phone_number || !plan_code || !accesscode ||
             cpf.length != 11
 
         ) {
@@ -46,20 +48,20 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
 export const createStudent = async (req: Request, res: Response) => {
     try {
 
-        const { name, cpf, email, password, birth_date, address, phone_number, plan } = req.body
+        const { name, cpf, email, password, birth_date, address, phone_number, plan, accesscode } = req.body
+
+        const salt = bcrypt.genSaltSync(10);
+		const hashedPasswd = bcrypt.hashSync(password, salt);
 
         // cadastrar usuário 
-        await database.none(`
-                INSERT INTO users (name, cpf, email, password, role, dtbirth, address, pnumber) 
-                VALUES ($1, $2, $3, $4, 3, $5, $6, $7);
-            `, [name, cpf, email, password, birth_date, address, phone_number])
+        database.none("insert into users(name, cpf, email, password, role, dtbirth, address, pnumber, accesscode) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [name, cpf, email, hashedPasswd, 3, birth_date, address, phone_number, accesscode])
+
 
        
         // cadastrar plano contratado 
 
         const today = new Date().toISOString().split("T")[0]    
 
-        console.log("Antes: ", today, plan.months)
 
         const new_date = addMonthsToDate(today, parseInt(plan.months))
 

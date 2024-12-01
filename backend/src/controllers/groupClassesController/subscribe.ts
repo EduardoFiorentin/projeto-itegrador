@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
+import { getClassesNumPerWeek } from "../../utils/getClassesNumPerWeek";
+import { getStudentActivePlan } from "../../utils/getStudentActivePlan";
 
 export const subscribeValidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,10 +25,8 @@ export const subscribeValidate = async (req: Request, res: Response, next: NextF
             res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
             return
         }
-
-
         
-        // Verificação do nome do professor
+        // Verificação do cpf do aluno
         const student = await database.oneOrNone("SELECT cpf FROM users WHERE email = $1;", [student_email])
         if (!student) {
             res.status(StatusCodes.BAD_REQUEST).send("Aluno não encontrado!")
@@ -49,6 +49,25 @@ export const subscribe = async (req: Request, res: Response) => {
     try {
 
         const { wday, starth, endh, student_cpf, date, present } = req.body
+        const today = new Date().toISOString().split("T")[0] 
+
+        // verifica se há um plano ativo 
+        const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
+
+        if (!active) {
+            res.status(StatusCodes.BAD_REQUEST).send("Não há plano ativo no momento!")
+            return
+        }
+
+        // verifica se o limite de inscrições em aulas da semana não excede o limite 
+        const num_classes = await getClassesNumPerWeek(date, student_cpf)
+
+        console.log("Numero de classes: ", num_classes, limit_acess)
+
+        if (num_classes + 1 > limit_acess) {
+            res.status(StatusCodes.BAD_REQUEST).send("Você atingiu o limite de aulas semanais!")
+            return
+        }
 
         await database.none(`
                 INSERT INTO classes_student (wday, starth, endh, student_cpf, date, present) 
@@ -72,4 +91,4 @@ export const subscribe = async (req: Request, res: Response) => {
 
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.")
     }
-}
+} 

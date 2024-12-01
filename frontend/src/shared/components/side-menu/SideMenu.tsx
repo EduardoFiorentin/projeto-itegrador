@@ -99,7 +99,7 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                                         icon={menuOption.icon}
                                         to={menuOption.path}
                                         label={menuOption.label} 
-                                        onClick={smDown ? toggleMenuOpen : undefined}
+                                        onClick={mdDown ? toggleMenuOpen : undefined}
                                     />
                                 ))
                             }

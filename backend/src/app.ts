@@ -54,13 +54,14 @@ app.use("/admin/new-user",
 		const salt = bcrypt.genSaltSync(10);
 		const hashedPasswd = bcrypt.hashSync(password, salt);
 	
-		database.none("insert into users(name, cpf, email, password, role, dtbirth, address, pnumber, accesscode) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [name, cpf, email, hashedPasswd, role, dtbirth, address, pnumber, accesscode])
+		await database.none("insert into users(name, cpf, email, password, role, dtbirth, address, pnumber, accesscode) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [name, cpf, email, hashedPasswd, role, dtbirth, address, pnumber, accesscode])
 	
 		res.status(200).send("Usuário cadastrado") 
 	} 
 	catch (err) {
 		res.status(400).send("Usuário não cadastrado")
-	}
+		return
+	}  
 
 })
 

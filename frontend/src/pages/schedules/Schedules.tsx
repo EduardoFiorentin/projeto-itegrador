@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../shared/services";
 import { ISchedules } from "../../shared/Interfaces/ISchedules";
-import { useUserInfoContext } from "../../shared/contexts";
+import { useMenuContext, useUserInfoContext } from "../../shared/contexts";
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,6 +21,8 @@ export const Schedules = () => {
     const {user} = useUserInfoContext()
     const navigate = useNavigate()
 
+    const { setIsMenuHidden } = useMenuContext()
+    setIsMenuHidden(false)
 
     const getWeekDay = (data: Date) => {
         const texto = data.toLocaleDateString('pt-BR', { weekday: 'long' });
@@ -121,13 +123,13 @@ export const Schedules = () => {
                     </Box>
                     <Box sx={{backgroundColor: "primary.main"}} width={"90%"} height={"70%"} ml={"5%"} mt={"5%"} display={"flex"} flexDirection={"column"} alignItems={"center"} gap={2} pt={2} borderRadius={"16px"} overflow={"auto"} >
                     
-                        {data ? (
+                        {(data && day !== "Domingo") ? (
                             data.map( (sch) => (
                                 sch.teacher_name ? (
                                 <Box width={"95%"} minHeight={smDown ? "170px" : "70px"} display={"flex"} sx={{backgroundColor: "primary.dark"}} flexDirection={smDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"} gap={smDown ? 2 : 0}>
                                     <Box height={smDown ? "auto" : "100%"} width={smDown ? "auto" : "25%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}  >
                                         <Typography fontSize={mdDown ? 15 : 15}>{sch.starth + " : " + sch.endh}</Typography>
-                                        <Typography variant="h6">Prof. {sch.teacher_name}</Typography>
+                                        <Typography variant="h6">Prof. {sch.teacher_name.split(" ")[0]}</Typography>
                                     </Box>
                                     <Box height={smDown ? "auto" : "100%"} width={smDown ? "auto" :  "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                                         <Typography variant="h6" fontWeight={"bold"}>{sch.modality_name}</Typography>
@@ -163,7 +165,7 @@ export const Schedules = () => {
                             )
                         )) : (
                             <Typography>
-                                Sem dados
+                                {day === "Domingo" ? "Sem horarios para o Domingo" : "Sem dados"}
                             </Typography>
                         )}
 
