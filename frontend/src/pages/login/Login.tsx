@@ -30,9 +30,8 @@ export const Login = () => {
         }, 1000)
     }
 
-    const {user, setUser} = useUserInfoContext()
+    const { setUser } = useUserInfoContext()
 
-    // console.log(user)
 
     // Controle de login
     const [email, setEmail] = useState<string>("")
