@@ -60,51 +60,7 @@ export const Login = () => {
     // Desabilitar menu
     useEffect(() => {
         setIsMenuHidden(true)
-        // setEmail("secretaria")
-        // setPassword("secretaria")
     }, [])
-
-    // useEffect(() => handleLogin(), [password])
-
-
-    // opções de menu
-    // const {setMenuOptions, isMenuOpen, toggleMenuOpen} = useMenuContext()
-
-    // useEffect(() => {
-
-    //     const menu_options_1 = [
-    //         {label: "Inicio", icon: "home", path: "/inicio"},
-    //         {label: "Horários", icon: "star", path: "/horarios"},
-    //         {label: "Alunos", icon: "star", path: "/alunos"},
-    //         // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
-    //         {label: "Solicitações", icon: "star", path: "/solicitacoes"},
-    //         {label: "Planos", icon: "star", path: "/planos"},                // novo plano / contratação de planos
-    //     ] // SECRETÁRIA
-
-    //     const menu_options_2 = [
-    //         {label: "Inicio", icon: "home", path: "/inicio"},
-    //         {label: "Horários", icon: "star", path: "/horarios"},
-    //         // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
-    //         {label: "Solicitações", icon: "star", path: "/solicitacoes"},
-    //     ] // PROFESSOR 
-        
-    //     const menu_options_3 = [
-    //         {label: "Inicio", icon: "home", path: "/inicio"},
-    //         {label: "Horários", icon: "star", path: "/horarios"},
-    //         {label: "Agendamento", icon: "star", path: "/agendamento"},
-    //         {label: "Meu Plano", icon: "star", path: "star"},
-    //         // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
-    //     ] // ALUNOS
-
-    //     setMenuOptions (menu_options_3)
-    //     // if (user) {
-    //     //     if (user.role == 1) setMenuOptions(menu_options_1)
-    //     //     if (user.role == 2) setMenuOptions(menu_options_2)
-    //     //     if (user.role == 3) setMenuOptions(menu_options_3)
-    //     // }
-
-
-    // }, [user])
 
     return (
         <Box 
@@ -126,8 +82,8 @@ export const Login = () => {
                 border={1}
                 borderColor={"secondary.light"}
                 boxShadow={2}
-                height={"50%"}
-                width={smDown ? "100%" : mdDown ? "70%" : "40%"}
+                // height={"50%"}
+                width={smDown ? "auto" : mdDown ? "70%" : "40%"}
                 maxWidth={"500px"}
                 borderRadius={"40px"}
                 alignSelf={"center"}
@@ -136,13 +92,14 @@ export const Login = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
                 p={"30px"}
+                // m={"40px"}
                 gap={4}
             > 
                 <Typography  variant={smDown ? "h5" : "h4"} component="h2" textAlign={"center"}>
                     Entrar no sistema
                 </Typography>
 
-                <Box display={"flex"} flexDirection={"column"} gap={2} width={"80%"}>
+                <Box display={"flex"} flexDirection={"column"} gap={2} width={smDown ? "100%" : "80%"}>
                     <TextField label="Email" type="text" value={email} onChange={event => setEmail(event.target.value)} color="secondary"/>
                     <TextField label="Senha" type="password" value={password} onChange={event => setPassword(event.target.value)}  color="secondary"/>
                 </Box>
@@ -151,7 +108,7 @@ export const Login = () => {
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
                         <Button variant="contained"  color="secondary" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
                     </Box>
-                    <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
+                    {/* <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
                         <Button variant="outlined" color="secondary" onClick={handleRequestChangePassword} disabled={buttonsDisable}>
                             
                                 <Typography variant="button" color="inherit">
@@ -159,7 +116,7 @@ export const Login = () => {
                                 </Typography>
                         
                         </Button>
-                    </Box>
+                    </Box> */}
                 </Box>
             </Box>
             <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>

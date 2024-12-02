@@ -18,25 +18,25 @@ export const Router = () => {
     useEffect(() => {
         const menu_options_1 = [
             {label: "Inicio", icon: "home", path: "/inicio"},
-            {label: "Horários", icon: "star", path: "/horarios"},
-            {label: "Alunos", icon: "star", path: "/alunos"},
+            {label: "Horários", icon: "access_time", path: "/horarios"},
+            {label: "Alunos", icon: "book", path: "/alunos"},
             // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
-            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
-            {label: "Planos", icon: "star", path: "/planos"},                // novo plano / contratação de planos
+            {label: "Solicitações", icon: "event", path: "/solicitacoes"},
+            {label: "Planos", icon: "view_list", path: "/planos"},                // novo plano / contratação de planos
         ] // SECRETÁRIA
       
         const menu_options_2 = [
             {label: "Inicio", icon: "home", path: "/inicio"},
-            {label: "Horários", icon: "star", path: "/horarios"},
+            {label: "Horários", icon: "access_time", path: "/horarios"},
             // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
-            {label: "Solicitações", icon: "star", path: "/solicitacoes"},
+            {label: "Solicitações", icon: "event", path: "/solicitacoes"},
         ] // PROFESSOR 
         
         const menu_options_3 = [
             // {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
-            {label: "Agendamento", icon: "star", path: "/agendamento"},
-            {label: "Meu Plano", icon: "star", path: "star"},
+            {label: "Agendamento", icon: "event", path: "/agendamento"},
+            {label: "Meu Plano", icon: "view_list", path: "star"},
             // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
         ] // ALUNOS
       
