@@ -100,7 +100,7 @@ export const createRequestClass = async (req: Request, res: Response) => {
 
         console.log("Numero de classes: ", num_classes, limit_acess)
 
-        if (num_classes + 1 > limit_acess) {
+        if (num_classes + 1 > limit_acess && limit_acess !== -1) {
             res.status(StatusCodes.BAD_REQUEST).send("Você atingiu o limite de aulas semanais!")
             return
         }

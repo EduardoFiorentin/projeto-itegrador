@@ -6,6 +6,7 @@ import { getDayFromDate } from "../../shared/utils"
 import { useSnackbar } from "notistack"
 import { useUserInfoContext } from "../../shared/contexts"
 import { useNavigate } from "react-router-dom"
+import { isValidFutureDate } from "../../shared/utils/isValidFutureDate"
 
 export const Appointment = () => {
     
@@ -81,6 +82,14 @@ export const Appointment = () => {
     const getSchedules = async () => {
 
         console.log("Data enviada: ", {date, day: getDayFromDate(date)})
+
+        if (!isValidFutureDate(date) || getDayFromDate(date) === "Domingo") {
+            console.log("Reset tudo   ....")
+            setSchedules([])
+            // setModality([])
+            setGroupClasses([])
+            return
+        }
 
         api.post("schedules/getFreeSchedulesByDate", {date, day: getDayFromDate(date)}, {
             headers: {
@@ -189,7 +198,7 @@ export const Appointment = () => {
             })
             .then(data => {
                 enqueueSnackbar("Solicitação de aula enviada!", {variant: "success"})
-                getSchedules()
+                // getSchedules()
             })
             .catch(err => {
                 console.log(err)
@@ -198,7 +207,7 @@ export const Appointment = () => {
                     navigate("/entrar")
                 }
                 else {
-                    enqueueSnackbar(err.response.data, {variant: "error"})
+                    enqueueSnackbar(err.response.data, {variant: "warning"})
                 }
             }) 
         } 

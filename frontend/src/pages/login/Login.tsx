@@ -3,6 +3,7 @@ import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
 import { Box, Button, CircularProgress, Icon, TextField, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { api } from "../../shared/services"
+import { useSnackbar } from "notistack"
 
 
 
@@ -10,6 +11,7 @@ export const Login = () => {
 
     const { setIsMenuHidden } = useMenuContext()
     const navigate = useNavigate()
+    const { setUser } = useUserInfoContext()
 
     const theme = useTheme()
     const smDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -19,6 +21,11 @@ export const Login = () => {
     const [btn_2_Loading, setBtn_2_Loading] = useState<boolean>(false)
     const [buttonsDisable, setButtonsDisable] = useState<boolean>(false)
     
+    // Controle de login
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleRequestChangePassword = async () => {
         setButtonsDisable(true)
@@ -30,13 +37,6 @@ export const Login = () => {
         }, 1000)
     }
 
-    const { setUser } = useUserInfoContext()
-
-
-    // Controle de login
-    const [email, setEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
-    
     const handleLogin = () => {
         if (email && password) {
             api.post("/auth/login", {email: email, password: password})
@@ -52,6 +52,15 @@ export const Login = () => {
             })
             .catch((err) => {
                 console.log("Falha", err)
+                if (err.code === "ERR_BAD_REQUEST") {
+                    enqueueSnackbar("Email ou Senha inválidos!", {variant: "error"})
+                }
+                else if (err.code === "ERR_NETWORK") {
+                    enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+                }
+                else {
+                    enqueueSnackbar("Um erro inesperado ocorreu!", {variant: "error"})
+                }
             })
         }
     }

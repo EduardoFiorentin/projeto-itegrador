@@ -34,22 +34,16 @@ export const HandleRequestClasses = () => {
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
 
-    
     const navigate = useNavigate()
     const {user} = useUserInfoContext()
     
     const [data, setData] = useState<IClassRequest[]>([])
-
-    // useEffect(() => {
-    //     if (user == null) navigate('/entrar')
-    // }, [user])
 
     useEffect(() => {
         getClassRequests()
     }, [])
 
     const getClassRequests = () => {
-        // console.log("Data da req: ", reqDate, day)
         api.get("/classes/getall-requestClasses", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
@@ -64,7 +58,6 @@ export const HandleRequestClasses = () => {
 
     const handleRequest = (item: IClassRequest, status: "accepted"|"rejected") => {
         
-        // const data = item
         const requestData = {
             wday: item.wday,
             starth: item.starth,
