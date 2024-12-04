@@ -143,7 +143,7 @@ export const Schedules = () => {
                                                         <>{sch.num_participants}</>
                                                     </>
                                                 ) : (
-                                                    <>Al: {sch.student_name}</>
+                                                    <>Al: {sch.student_name.split(" ")[0]}</>
                                                 )
 
                                             }

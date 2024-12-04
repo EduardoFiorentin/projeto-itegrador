@@ -86,23 +86,24 @@ export const createRequestClass = async (req: Request, res: Response) => {
 
         console.log(modality_code, teacher_cpf, student_cpf, wday, starth, endh)
 
-            // verifica se há um plano ativo 
-            const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
+        // verifica se há um plano ativo e a data solicitada está dentro do plano
+        const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
 
-            if (!active) {
-                res.status(StatusCodes.BAD_REQUEST).send("Não há plano ativo no momento!")
-                return
-            }
-    
-            // verifica se o limite de inscrições em aulas da semana não excede o limite 
-            const num_classes = await getClassesNumPerWeek(date, student_cpf)
-    
-            console.log("Numero de classes: ", num_classes, limit_acess)
-    
-            if (num_classes + 1 > limit_acess) {
-                res.status(StatusCodes.BAD_REQUEST).send("Você atingiu o limite de aulas semanais!")
-                return
-            }
+        
+        if (!active) {
+            res.status(StatusCodes.BAD_REQUEST).send("Data solicitada está fora do limite de um plano ativo.")
+            return
+        }
+
+        // verifica se o limite de inscrições em aulas da semana não excede o limite 
+        const num_classes = await getClassesNumPerWeek(date, student_cpf)
+
+        console.log("Numero de classes: ", num_classes, limit_acess)
+
+        if (num_classes + 1 > limit_acess) {
+            res.status(StatusCodes.BAD_REQUEST).send("Você atingiu o limite de aulas semanais!")
+            return
+        }
 
         await database.none(`
                 INSERT INTO request_classes (status, student_cpf, teacher_cpf, data, wday, starth, endh, modality) 

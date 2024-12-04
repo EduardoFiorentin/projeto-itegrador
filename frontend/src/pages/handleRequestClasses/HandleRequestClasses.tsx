@@ -126,13 +126,13 @@ export const HandleRequestClasses = () => {
                                                 <Typography variant="body1">{`${sch.starth.split(":")[0]}:${sch.starth.split(":")[1]} - ${sch.endh.split(":")[0]}:${sch.endh.split(":")[1]}`}</Typography> 
                                             </Box>
                                         </Box>
-                                        <Box height={"100%"} width={smDown ? "auto" : "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
+                                        <Box height={"100%"} width={smDown ? "auto" : "50%"} display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={1}>
                                             <Box>
                                                 <Typography variant={smDown ? "h6" : "h5"} fontWeight={"bold"}>{sch.modality}</Typography> 
                                             </Box>
                                             <Box display={"flex"} justifyContent={"space-around"} alignContent={"center"} gap={5}>
-                                                <Typography variant="body1">Prof. {sch.teacher_name}</Typography> 
-                                                <Typography variant="body1">Al. {sch.student_name }</Typography>
+                                                <Typography variant="body1">Prof. {sch.teacher_name.split(" ")[0]}</Typography> 
+                                                <Typography variant="body1">Al. {sch.student_name.split(" ")[0]}</Typography>
                                             </Box>
                                             {/* <Typography variant="h5" fontWeight={"bold"}>{sch.teacher_name}</Typography> */}
                                         </Box>

@@ -82,6 +82,21 @@ export const getInfo = async (req: Request, res: Response) => {
 
         data.open_requests = open_requests
 
+        const today_access = await database.manyOrNone(`
+            
+            select  us.name, ah.granted, ah.descr, ah.dttime
+            from access_hist ah join users us on ah.user_cpf=us.cpf
+            where dttime::date = $1 order by ah.dttime desc;
+            
+        `, [today])
+
+        
+        data.today_accesses_list = today_access.map(item => ({
+            ...item,
+            dttime: new Date(item.dttime).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
+        }));
+        
+        console.log(today_access)
         res.status(StatusCodes.OK).json(data)
 
     }

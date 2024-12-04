@@ -1,6 +1,7 @@
 import { database } from "../services";
+import { isDateBetween } from "./isDateBetween";
 
-export async function getStudentActivePlan(cpf: string, today: string): Promise<{limit_acess: number, active: boolean}>  {
+export async function getStudentActivePlan(cpf: string, date: string): Promise<{limit_acess: number, active: boolean}>  {
 
     try {
         const plan = await database.oneOrNone(`
@@ -10,9 +11,10 @@ export async function getStudentActivePlan(cpf: string, today: string): Promise<
                 select max(cdate) from (select * from users_plans where user_cpf=$1)
             ) 
             and up.expdate >= $2;
-        `, [cpf, today])
-    
-        if (plan) {
+        `, [cpf, date])
+
+        // tem plano ativo e a data solicitada está dentro do limite 
+        if (plan && isDateBetween(date, plan.cdate, plan.expdate)) {
             return {
                 active: true,
                 limit_acess: parseInt(plan.num_classes)

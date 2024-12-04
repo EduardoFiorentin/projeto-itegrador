@@ -51,11 +51,11 @@ export const subscribe = async (req: Request, res: Response) => {
         const { wday, starth, endh, student_cpf, date, present } = req.body
         const today = new Date().toISOString().split("T")[0] 
 
-        // verifica se há um plano ativo 
+        // verifica se há um plano ativo e se a data solicitada está coberta por ele 
         const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
 
         if (!active) {
-            res.status(StatusCodes.BAD_REQUEST).send("Não há plano ativo no momento!")
+            res.status(StatusCodes.BAD_REQUEST).send("Data solicitada está fora do limite de um plano ativo.")
             return
         }
 

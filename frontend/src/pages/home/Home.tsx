@@ -21,6 +21,12 @@ interface IDashboardData {
         student: string;
         modality: string;
     }>;
+    today_accesses_list: Array<{
+        name: string;
+        granted: boolean;
+        descr: string,
+        dttime: string
+    }>
 }
 
 export const Home = () => {
@@ -156,7 +162,7 @@ export const Home = () => {
                                                             <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
                                                                 <Box>
                                                                     <Typography>
-                                                                        Prof. {item.student}
+                                                                        Al. {item.student.split(" ")[0]}
                                                                     </Typography>
                                                                 </Box>
                                                                 <Box>
@@ -260,11 +266,38 @@ export const Home = () => {
                                         borderRadius={"8px"}
                                         maxWidth={"500px"}
                                     >
-                                        <Typography variant="subtitle1" sx={{ padding: "8px" }}>Registro de acesso</Typography>
-                                        <Box width="100%" height="auto" display="flex" alignItems="center" justifyContent="center">
-                                            <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há registros</Typography>
-
-                                        </Box>
+                                        <Typography variant="subtitle1" sx={{ padding: "8px" }}>Acessos do dia</Typography>
+                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center">
+                                                {
+                                                    data !== null ? (
+                                                        data.today_accesses_list.length !== 0 ? data.today_accesses_list.map(item => (
+                                                            <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"} px={1}>  
+                                                                <Box minWidth={"70%"} maxWidth={"70%"}>
+                                                                    <Typography variant="body2">
+                                                                        {item.name}
+                                                                    </Typography>
+                                                                </Box>
+                                                                <Box minWidth={"30%"} maxWidth={"30%"}> 
+                                                                    <Typography fontWeight={"bold"}>
+                                                                        {item.granted ? (
+                                                                            <>Autorizado</>
+                                                                        ) : (
+                                                                            <>Negado</>
+                                                                        )}
+                                                                    </Typography>
+                                                                    <Typography fontWeight={"bold"}>
+                                                                        {item.dttime.split(/[.\s]/)[1]}
+                                                                    </Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        )) : (
+                                                            <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
+                                                        )
+                                                    ) : (
+                                                        <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
+                                                    )
+                                                }
+                                            </Box>
                                     </Box>
                                 </Box>
                             </Box>
