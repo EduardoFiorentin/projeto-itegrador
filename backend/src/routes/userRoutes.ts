@@ -28,6 +28,11 @@ userRouter.post("/update-student/:cpf",
     StudentsController.UpdateStudent.updateStudentValidate,
     StudentsController.UpdateStudent.updateStudent
 )
+userRouter.post("/search",
+    requireJWTAuth,
+    StudentsController.Search.searchValidate,
+    StudentsController.Search.search
+)
 
 userRouter.get("/dashbord", 
     requireJWTAuth,

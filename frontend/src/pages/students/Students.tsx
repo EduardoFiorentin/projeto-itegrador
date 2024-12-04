@@ -1,4 +1,4 @@
-import { Button, Select, TextField, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { Autocomplete, Button, Select, TextField, Typography, useMediaQuery, useTheme } from "@mui/material"
 import MenuItem from '@mui/material/MenuItem';
 import { BaseLayout } from "../../shared/layouts"
 import { Box } from "@mui/system"
@@ -34,6 +34,10 @@ export const Students = () => {
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+
+    const [users, setUsers] = useState([])
+    const [search, setSearch] = useState<string>('')
+    const [confirm, setConfirm] = useState(false)
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -82,9 +86,32 @@ export const Students = () => {
         })
     }
 
+
+    const searchUser = () => {
+        if (search && search.length >= 3) {
+
+            api.post("/user/search", {search},{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("na_token")}`
+                }
+            })
+            .then(data => {
+                console.log(data)
+                setUsers(data.data)
+            })
+            .catch(error => {
+                console.log(error)
+                enqueueSnackbar("Não foi possível pesquisar usuários!", {variant: "error"})
+            })
+
+        }
+    }
+
     useEffect(() => {
         getPlans()
     }, [])
+
+    useEffect(() => searchUser(), [search])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 
@@ -125,11 +152,19 @@ export const Students = () => {
                             <Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={4}>
                                 <Typography variant="h4" textAlign={"center"}>Pesquisar aluno</Typography>
                                 <Box width={smDown ? "90%" : "50%"} display={"flex"} flexDirection={"column"} gap={3}>
-                                    <TextField label="Nome" color="secondary"/>
-                                    <Button variant={"contained"} color="secondary">Pesquisar</Button>
+                                <Autocomplete
+                                    disablePortal
+                                    options={users.map(user => user.name)}
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => <TextField {...params} label="Alunos" onChange={event => {
+                                        setSearch(event.target.value)
+                                        setConfirm(false)
+                                    }}/>}
+                                    />
+                                    <Button variant={"contained"} color="secondary" onClick={() => setConfirm(true)}>Confirmar</Button>
                                 </Box>
                                 <Box>
-                                    <Typography variant="h6" textAlign={"center"}>Nome - cpf - telefone - plano</Typography>
+                                    {confirm && <Typography variant="h6" textAlign={"center"}>Nome - cpf - telefone - plano</Typography>}
                                 </Box>
                             </Box>
 

@@ -250,7 +250,8 @@ export const Appointment = () => {
 
     return (
         <BaseLayout title="Agendamento" returnPath="/">
-            <Box display={"flex"} alignItems={"center"} flexDirection={"column"} height={"100%"}>
+            <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"} flexDirection={"column"} sx={{backgroundColor: "primary.light"}} borderRadius={"16px"} width={"95%"} maxHeight="75vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} m="auto">
+            {/* <Box width={"95%"} maxHeight="75vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"} overflow={"auto"}> */}
                 <Box display={"flex"} gap={3}>
                     <Button 
                         variant={classType == 1 ? "contained" : "outlined"} 

@@ -19,6 +19,7 @@ export const BaseLayout: React.FC<{children: React.ReactElement, returnPath: str
         maxWidth="1200px"
         display={"flex"}
         flexDirection={"column"}
+        // alignItems={"center"}
         // overflow={"hidden"}
         >
             <Box display={"flex"} alignItems={"center"} gap={1} marginLeft={"20px"}>
