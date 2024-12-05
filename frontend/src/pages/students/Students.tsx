@@ -89,6 +89,8 @@ export const Students = () => {
 
     const searchUser = () => {
         console.log("Chamada...")
+        console.log("Users: ", users.map(user => user.name))
+        console.log("Search: ", search)
         if (search && search.length >= 3) {
 
             api.post("/user/search", {search},{
@@ -163,7 +165,11 @@ export const Students = () => {
                                     renderInput={(params) => <TextField {...params} label="Alunos" onChange={event => {
                                         setSearch(event.target.value)
                                         setConfirm(false)
-                                    }}/>}
+                                    }}
+                                    />}
+                                    onChange={(event, newValue) => {
+                                        setSearch(newValue)
+                                    }}
                                     />
                                     <Button variant={"contained"} color="secondary" onClick={() => setConfirm(true)}>Confirmar</Button>
                                 </Box>
@@ -172,7 +178,7 @@ export const Students = () => {
                                         <>
                                             <Box width={smDown ? "100%" : "50%"} sx={{backgroundColor: "primary.dark"}} p={"20px"} display={"flex"} flexDirection={"column"} alignItems={"center"} borderRadius={"18px"}>
                                             <Typography variant="h6" textAlign={"left"}>Dados do aluno</Typography>
-                                            {confirm && users.map(data => (
+                                            {confirm && users.map(data => {if (data.name === search) return (
                                                 <Box>
                                                     <Typography variant="body2" fontSize={"18px"} component={"p"}>Nome: {data.name}</Typography>
                                                     <Typography variant="body2" fontSize={"18px"} component={"p"}>CPF: {data.cpf}</Typography>
@@ -180,7 +186,7 @@ export const Students = () => {
                                                     <Typography variant="body2" fontSize={"18px"} component={"p"}>Endereço: {data.address}</Typography>
                                                     <Typography variant="body2" fontSize={"18px"} component={"p"}>Telefone: {data.pnumber}</Typography>
                                                 </Box>
-                                            ))}
+                                            )})}
                                             
                                         </Box>
                                         <Box display={"flex"} gap={3} maxWidth={"100%"}>

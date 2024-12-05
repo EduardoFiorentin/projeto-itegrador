@@ -36,10 +36,10 @@ export const search = async (req: Request, res: Response) => {
 
         const user = await database.manyOrNone(`
                 SELECT name, cpf, email, address, pnumber FROM users WHERE 
-                (name like $1 or cpf=$2 or email ILIKE $1) and role=3;
+                name like $1 or cpf=$2 or email ILIKE $1 and role=3;
             `, [`%${search}%`, search])
 
-        res.status(StatusCodes.CREATED).json(user)
+        res.status(StatusCodes.OK).json(user)
 
     }
     catch(err) {
