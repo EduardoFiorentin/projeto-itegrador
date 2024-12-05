@@ -2,36 +2,49 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
-function generateUpdateQuery(props: {name?: string, cpf?: string, email?: string, birth_date?: string, address?: string, phone_number?: string}, cpf: string) {
-    let updateFields: string[] = [];
-    console.log("Data: ", props)
-    if (props.hasOwnProperty('name')) {
-        if (props.name !== undefined) updateFields.push(`name = '${props.name}'`);
-    }
-    if (props.hasOwnProperty('cpf')) {
-        if (props.cpf !== undefined) updateFields.push(`cpf = '${props.cpf}'`);
-    }
-    if (props.hasOwnProperty('email')) {
-        if (props.email !== undefined) updateFields.push(`email = '${props.email}'`);
-    }
-    if (props.hasOwnProperty('birth_date')) {
-        if (props.birth_date !== undefined) updateFields.push(`dtbirth = '${props.birth_date}'`);
-    }
-    if (props.hasOwnProperty('address')) {
-        if (props.address !== undefined) updateFields.push(`address = '${props.address}'`);
-    }
-    if (props.hasOwnProperty('phone_number')) {
-        if (props.phone_number !== undefined) updateFields.push(`pnumber = '${props.phone_number}'`);
-    }
 
+function generateUpdateQueryAndValues(
+    props: { name?: string; cpf?: string; email?: string; birth_date?: string; address?: string; phone_number?: string },
+    cpf: string
+  ) {
+    const updateFields: string[] = [];
+    const values: any[] = [];
+    let index = 1; 
+  
+    if (props.name !== undefined) {
+      updateFields.push(`name = $${index++}`);
+      values.push(props.name);
+    }
+    if (props.cpf !== undefined) {
+      updateFields.push(`cpf = $${index++}`);
+      values.push(props.cpf);
+    }
+    if (props.email !== undefined) {
+      updateFields.push(`email = $${index++}`);
+      values.push(props.email);
+    }
+    if (props.birth_date !== undefined) {
+      updateFields.push(`dtbirth = $${index++}`);
+      values.push(props.birth_date);
+    }
+    if (props.address !== undefined) {
+      updateFields.push(`address = $${index++}`);
+      values.push(props.address);
+    }
+    if (props.phone_number !== undefined) {
+      updateFields.push(`pnumber = $${index++}`);
+      values.push(props.phone_number);
+    }
+  
     if (updateFields.length > 0) {
-        const updateQuery = `UPDATE users SET ${updateFields.join(', ')} WHERE cpf = '${cpf}';`;
-        return updateQuery;
-
-    } else {
-        return null; 
+      const query = `UPDATE users SET ${updateFields.join(', ')} WHERE cpf = $${index}`;
+      values.push(cpf);
+      return { query, values };
     }
+  
+    return null; 
 }
+  
 
 export const updateStudentValidate = (req: Request, res: Response, next: NextFunction,) => {
     try {
@@ -61,19 +74,20 @@ export const updateStudentValidate = (req: Request, res: Response, next: NextFun
 
 export const updateStudent = async (req: Request, res: Response) => {
     try {
+        const body = req.body;
+        const { cpf } = req.params;
 
-        const body = req.body 
-        const {cpf} = req.params
+        // Gera query segura
+        const updateData = generateUpdateQueryAndValues(body, cpf);
 
-        const query = generateUpdateQuery(body, cpf)
-        console.log(query)
-        if (query) await database.none(query)
+        if (updateData) {
+            await database.none(updateData.query, updateData.values);
+        }
 
-        res.status(StatusCodes.OK).send("Usuário Atualizado!")
-
+        res.status(StatusCodes.OK).send("Usuário Atualizado!");
+    } catch (err) {
+        console.error(err);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.");
     }
-    catch(err) {
-        console.log(err)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
-    }
-}
+  };
+  

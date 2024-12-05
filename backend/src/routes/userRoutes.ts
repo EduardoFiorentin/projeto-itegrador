@@ -20,7 +20,7 @@ userRouter.post("/delete-student",
 )
 userRouter.post("/getbyname-student",
     requireJWTAuth,
-    StudentsController.GetByName.getStudentByNameValidate,
+    StudentsController.GetByName.getStudentByNameValidate, 
     StudentsController.GetByName.getStudentByName
 )
 userRouter.post("/update-student/:cpf",
