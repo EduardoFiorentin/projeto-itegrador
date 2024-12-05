@@ -81,6 +81,7 @@ export const Home = () => {
                 }}
                 display={"flex"}
                 justifyContent={"center"}
+                alignSelf={"center"}
                 >
                     {
                          
@@ -88,6 +89,7 @@ export const Home = () => {
                             <Box 
                                 width={mdDown ? "100vw" : "95%"} 
                                 height={mdDown ? "auto" : "75vh"} 
+                                // justifyContent={"center"}
                                 maxWidth={"800px"} 
                                 pt={"20px"}  
                                 borderRadius={"16px"}
@@ -98,6 +100,8 @@ export const Home = () => {
                                     <Box 
                                         display={"flex"} 
                                         flexDirection={mdDown ? "column" : "row"} 
+                                        // justifyContent={"center"}
+                                        alignItems={"center"}
                                         width={"100%"} 
                                         height={mdDown ? "auto" : "48%"}
                                         gap={2} 
@@ -108,6 +112,8 @@ export const Home = () => {
                                         flexDirection={"column"} 
                                         gap={2} 
                                         width={mdDown ? "100%" : "50%"} 
+                                        alignItems={"center"}
+
                                         >
                                         <Box 
                                             width={"100%"} 
@@ -133,6 +139,8 @@ export const Home = () => {
                                             width={"100%"} 
                                             height={"100%"} 
                                             maxWidth={"500px"}
+                                            // alignItems={"center"}
+
                                             flex={1} 
                                             sx={{ backgroundColor: "primary.dark" }}
                                             borderRadius={"8px"}
@@ -155,14 +163,13 @@ export const Home = () => {
                                         height={"100%"} 
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
+                                        
                                         >
                                             <Typography variant="subtitle1" sx={{ padding: "8px" }}>Solicitações de aulas em Aberto</Typography>
-                                            {/* <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center"> */}
                                                 <DashbordCardScroll>
                                                 {
                                                     data !== null ? (
                                                         data.open_requests.length !== 0 ? data.open_requests.map(item => (
-                                                            // <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
                                                                <DashbordCardItem>
                                                                     <Box>
                                                                         <Typography>
@@ -174,7 +181,6 @@ export const Home = () => {
                                                                             {item.modality}
                                                                         </Typography>
                                                                     </Box>
-                                                                {/* </Box> */}
                                                                 </DashbordCardItem>
                                                         )) : (
                                                             <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
@@ -183,7 +189,6 @@ export const Home = () => {
                                                         <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                     )
                                                 }
-                                                {/* </Box> */}
                                                 </DashbordCardScroll>
 
 
@@ -195,6 +200,7 @@ export const Home = () => {
                                     flexDirection={mdDown ? "column" : "row"} 
                                     width={"100%"}
                                     height={"45%"}
+                                    alignItems={"center"}
                                     mt={3}
                                     gap={2}
                                     >
@@ -210,7 +216,6 @@ export const Home = () => {
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px", backgroundColor: "primary.dark" }}>Aulas do Dia</Typography>
                                         
-                                        {/* <Box width="100%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} >  */}
                                         <DashbordCardScroll>
                                             {
                                                 data !== null ? (
@@ -221,18 +226,6 @@ export const Home = () => {
                                                                     {
 
                                                                         data.today_classes_list.map(item => (
-                                                                            // <Box 
-                                                                            //     width={"90%"} 
-                                                                            //     // height={"auto"}
-                                                                            //     minHeight={smDown ? "auto" : "70px"} 
-                                                                            //     sx={{backgroundColor: "primary.light"}} 
-                                                                            //     display={"flex"} flexDirection={smDown ? "column" : "row"} 
-                                                                            //     justifyContent={"space-evenly"} 
-                                                                            //     borderRadius={"8px"} 
-                                                                            //     alignItems={"center"} 
-                                                                            //     gap={smDown ? 1 : 0}
-                                                                            //     p={smDown ? 1 : 0}
-                                                                            //     >
                                                                             <DashbordCardItem>
                                                                                 <Box>
                                                                                     <Typography>
@@ -249,7 +242,6 @@ export const Home = () => {
                                                                                         {`${item.starth.split(":")[0]}:${item.starth.split(":")[1]} - ${item.endh.split(":")[0]}:${item.endh.split(":")[1]}`}
                                                                                     </Typography>
                                                                                 </Box>
-                                                                            {/* </Box> */}
                                                                             </DashbordCardItem>
                                                                         ))
 
@@ -264,7 +256,6 @@ export const Home = () => {
                                                     <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                 )
                                             }
-                                        {/* </Box> */}
                                         </DashbordCardScroll>
                                     </Box>
 
@@ -275,43 +266,41 @@ export const Home = () => {
                                         sx={{ backgroundColor: "primary.dark" }}
                                         borderRadius={"8px"}
                                         maxWidth={"500px"}
+                                        
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px" }}>Acessos do dia</Typography>
-                                            {/* <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center"> */}
-                                            <DashbordCardScroll>  
-                                                {
-                                                    data !== null ? (
-                                                        data.today_accesses_list.length !== 0 ? data.today_accesses_list.map(item => (
-                                                            // <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"} px={1}>  
-                                                            <DashbordCardItem>
-                                                                <Box minWidth={"70%"} maxWidth={"70%"}>
-                                                                    <Typography variant="body2">
-                                                                        {item.name}
-                                                                    </Typography>
-                                                                </Box>
-                                                                <Box minWidth={"30%"} maxWidth={"30%"}> 
-                                                                    <Typography fontWeight={"bold"}>
-                                                                        {item.granted ? (
-                                                                            <>Autorizado</>
-                                                                        ) : (
-                                                                            <>Negado</>
-                                                                        )}
-                                                                    </Typography>
-                                                                    <Typography fontWeight={"bold"}>
-                                                                        {item.dttime.split(/[.\s]/)[1]}
-                                                                    </Typography>
-                                                                </Box>
-                                                            {/* </Box> */}
-                                                            </DashbordCardItem>
-                                                        )) : (
-                                                            <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
-                                                        )
-                                                    ) : (
-                                                        <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
+                                        <DashbordCardScroll>  
+                                            {
+                                                data !== null ? (
+                                                    data.today_accesses_list.length !== 0 ? data.today_accesses_list.map(item => (
+                                                        <DashbordCardItem>
+                                                            <Box minWidth={"70%"} maxWidth={"70%"}>
+                                                                <Typography variant="body2">
+                                                                    {item.name}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Box minWidth={"30%"} maxWidth={"30%"}> 
+                                                                <Typography fontWeight={"bold"}>
+                                                                    {item.granted ? (
+                                                                        <>Autorizado</>
+                                                                    ) : (
+                                                                        <>Negado</>
+                                                                    )}
+                                                                </Typography>
+                                                                <Typography fontWeight={"bold"}>
+                                                                    {item.dttime.split(/[.\s]/)[1]}
+                                                                </Typography>
+                                                            </Box>
+                                                        </DashbordCardItem>
+                                                    )) : (
+                                                        <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
                                                     )
-                                                }
-                                            {/* </Box> */}
-                                            </DashbordCardScroll>
+                                                ) : (
+                                                    <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
+                                                )
+                                            }
+                                        {/* </Box> */}
+                                        </DashbordCardScroll>
                                     </Box>
                                 </Box>
                             </Box>

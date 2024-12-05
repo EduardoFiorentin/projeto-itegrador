@@ -11,7 +11,7 @@ export const DashbordCardItem: React.FC<{children?: React.ReactNode}> = ({childr
             width={"90%"} 
             minHeight={smDown ? "auto" : "70px"} 
             sx={{backgroundColor: "primary.light"}} 
-            display={"flex"} flexDirection={smDown ? "column" : "row"} 
+            display={"flex"} flexDirection={mdDown ? "column" : "row"} 
             justifyContent={"space-evenly"} 
             borderRadius={"8px"} 
             alignItems={"center"} 
