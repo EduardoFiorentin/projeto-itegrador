@@ -29,13 +29,21 @@ interface IPlan {
     renewable: boolean; 
 }
 
+interface IUser {
+    name: string,
+    cpf: string,
+    email: string,
+    address: string,
+    pnumber: string
+}
+
 export const Students = () => {
 
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<IUser[]>([])
     const [search, setSearch] = useState<string>('')
     const [confirm, setConfirm] = useState(false)
 
@@ -161,14 +169,15 @@ export const Students = () => {
                                 <Autocomplete
                                     sx={{width: "100%"}}
                                     options={users.map(user => user.name)}
-                                    sx={{ width: "100%" }}
+                                    // sx={{ width: "100%" }}
                                     renderInput={(params) => <TextField {...params} label="Alunos" onChange={event => {
                                         setSearch(event.target.value)
                                         setConfirm(false)
                                     }}
                                     />}
                                     onChange={(event, newValue) => {
-                                        setSearch(newValue)
+                                        if (newValue === null) setSearch("")
+                                        else setSearch(newValue)
                                     }}
                                     />
                                     <Button variant={"contained"} color="secondary" onClick={() => setConfirm(true)}>Confirmar</Button>
