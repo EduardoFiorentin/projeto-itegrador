@@ -88,6 +88,7 @@ export const Students = () => {
 
 
     const searchUser = () => {
+        console.log("Chamada...")
         if (search && search.length >= 3) {
 
             api.post("/user/search", {search},{
@@ -104,6 +105,9 @@ export const Students = () => {
                 enqueueSnackbar("Não foi possível pesquisar usuários!", {variant: "error"})
             })
 
+        } else {
+            setUsers([])
+            if (confirm) enqueueSnackbar("Digite e selecione um nome para pesquisar", {variant: "warning"})
         }
     }
 
@@ -111,7 +115,7 @@ export const Students = () => {
         getPlans()
     }, [])
 
-    useEffect(() => searchUser(), [search])
+    useEffect(() => searchUser(), [search, confirm])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 
@@ -153,9 +157,9 @@ export const Students = () => {
                                 <Typography variant="h4" textAlign={"center"}>Pesquisar aluno</Typography>
                                 <Box width={smDown ? "90%" : "50%"} display={"flex"} flexDirection={"column"} gap={3}>
                                 <Autocomplete
-                                    disablePortal
+                                    sx={{width: "100%"}}
                                     options={users.map(user => user.name)}
-                                    sx={{ width: 300 }}
+                                    sx={{ width: "100%" }}
                                     renderInput={(params) => <TextField {...params} label="Alunos" onChange={event => {
                                         setSearch(event.target.value)
                                         setConfirm(false)
@@ -163,9 +167,30 @@ export const Students = () => {
                                     />
                                     <Button variant={"contained"} color="secondary" onClick={() => setConfirm(true)}>Confirmar</Button>
                                 </Box>
-                                <Box>
-                                    {confirm && <Typography variant="h6" textAlign={"center"}>Nome - cpf - telefone - plano</Typography>}
-                                </Box>
+                                {
+                                    (confirm && users.length !== 0) && (
+                                        <>
+                                            <Box width={smDown ? "100%" : "50%"} sx={{backgroundColor: "primary.dark"}} p={"20px"} display={"flex"} flexDirection={"column"} alignItems={"center"} borderRadius={"18px"}>
+                                            <Typography variant="h6" textAlign={"left"}>Dados do aluno</Typography>
+                                            {confirm && users.map(data => (
+                                                <Box>
+                                                    <Typography variant="body2" fontSize={"18px"} component={"p"}>Nome: {data.name}</Typography>
+                                                    <Typography variant="body2" fontSize={"18px"} component={"p"}>CPF: {data.cpf}</Typography>
+                                                    <Typography variant="body2" fontSize={"18px"} component={"p"}>Email: {data.email}</Typography>
+                                                    <Typography variant="body2" fontSize={"18px"} component={"p"}>Endereço: {data.address}</Typography>
+                                                    <Typography variant="body2" fontSize={"18px"} component={"p"}>Telefone: {data.pnumber}</Typography>
+                                                </Box>
+                                            ))}
+                                            
+                                        </Box>
+                                        <Box display={"flex"} gap={3} maxWidth={"100%"}>
+                                            <Button disabled>Enviar Email</Button>
+                                            {/* <Button disabled>Confirmar</Button>
+                                            <Button disabled>Confirmar</Button> */}
+                                        </Box>
+                                    </>
+                                    )
+                                }
                             </Box>
 
                         )
