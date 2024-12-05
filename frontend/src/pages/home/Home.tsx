@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { BaseLayout } from "../../shared/layouts";
 import { api } from "../../shared/services";
 import { enqueueSnackbar } from "notistack";
+import { DashbordCardScroll } from "../../shared/components/dashbord-card-scroll/DashbordCard";
+import { DashbordCardItem } from "../../shared/components/dashbord-card-scroll/DashbordCardItem";
 
 interface IClassDetails {
     teacher: string;
@@ -155,22 +157,25 @@ export const Home = () => {
                                         borderRadius={"8px"}
                                         >
                                             <Typography variant="subtitle1" sx={{ padding: "8px" }}>Solicitações de aulas em Aberto</Typography>
-                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center">
+                                            {/* <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center"> */}
+                                                <DashbordCardScroll>
                                                 {
                                                     data !== null ? (
                                                         data.open_requests.length !== 0 ? data.open_requests.map(item => (
-                                                            <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
-                                                                <Box>
-                                                                    <Typography>
-                                                                        Al. {item.student.split(" ")[0]}
-                                                                    </Typography>
-                                                                </Box>
-                                                                <Box>
-                                                                    <Typography fontWeight={"bold"}>
-                                                                        {item.modality}
-                                                                    </Typography>
-                                                                </Box>
-                                                            </Box>
+                                                            // <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
+                                                               <DashbordCardItem>
+                                                                    <Box>
+                                                                        <Typography>
+                                                                            Al. {item.student.split(" ")[0]}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                    <Box>
+                                                                        <Typography fontWeight={"bold"}>
+                                                                            {item.modality}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                {/* </Box> */}
+                                                                </DashbordCardItem>
                                                         )) : (
                                                             <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
                                                         )
@@ -178,7 +183,8 @@ export const Home = () => {
                                                         <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                     )
                                                 }
-                                            </Box>
+                                                {/* </Box> */}
+                                                </DashbordCardScroll>
 
 
                                         </Box>
@@ -204,7 +210,8 @@ export const Home = () => {
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px", backgroundColor: "primary.dark" }}>Aulas do Dia</Typography>
                                         
-                                        <Box width="100%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} > 
+                                        {/* <Box width="100%" display="flex" flexDirection={"column"} alignItems="center"  gap={2}  pb="20px" maxHeight={"30vh"} >  */}
+                                        <DashbordCardScroll>
                                             {
                                                 data !== null ? (
                                                     <>
@@ -214,18 +221,19 @@ export const Home = () => {
                                                                     {
 
                                                                         data.today_classes_list.map(item => (
-                                                                            <Box 
-                                                                                width={"90%"} 
-                                                                                // height={"auto"}
-                                                                                minHeight={smDown ? "auto" : "70px"} 
-                                                                                sx={{backgroundColor: "primary.light"}} 
-                                                                                display={"flex"} flexDirection={smDown ? "column" : "row"} 
-                                                                                justifyContent={"space-evenly"} 
-                                                                                borderRadius={"8px"} 
-                                                                                alignItems={"center"} 
-                                                                                gap={smDown ? 1 : 0}
-                                                                                p={smDown ? 1 : 0}
-                                                                                >
+                                                                            // <Box 
+                                                                            //     width={"90%"} 
+                                                                            //     // height={"auto"}
+                                                                            //     minHeight={smDown ? "auto" : "70px"} 
+                                                                            //     sx={{backgroundColor: "primary.light"}} 
+                                                                            //     display={"flex"} flexDirection={smDown ? "column" : "row"} 
+                                                                            //     justifyContent={"space-evenly"} 
+                                                                            //     borderRadius={"8px"} 
+                                                                            //     alignItems={"center"} 
+                                                                            //     gap={smDown ? 1 : 0}
+                                                                            //     p={smDown ? 1 : 0}
+                                                                            //     >
+                                                                            <DashbordCardItem>
                                                                                 <Box>
                                                                                     <Typography>
                                                                                         Prof. {item.teacher.split(" ")[0]}
@@ -241,7 +249,8 @@ export const Home = () => {
                                                                                         {`${item.starth.split(":")[0]}:${item.starth.split(":")[1]} - ${item.endh.split(":")[0]}:${item.endh.split(":")[1]}`}
                                                                                     </Typography>
                                                                                 </Box>
-                                                                            </Box>
+                                                                            {/* </Box> */}
+                                                                            </DashbordCardItem>
                                                                         ))
 
                                                                     }
@@ -255,7 +264,8 @@ export const Home = () => {
                                                     <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                 )
                                             }
-                                        </Box>
+                                        {/* </Box> */}
+                                        </DashbordCardScroll>
                                     </Box>
 
                                     {/* Novo bloco 2 */}
@@ -267,11 +277,13 @@ export const Home = () => {
                                         maxWidth={"500px"}
                                     >
                                         <Typography variant="subtitle1" sx={{ padding: "8px" }}>Acessos do dia</Typography>
-                                            <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center">
+                                            {/* <Box width="100%" height={"70%"} maxHeight={"30vh"} gap={2} pb="20px" overflow={"auto"} display="flex" flexDirection={"column"} alignItems="center"> */}
+                                            <DashbordCardScroll>  
                                                 {
                                                     data !== null ? (
                                                         data.today_accesses_list.length !== 0 ? data.today_accesses_list.map(item => (
-                                                            <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"} px={1}>  
+                                                            // <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"} px={1}>  
+                                                            <DashbordCardItem>
                                                                 <Box minWidth={"70%"} maxWidth={"70%"}>
                                                                     <Typography variant="body2">
                                                                         {item.name}
@@ -289,7 +301,8 @@ export const Home = () => {
                                                                         {item.dttime.split(/[.\s]/)[1]}
                                                                     </Typography>
                                                                 </Box>
-                                                            </Box>
+                                                            {/* </Box> */}
+                                                            </DashbordCardItem>
                                                         )) : (
                                                             <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Não há solicitações</Typography>
                                                         )
@@ -297,7 +310,8 @@ export const Home = () => {
                                                         <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                     )
                                                 }
-                                            </Box>
+                                            {/* </Box> */}
+                                            </DashbordCardScroll>
                                     </Box>
                                 </Box>
                             </Box>
