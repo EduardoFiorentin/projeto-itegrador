@@ -20,10 +20,5 @@ export const DashbordCardItem: React.FC<{children?: React.ReactNode}> = ({childr
             >
             {children}
         </Box>
-
-        // primeiro
-        // <Box width={"90%"} minHeight={"70px"} sx={{backgroundColor: "primary.light"}} display={"flex"} flexDirection={"row"} justifyContent={"space-around"} alignItems={"center"}>
-        //     {children}
-        // </Box>
     )
 }

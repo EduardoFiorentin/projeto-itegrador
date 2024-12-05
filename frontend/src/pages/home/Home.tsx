@@ -35,7 +35,6 @@ export const Home = () => {
     const { setIsMenuHidden } = useMenuContext()
     const navigate = useNavigate()
     const theme = useTheme() 
-    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
       
     setIsMenuHidden(false)
@@ -89,7 +88,6 @@ export const Home = () => {
                             <Box 
                                 width={mdDown ? "100vw" : "95%"} 
                                 height={mdDown ? "auto" : "75vh"} 
-                                // justifyContent={"center"}
                                 maxWidth={"800px"} 
                                 pt={"20px"}  
                                 borderRadius={"16px"}
@@ -100,7 +98,6 @@ export const Home = () => {
                                     <Box 
                                         display={"flex"} 
                                         flexDirection={mdDown ? "column" : "row"} 
-                                        // justifyContent={"center"}
                                         alignItems={"center"}
                                         width={"100%"} 
                                         height={mdDown ? "auto" : "48%"}
@@ -139,7 +136,6 @@ export const Home = () => {
                                             width={"100%"} 
                                             height={"100%"} 
                                             maxWidth={"500px"}
-                                            // alignItems={"center"}
 
                                             flex={1} 
                                             sx={{ backgroundColor: "primary.dark" }}
