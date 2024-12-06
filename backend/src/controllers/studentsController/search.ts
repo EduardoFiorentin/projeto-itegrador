@@ -24,7 +24,6 @@ export const searchValidate = (req: Request, res: Response, next: NextFunction) 
 
     }
     catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -43,7 +42,6 @@ export const search = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

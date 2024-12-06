@@ -22,7 +22,7 @@ export const contractPlanValidate = async (req: Request, res: Response, next: Ne
             return
         }
 
-        // pegar plano contratado 
+        // consultar plano contratado 
         const plan = await database.oneOrNone(`
             select * from plans where plancode = $1;
         `, [plan_code])
@@ -34,13 +34,12 @@ export const contractPlanValidate = async (req: Request, res: Response, next: Ne
 
         req.body.plan = plan
 
-        // pegar usuário 
+        // consultar usuário 
         const student = await database.oneOrNone("SELECT name FROM users WHERE cpf = $1;", [user_cpf])
         if (!student) {
             res.status(StatusCodes.BAD_REQUEST).send("Aluno não encontrado!")
             return
         } 
-
         
         // verificar se o usuário já tem planos contratados 
         const today = new Date().toISOString().split("T")[0]    
@@ -50,11 +49,9 @@ export const contractPlanValidate = async (req: Request, res: Response, next: Ne
             return
         }
 
-
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -75,7 +72,6 @@ export const contractPlan = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

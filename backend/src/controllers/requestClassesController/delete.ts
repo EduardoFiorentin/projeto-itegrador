@@ -25,7 +25,6 @@ export const deleteRequestClassValidate = (req: Request, res: Response, next: Ne
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -43,7 +42,6 @@ export const deleteRequestClass = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

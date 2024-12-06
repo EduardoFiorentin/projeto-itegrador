@@ -22,7 +22,6 @@ export const getAllByDayValidate = (req: Request, res: Response, next: NextFunct
 
     } 
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 
@@ -45,7 +44,6 @@ export const getAllByDay = async (req: Request, res: Response) => {
         else res.status(StatusCodes.OK).json([])
     } 
     catch(err) {
-        console.log(err)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.")
     }
 } 

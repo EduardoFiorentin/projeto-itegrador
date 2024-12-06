@@ -1,7 +1,5 @@
 import { Router } from "express";
 import { requireJWTAuth } from "../services/AuthService";
-import { GroupClassesController } from "../controllers";
-import { RequestClassesController } from "../controllers/requestClassesController";
 import { modalityController } from "../controllers/modalityController";
 
 const modalityRoutes = Router()

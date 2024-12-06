@@ -15,9 +15,9 @@ scheduleRoutes.post("/getFreeSchedulesByDate",
     scheduleController.getFreeSchedulesByDate.getFreeSchedulesByDate
 )
 
-scheduleRoutes.get("/:id", (req, res) => {
-    res.status(200).send("Horário id retornado")
-})
+// scheduleRoutes.get("/:id", (req, res) => {
+//     res.status(200).send("Horário id retornado")
+// })
 
 
 export { scheduleRoutes }

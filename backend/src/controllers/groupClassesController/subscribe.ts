@@ -16,8 +16,6 @@ export const subscribeValidate = async (req: Request, res: Response, next: NextF
             return
         }
 
-        console.log("verificação do present: ", present, typeof present)
-
          // Verificação dos dados passados 
         if (
             !student_email || !date || !wday || !starth || !endh || (typeof present != "boolean")
@@ -39,7 +37,6 @@ export const subscribeValidate = async (req: Request, res: Response, next: NextF
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -49,10 +46,11 @@ export const subscribe = async (req: Request, res: Response) => {
     try {
 
         const { wday, starth, endh, student_cpf, date, present } = req.body
-        const today = new Date().toISOString().split("T")[0] 
 
         // verifica se há um plano ativo e se a data solicitada está coberta por ele 
         const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
+
+        console.log("ativo: ", active, limit_acess)
 
         if (!active) {
             res.status(StatusCodes.BAD_REQUEST).send("Data solicitada está fora do limite de um plano ativo.")
@@ -62,7 +60,6 @@ export const subscribe = async (req: Request, res: Response) => {
         // verifica se o limite de inscrições em aulas da semana não excede o limite 
         const num_classes = await getClassesNumPerWeek(date, student_cpf)
 
-        console.log("Numero de classes: ", num_classes, limit_acess)
 
         // limit_acess == -1 -> numero livre de aulas 
         if (num_classes + 1 > limit_acess && limit_acess !== -1) {
@@ -81,8 +78,6 @@ export const subscribe = async (req: Request, res: Response) => {
     catch(err) {
         // if (err instanceof )
         const error = err as {code: string, details: string}
-
-        console.log("Erro tratado", error)
 
         // 23505 - violação de unicidade na tabela de inscrição nas aulas 
         if (error.code == '23505') {

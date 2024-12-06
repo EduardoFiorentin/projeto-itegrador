@@ -13,6 +13,15 @@ export const createGroupClassesValidate = async (req: Request, res: Response, ne
             res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
             return
         }
+
+        // Verificação dos dados passados 
+        if (
+            !modality || !teacher_name || !wday || !starth || !endh 
+
+        ) {
+            res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
+            return
+        }
         
         // Verificação do nome do professor
         const teacher = await database.oneOrNone("SELECT cpf FROM users WHERE name = $1;", [teacher_name])
@@ -23,14 +32,6 @@ export const createGroupClassesValidate = async (req: Request, res: Response, ne
 
         req.body.teacher_cpf = teacher.cpf
 
-        // Verificação dos dados passados 
-        if (
-            !modality || !teacher_name || !wday || !starth || !endh 
-
-        ) {
-            res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
-            return
-        }
 
         // Verificação de liberação do horario
         const g_class = await database.oneOrNone("SELECT * FROM group_classes WHERE wday=$1 and starth=$2 and endh=$3;", 
@@ -45,7 +46,6 @@ export const createGroupClassesValidate = async (req: Request, res: Response, ne
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -64,7 +64,6 @@ export const createGroupClasses = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

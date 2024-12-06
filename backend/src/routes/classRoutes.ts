@@ -29,24 +29,24 @@ classRouter.post("/update-groupClass/:code",
 )
 
 
-classRouter.get("/getbyday-personalclass/:day", 
-    // requireJWTAuth,
+// classRouter.get("/getbyday-personalclass/:day", 
+//     // requireJWTAuth,
     
-)
+// )
 
-classRouter.post("/create-personalclass", 
-    requireJWTAuth,
+// classRouter.post("/create-personalclass", 
+//     requireJWTAuth,
 
-)
+// )
 
-classRouter.post("/cancel-personalClass",
-    requireJWTAuth,
+// classRouter.post("/cancel-personalClass",
+//     requireJWTAuth,
 
-)
-classRouter.post("/update-personalClass/:code",
-    requireJWTAuth,
+// )
+// classRouter.post("/update-personalClass/:code",
+//     requireJWTAuth,
 
-)
+// )
 
 
 // classes/getall-requestClass
@@ -83,25 +83,25 @@ classRouter.post("/subscribe-group",
     GroupClassesController.Subscribe.subscribe
 )
 
-classRouter.post("/request-personal", (req, res) => {
-    res.status(200).send("Solicitação de agendamento de aula enviada")
-})
+// classRouter.post("/request-personal", (req, res) => {
+//     res.status(200).send("Solicitação de agendamento de aula enviada")
+// })
 
-classRouter.post("/confirm-class", (req, res) => {
-    res.status(200).send("Solicitação de agendamento aceita")
-})
+// classRouter.post("/confirm-class", (req, res) => {
+//     res.status(200).send("Solicitação de agendamento aceita")
+// })
 
-classRouter.post("/reject-class", (req, res) => {
-    res.status(200).send("Solicitação de agendamento recusada")
-})
+// classRouter.post("/reject-class", (req, res) => {
+//     res.status(200).send("Solicitação de agendamento recusada")
+// })
 
-// Aulas que usam id 
-classRouter.get("/:id", (req, res) => {
-    res.status(200).send("Aula com id retornada")
-})
+// // Aulas que usam id 
+// classRouter.get("/:id", (req, res) => {
+//     res.status(200).send("Aula com id retornada")
+// })
 
-classRouter.get("/participants/:id", (req, res) => {
-    res.status(200).send("Lista de participantes da aula id retornada")
-})
+// classRouter.get("/participants/:id", (req, res) => {
+//     res.status(200).send("Lista de participantes da aula id retornada")
+// })
 
 export { classRouter }

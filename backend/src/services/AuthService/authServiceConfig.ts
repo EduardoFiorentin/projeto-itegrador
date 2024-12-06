@@ -1,5 +1,3 @@
-import express from "express";
-import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
@@ -9,7 +7,7 @@ import { database } from "../PostgresDB";
 
 export function authServiceConfig() {
     passport.use(
-        new LocalStrategy(		// definimos para o express qual a estratégia de autenticação - loca com banco de dados
+        new LocalStrategy(
             {
                 usernameField: "email",
                 passwordField: "password",
@@ -22,8 +20,6 @@ export function authServiceConfig() {
                     	[email],
                     );
     
-                    // const user: IUser = { email: "nome", password: "pass", cpf: "00000000000" };
-    
                     // se não encontrou, retorna erro
                     if (!user) {
                         return done(null, false, { message: "Usuário incorreto." });
@@ -35,15 +31,12 @@ export function authServiceConfig() {
                     	user.password,
                     );
     
-                    // const passwordMatch = user.email == email && user.password == password
     
                     // se senha está ok, retorna o objeto usuário
                     if (passwordMatch) {
-                        console.log("Usuário autenticado!");
                         return done(null, {name: user.name, email: user.email, role: user.role});
                     } else {
                         // senão, retorna um erro
-                        console.log("Deu certo - não autorizado")
                         return done(null, false, { message: "Senha incorreta." });
                     }
                 } catch (error) {
@@ -62,20 +55,16 @@ export function authServiceConfig() {
             },
             async (payload, done) => {
                 try {
-                    console.log("ps", payload.name)
                     const user = await database.oneOrNone(
                     	"SELECT * FROM users WHERE email = $1;",
                     	[payload.email],
                     );
-                    console.log(user)
                     const pl = {name: user.name, email: user.email, role: user.role}
-                    console.log("Vendo payload", pl)
     
                     if (user) {
                         done(null, pl);
                     } else {
                         done(null, false);  
-                        console.log("[authService.ts] Usuário não encontrado na autenticação")
                     }
                 } catch (error) {
                     done(error, false);
@@ -89,8 +78,8 @@ export function authServiceConfig() {
     passport.serializeUser(function (user: IUser, cb) {
         process.nextTick(function () {
             return cb(null, {
-                user_id: user.cpf, // nome igual ao da coluna do banco
-                username: user.email, // mesmo nome da variável do primeiro json do local strategy (la em cima)
+                user_id: user.cpf, 
+                username: user.email, 
             });
         });
     });

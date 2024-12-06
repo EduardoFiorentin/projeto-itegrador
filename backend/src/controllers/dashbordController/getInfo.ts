@@ -7,11 +7,8 @@ import { startTimer } from "winston";
 
 
 export const getInfoValidate = (req: Request, res: Response, next: NextFunction) => {
-    // const { day, date } = req.body
-    const role = req.user?.role
-    console.log("User : ", req.user)
 
-    console.log("Role: ", role)
+    const role = req.user?.role
 
     if (role && ( role != "2" && role != "1")) {
         res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
@@ -96,12 +93,10 @@ export const getInfo = async (req: Request, res: Response) => {
             dttime: new Date(item.dttime).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
         }));
         
-        console.log(today_access)
         res.status(StatusCodes.OK).json(data)
 
     }
     catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

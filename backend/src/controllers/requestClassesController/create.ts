@@ -74,7 +74,6 @@ export const createRequestClassValidate = async (req: Request, res: Response, ne
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -83,8 +82,6 @@ export const createRequestClass = async (req: Request, res: Response) => {
     try {
 
         const { modality_code, teacher_cpf, student_cpf, wday, starth, endh, date } = req.body
-
-        console.log(modality_code, teacher_cpf, student_cpf, wday, starth, endh)
 
         // verifica se há um plano ativo e a data solicitada está dentro do plano
         const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
@@ -97,8 +94,6 @@ export const createRequestClass = async (req: Request, res: Response) => {
 
         // verifica se o limite de inscrições em aulas da semana não excede o limite 
         const num_classes = await getClassesNumPerWeek(date, student_cpf)
-
-        console.log("Numero de classes: ", num_classes, limit_acess)
 
         if (num_classes + 1 > limit_acess && limit_acess !== -1) {
             res.status(StatusCodes.BAD_REQUEST).send("Você atingiu o limite de aulas semanais!")
@@ -114,7 +109,6 @@ export const createRequestClass = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

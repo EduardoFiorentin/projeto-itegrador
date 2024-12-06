@@ -15,7 +15,6 @@ export const deleteStudentValidate = (req: Request, res: Response, next: NextFun
         
         if (
             !cpf 
-            // cpf.length != 11
 
         ) {
             res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
@@ -25,7 +24,6 @@ export const deleteStudentValidate = (req: Request, res: Response, next: NextFun
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -43,7 +41,6 @@ export const deleteStudent = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

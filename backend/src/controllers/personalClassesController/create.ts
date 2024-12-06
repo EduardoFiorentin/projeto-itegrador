@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
-// não testado
-
 export const createPersonalClassesValidate = async (req: Request, res: Response, next: NextFunction,) => {
     try {
 
@@ -59,7 +57,6 @@ export const createPersonalClassesValidate = async (req: Request, res: Response,
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -78,7 +75,6 @@ export const createPersonalClasses = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

@@ -24,11 +24,6 @@ export const getFreeSchedulesByDateValidate = (req: Request, res: Response, next
     }
 
     next()
-
-    // verifica o formato
-    
-    // verificação de autorização 
-
 }
 
 
@@ -56,14 +51,9 @@ export const getFreeSchedulesByDate = async (req: Request, res: Response) => {
 
             `,[DAYS_OF_WEEK[day], date])
 
-        // const groupSchedules = await database.many(schedulesQuery.getByDate,[date, DAYS_OF_WEEK[day]])
-
-        console.log("Response: ", schedules)
-
         res.status(200).json(schedules)
     }
     catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

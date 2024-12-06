@@ -8,16 +8,11 @@ export const getAllByDay = async (req: Request, res: Response) => {
     try {
 
         const {day, date} = req.body
-
-        // console.log("Dia: ", days_of_w[day])
-
         const groupSchedules = await database.many(schedulesQuery.getByDate,[date, DAYS_OF_WEEK[day]])
-
 
         res.status(200).json(groupSchedules)
     }
     catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

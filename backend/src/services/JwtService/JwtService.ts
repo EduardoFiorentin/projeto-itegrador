@@ -33,10 +33,7 @@ function getTokenPayload(token: string) {
         const decodedToken = jwt.verify(format_token, process.env.JWT_SECRET);
 
         return decodedToken
-        // Aqui você pode acessar as informações do token decodificado
-        // Por exemplo:
-        // const userId = decodedToken.sub; // para acessar o subject (subject é comumente usado para armazenar o ID do usuário)
-        // const userName = decodedToken.name; // para acessar o nome do usuário, se estiver presente no token
+
     } catch (err) {
         throw err
     }

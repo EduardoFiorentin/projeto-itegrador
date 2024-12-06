@@ -10,11 +10,14 @@ export async function getStudentActivePlan(cpf: string, date: string): Promise<{
             where cdate=(
                 select max(cdate) from (select * from users_plans where user_cpf=$1)
             ) 
-            and up.expdate >= $2;
+            and up.expdate >= $2 
+            and user_cpf=$1
+            order by cdate;
         `, [cpf, date])
 
         // tem plano ativo e a data solicitada está dentro do limite 
-        if (plan && isDateBetween(date, plan.cdate, plan.expdate)) {
+        console.log("Plano: ", plan) 
+        if (plan.length != 0 && isDateBetween(date, plan.cdate, plan.expdate)) {
             return {
                 active: true,
                 limit_acess: parseInt(plan.num_classes)
@@ -28,14 +31,12 @@ export async function getStudentActivePlan(cpf: string, date: string): Promise<{
         }
     }
     catch (err) {
-
-        console.log("Erro em: getStudentActivePlan > ", err)
-
+        console.log("Erro ao pegar plano", err)
         return {
             active: false,
             limit_acess: 0
         }
-    }
+    } 
 
 
     

@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import {StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
 import { JwtService } from "../../services";
-import { ValidationExcept } from "../../services/Exceptions";
 
 // Altera a senha do usuário
 
@@ -30,7 +29,6 @@ export const changePassword = async (req: Request, res: Response) => {
         res.status(StatusCodes.BAD_REQUEST).json({message: "Codigo inválido!"})
 
     } catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

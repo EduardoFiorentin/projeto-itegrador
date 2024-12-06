@@ -2,37 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
 
-// function generateUpdateQuery(props: {modality?: string, teacher_cpf?: string, wday?: string, starth?: string, endh?: string, canceled?: boolean}, code: string) {
-//     let updateFields: string[] = [];
-//     console.log("Data: ", props)
-//     if (props.hasOwnProperty('modality')) {
-//         if (props.modality !== undefined) updateFields.push(`modality = '${props.modality}'`);
-//     }
-//     if (props.hasOwnProperty('teacher_cpf')) {
-//         if (props.teacher_cpf !== undefined) updateFields.push(`teacher = '${props.teacher_cpf}'`);
-//     }
-//     if (props.hasOwnProperty('wday')) {
-//         if (props.wday !== undefined) updateFields.push(`wday = '${props.wday}'`);
-//     }
-//     if (props.hasOwnProperty('starth')) {
-//         if (props.starth !== undefined) updateFields.push(`starth = '${props.starth}'`);
-//     }
-//     if (props.hasOwnProperty('endh')) {
-//         if (props.endh !== undefined) updateFields.push(`endh = '${props.endh}'`);
-//     }
-//     if (props.hasOwnProperty('canceled')) {
-//         if (props.canceled !== undefined) updateFields.push(`canceled = '${props.canceled}'`);
-//     }
-
-//     if (updateFields.length > 0) {
-//         const updateQuery = `UPDATE group_classes SET ${updateFields.join(', ')} WHERE code='${code}';`;
-//         return updateQuery;
-
-//     } else {
-//         return null; 
-//     }
-// }
-
 function generateUpdateQueryAndValues(
     props: { modality?: string; teacher_cpf?: string; wday?: string; starth?: string; endh?: string; canceled?: boolean },
     code: string
@@ -97,7 +66,6 @@ export const updateGroupClassValidate = (req: Request, res: Response, next: Next
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -122,15 +90,12 @@ export const updateGroupClass = async (req: Request, res: Response) => {
       // Gera query
       const updateData = generateUpdateQueryAndValues(body, code);
 
-      if (updateData) console.log("Parametros de update", updateData.query, updateData.values)
-      
       if (updateData) {
         await database.none(updateData.query, updateData.values);
       }
   
       res.status(StatusCodes.OK).send("Aula Atualizada!");
     } catch (err) {
-      console.error(err);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.");
     }
   };

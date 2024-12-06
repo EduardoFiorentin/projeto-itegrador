@@ -24,12 +24,10 @@ export const accessValidate = async (req: Request, res: Response, next: NextFunc
         } 
         req.body.cpf = user.cpf
         req.body.role = user.role
-        console.log("Aluno encontrado: ", user.cpf)
 
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -38,11 +36,6 @@ export const access = async (req: Request, res: Response) => {
     try {
 
         const { cpf, role } = req.body
-        
-
-
-        console.log("Procurando")
-
 
         // Verificar se o aluno tem acesso - apenas em dias com aulas agendadas + plano ativo 
         if (role == "3") {
@@ -53,7 +46,6 @@ export const access = async (req: Request, res: Response) => {
                     select count(*) from users_plans where user_cpf = $2 and cdate <= $1 and expdate >= $1;
                 `,[today, cpf])
 
-            console.log("count  ", plans)
 
             if (plans.count === '0') {
                 // Registra tentativa
@@ -113,7 +105,6 @@ export const access = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.")
     }
 }

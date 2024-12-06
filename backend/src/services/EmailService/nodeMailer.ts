@@ -17,11 +17,9 @@ export const sendMail = async (from: string, to: string, subject: string, html: 
             to: to,
             subject: subject,
             html: html
-        })
-        
+        })        
     }
     catch (err) {
-        console.log(err)
         throw err
     }
 

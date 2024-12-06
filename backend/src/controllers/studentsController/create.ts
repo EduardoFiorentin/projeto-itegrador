@@ -40,7 +40,6 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -59,15 +58,9 @@ export const createStudent = async (req: Request, res: Response) => {
 
        
         // cadastrar plano contratado 
-
         const today = new Date().toISOString().split("T")[0]    
 
-
         const new_date = addMonthsToDate(today, parseInt(plan.months))
-
-        console.log("new date: ", new_date)
-
-        console.log("Verificação: ", today, addMonthsToDate(today, parseInt(plan.months)))
 
         await database.none(`
             insert into users_plans (plancode, user_cpf, cdate, expdate)
@@ -79,7 +72,6 @@ export const createStudent = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

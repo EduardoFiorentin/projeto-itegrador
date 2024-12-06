@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import {StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
 import { JwtService } from "../../services";
-import { ValidationExcept } from "../../services/Exceptions";
 
 // Recebe e valida um código de recuperação de senha 
 
@@ -20,21 +19,21 @@ export const recoverPassword = async (req: Request, res: Response) => {
     try {
 
         // receber request 
-        // const { code } = req.body
-        console.log("Teste de payload: ", req.user)
+        // // const { code } = req.body
+        // console.log("Teste de payload: ", req.user)
 
 
-        // autenticar codigo 
-        const response = true
+        // // autenticar codigo 
+        // const response = true
 
-        // remove codigo do banco 
+        // // remove codigo do banco 
 
-        // resposta
-        if (response) res.status(StatusCodes.OK).json({message: "Codigo verificado com sucesso!", token: "dadfrgadfrgwsefwewg"})
-        else res.status(StatusCodes.BAD_REQUEST).json({message: "Codigo inválido!"})
+        // // resposta
+        // if (response) res.status(StatusCodes.OK).json({message: "Codigo verificado com sucesso!", token: "dadfrgadfrgwsefwewg"})
+        // else res.status(StatusCodes.BAD_REQUEST).json({message: "Codigo inválido!"})
+        res.status(200).send("Retorno")
 
     } catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }

@@ -31,7 +31,6 @@ export const handleValidate = async (req: Request, res: Response, next: NextFunc
 
     } 
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 
@@ -75,12 +74,8 @@ export const handle = async (req: Request, res: Response) => {
             res.status(StatusCodes.OK).send("Solicitação rejeitada!")
             return  
         }
-
-        console.log("Verificação: ", class_request)
-        
     } 
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 

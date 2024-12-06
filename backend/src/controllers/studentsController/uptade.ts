@@ -67,7 +67,6 @@ export const updateStudentValidate = (req: Request, res: Response, next: NextFun
         next()
 
     } catch (err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 }
@@ -77,7 +76,6 @@ export const updateStudent = async (req: Request, res: Response) => {
         const body = req.body;
         const { cpf } = req.params;
 
-        // Gera query segura
         const updateData = generateUpdateQueryAndValues(body, cpf);
 
         if (updateData) {
@@ -86,7 +84,6 @@ export const updateStudent = async (req: Request, res: Response) => {
 
         res.status(StatusCodes.OK).send("Usuário Atualizado!");
     } catch (err) {
-        console.error(err);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Erro interno. Tente novamente mais tarde.");
     }
   };

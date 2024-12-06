@@ -16,7 +16,6 @@ export const getAllValidate = (req: Request, res: Response, next: NextFunction) 
 
     } 
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 
@@ -37,7 +36,6 @@ export const getAll = async (req: Request, res: Response) => {
                 ;
                 `,)
     
-                console.log("Classes: ", classes)
         
             res.status(StatusCodes.OK).json(classes)
         } 
@@ -54,7 +52,6 @@ export const getAll = async (req: Request, res: Response) => {
                 ;
                 `, [req.user?.email])
     
-                console.log("Classes: ", classes)
         
             res.status(StatusCodes.OK).json(classes)
         }
@@ -62,12 +59,8 @@ export const getAll = async (req: Request, res: Response) => {
             res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
             return
         }
-
-        
-
     } 
     catch(err) {
-        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "Erro interno. Tente novamente mais tarde."})
     }
 } 

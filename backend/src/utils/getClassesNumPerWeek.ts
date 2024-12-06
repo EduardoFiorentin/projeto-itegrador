@@ -6,10 +6,7 @@ export async function getClassesNumPerWeek(date: string, cpf: string): Promise<n
     try {
         // pega inicio e fim da semana
         const {weekStart, weekEnd} = getWeekStartAndEnd(date)
-        console.log("Inicio e fim: ", weekStart, weekEnd)
-    
-        // verifica quantas aulas o usuário com cpf passado tem cadastradas neste período 
-        // (solicitações de personal + aulas personais + inscrições em aulas em grupo)
+
         const num_classes = await database.one(`
             with personal_req as (
                 select data as cdate, starth from request_classes where student_cpf=$1 and data >= $2 and data <= $3 and status = 'pendent'
@@ -30,12 +27,10 @@ export async function getClassesNumPerWeek(date: string, cpf: string): Promise<n
             select count(*) from un; 
         `, [cpf, weekStart, weekEnd])
 
-        console.log("Resposta do banco: ", num_classes)
         return parseInt(num_classes.count)
 
     }
     catch(err) {
-        console.log("Erro na função de verificação de numero de aulas na semana: ", err)
         return -1
     }
 } 

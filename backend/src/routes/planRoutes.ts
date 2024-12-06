@@ -20,8 +20,8 @@ planRoutes.post("/contract",
     PlansController.Contract.contractPlan
 )
 
-planRoutes.get("/:name", (req, res) => {
-    res.status(200).send("Plano de contratação com nome")
-})
+// planRoutes.get("/:name", (req, res) => {
+//     res.status(200).send("Plano de contratação com nome")
+// })
 
 export { planRoutes }
