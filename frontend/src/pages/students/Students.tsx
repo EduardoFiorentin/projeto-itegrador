@@ -58,20 +58,15 @@ export const Students = () => {
     
     
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
-        console.log(errors)
-        
         api.post("/user/new-student", data, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
             }
         })
         .then(data => {
-            console.log(data)
             enqueueSnackbar("Usuário cadastrado com sucesso!", {variant: "success"})
         })
         .catch(error => {
-            console.log(error)
             enqueueSnackbar("Erro ao cadastrar usuário!", {variant: "error"})
         })
         
@@ -86,19 +81,15 @@ export const Students = () => {
             }
         })
         .then(data => {
-            console.log(data)
             setPlans(data.data)
         })
         .catch(error => {
-            console.log(error)
+            enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
         })
     }
 
 
     const searchUser = () => {
-        console.log("Chamada...")
-        console.log("Users: ", users.map(user => user.name))
-        console.log("Search: ", search)
         if (search && search.length >= 3) {
 
             api.post("/user/search", {search},{
@@ -107,11 +98,9 @@ export const Students = () => {
                 }
             })
             .then(data => {
-                console.log(data)
                 setUsers(data.data)
             })
             .catch(error => {
-                console.log(error)
                 enqueueSnackbar("Não foi possível pesquisar usuários!", {variant: "error"})
             })
 
@@ -169,7 +158,6 @@ export const Students = () => {
                                 <Autocomplete
                                     sx={{width: "100%"}}
                                     options={users.map(user => user.name)}
-                                    // sx={{ width: "100%" }}
                                     renderInput={(params) => <TextField {...params} label="Alunos" onChange={event => {
                                         setSearch(event.target.value)
                                         setConfirm(false)
@@ -200,8 +188,6 @@ export const Students = () => {
                                         </Box>
                                         <Box display={"flex"} gap={3} maxWidth={"100%"}>
                                             <Button disabled>Enviar Email</Button>
-                                            {/* <Button disabled>Confirmar</Button>
-                                            <Button disabled>Confirmar</Button> */}
                                         </Box>
                                     </>
                                     )

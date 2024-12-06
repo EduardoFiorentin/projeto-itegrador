@@ -19,17 +19,6 @@ export const UserInfoProvider: React.FC<{children: React.ReactNode}> = ({childre
 
     const [userInfo, setUserInfo] = useState<IUser|null>(null)
 
-    // useCallback e useMemo - evita que a função/valor seja recalculada a cada renderização 
-
-    // const toggleTheme = useCallback(() => {
-    //     setUserInfo(oldTheme => oldTheme === 'light' ? 'dark' : 'light')
-    // }, [])
-
-    // const getUserInfo = useMemo(() => {
-    //     return userInfo
-
-    // }, [userInfo])
-
     return (
             <UserContext.Provider value={{user: userInfo, setUser: setUserInfo}}>
                 <Box width="100%" height="100%">

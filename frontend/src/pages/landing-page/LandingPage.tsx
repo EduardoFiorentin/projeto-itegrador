@@ -83,13 +83,7 @@ const gallery = [
 export const LandingPage = () => {
     const { setIsMenuHidden } = useMenuContext()
     const mainTheme = useTheme() 
-    const lgDown = useMediaQuery(mainTheme.breakpoints.down("lg"))
-    const mdDown = useMediaQuery(mainTheme.breakpoints.down("md"))
     const smDown = useMediaQuery(mainTheme.breakpoints.down("sm"))
-    // setIsMenuHidden(true)
-
-    // ["Aulas de Boxe", "Treinamento Personalizado", "Eventos"]
-
 
     const navigate = useNavigate()
     useEffect(() => setIsMenuHidden(true), [])

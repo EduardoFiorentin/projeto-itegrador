@@ -15,16 +15,11 @@ export const RecoverCode = () => {
     const [buttonsDisable, setButtonsDisable] = useState<boolean>(false)
 
     const navigate = useNavigate()
-    // const handleNavigate = (to: string) => {
-    //     navigate(to)
-    // }
-
     const handleVerifyCode = () => {
         setButtonsDisable(true)
         setBtn_1_Loading(true)
 
         setTimeout(() => {
-            console.log("Requisição de troca de senha")
             navigate("/change-pass")
         }, 1000)
     }

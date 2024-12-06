@@ -40,8 +40,6 @@ export const ChangePassword = () => {
             overflow={"auto"}
             > 
 
-           
-
             <Box 
                 border={1}
                 borderColor={"primary.light"}

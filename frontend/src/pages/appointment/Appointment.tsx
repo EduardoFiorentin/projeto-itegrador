@@ -20,7 +20,6 @@ export const Appointment = () => {
     const [teacher, setTeacher] = useState("0")
 
     const [schedules, setSchedules] = useState<{starth: string, endh: string}[]>([])
-    // const [wday, setWday] = useState("0")
     const [schedule, setSchedule] = useState<number>(0)
 
     const [modality, setModality] = useState<{name: string, code: string}[]>([])
@@ -54,9 +53,6 @@ export const Appointment = () => {
         if (user == null) navigate('/entrar')
     }, [user])
 
-    // useEffect(() => {
-    // }, [date])
-
     const getTeachers = async () => {
         api.get("/user/getTeachers", {
             headers: {
@@ -64,11 +60,9 @@ export const Appointment = () => {
             }
         })
         .then(data => {
-            console.log("Lista de professores:", teachers)
             setTeachers(data.data)
         })
         .catch(err => {
-            console.log("Erro ao pegar professores", err)
             if (err.response.status === 401) {
                 enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                 navigate("/entrar")
@@ -81,12 +75,8 @@ export const Appointment = () => {
 
     const getSchedules = async () => {
 
-        console.log("Data enviada: ", {date, day: getDayFromDate(date)})
-
         if (!isValidFutureDate(date) || getDayFromDate(date) === "Domingo") {
-            console.log("Reset tudo   ....")
             setSchedules([])
-            // setModality([])
             setGroupClasses([])
             return
         }
@@ -97,11 +87,9 @@ export const Appointment = () => {
             }
         })
         .then(data => {
-            console.log("Lista de horarios:", data.data)
             setSchedules(data.data)
         })
         .catch(err => {
-            console.log(err)
             if (err.response.status === 401) {
                 enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                 navigate("/entrar")
@@ -120,12 +108,9 @@ export const Appointment = () => {
             }
         })
         .then(data => {
-            console.log("Lista de modalidades:", schedules)
             setModality(data.data)
         })
         .catch(err => {
-            console.log("Erro ao pegar modalidades", err)
-            console.log(err)
             if (err.response.status === 401) {
                 enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                 navigate("/entrar")
@@ -137,20 +122,15 @@ export const Appointment = () => {
     }
 
     const getGroupClasses = async () => {
-        // if (date != "0") {
-            console.log("Dia pesquisado: ", (new Date(date).getDay())+1)
             api.get(`classes/getbyday-groupclass/${(new Date(date).getDay())+1}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("na_token")}`
                 }
             })
             .then(data => {
-                console.log("Lista de aulas em grupo:", data)
                 setGroupClasses(data.data)
             })
             .catch(err => {
-                console.log("Erro ao pegar modalidades", err)
-                console.log(err)
                 if (err.response.status === 401) {
                     enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                     navigate("/entrar")
@@ -167,18 +147,14 @@ export const Appointment = () => {
             navigate("/entrar")
         }
 
-        console.log("Operador: ", classType)
-
         if (classType == 1) {
 
-            // evitar agendamentos no domingo 
             if (new Date(date).getDay() + 1 === 7) {
                 enqueueSnackbar("Não é possível agendar aulas nos Domingos!", {variant: "warning"})
                 return
             }
 
             const mod = modality.filter(mod => mod.name == chModality)
-            // console.log(mod)
 
             const data = {
                 modality: mod[0].name,
@@ -190,7 +166,6 @@ export const Appointment = () => {
                 student_name: user ? user.name : null
             }
 
-            console.log(data)
             api.post("/classes/create-requestclass", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("na_token")}`
@@ -198,10 +173,8 @@ export const Appointment = () => {
             })
             .then(data => {
                 enqueueSnackbar("Solicitação de aula enviada!", {variant: "success"})
-                // getSchedules()
             })
             .catch(err => {
-                console.log(err)
                 if (err.response.status === 401) {
                     enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                     navigate("/entrar")
@@ -212,8 +185,6 @@ export const Appointment = () => {
             }) 
         } 
         else if (classType == 2) {
-            console.log("Aula em grupo escolhida: ", groupClasses.filter(cls => cls.code === gcSelected))
-            
             const chooseClass = groupClasses.filter(cls => cls.code === gcSelected)[0]
             if (chooseClass) {
 
@@ -226,8 +197,6 @@ export const Appointment = () => {
                     present: false
                 }
 
-                console.log("Inscrição na aula em grupo", data)
-
                 api.post("classes/subscribe-group", data, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("na_token")}`
@@ -237,7 +206,6 @@ export const Appointment = () => {
                     enqueueSnackbar("Solicitação de aula enviada!", {variant: "success"})
                 })
                 .catch(err => {
-                    console.log(err)
                     if (err.response.status === 401) {
                         enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                         navigate("/entrar")
@@ -251,7 +219,6 @@ export const Appointment = () => {
     return (
         <BaseLayout title="Agendamento" returnPath="/">
             <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"} flexDirection={"column"} sx={{backgroundColor: "primary.light"}} borderRadius={"16px"} width={"95%"} maxHeight="75vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} m="auto">
-            {/* <Box width={"95%"} maxHeight="75vh" height={"80vh"} maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"} overflow={"auto"}> */}
                 <Box display={"flex"} gap={3}>
                     <Button 
                         variant={classType == 1 ? "contained" : "outlined"} 

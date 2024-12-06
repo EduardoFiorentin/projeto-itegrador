@@ -5,11 +5,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Person from '@mui/icons-material/Person';
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { api } from "../../shared/services";
 import { ISchedules } from "../../shared/Interfaces/ISchedules";
 import { useMenuContext, useUserInfoContext } from "../../shared/contexts";
 import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 
 export const Schedules = () => {
@@ -43,7 +43,6 @@ export const Schedules = () => {
     useEffect(() => {
         setDay(getWeekDay(date))
         setReqDate(getDate(date))
-        console.log(date)
     }, [date])
 
 
@@ -62,24 +61,23 @@ export const Schedules = () => {
 
     // Navegar para o dia anterior
     const prevDay = () => {
-        console.log(date)
         setDate(() => new Date(date.setDate(date.getDate() - 1)));
     };
 
     
     // requisições - pegar horarios pelo dia 
     const updateSchedules = () => {
-        console.log("Data da req: ", reqDate, day)
         api.post("/schedules/getbyday", { day, date: reqDate }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
             }
         })
         .then(data => {
-            console.log("deu certo: ", data)
             setData(data.data)
         })
-        .catch(data => console.log("deu Errado: ", data))
+        .catch(data => {
+            enqueueSnackbar("Não foi possível carregar horarios")
+        })
 
     }
 

@@ -32,7 +32,6 @@ export const Login = () => {
         setBtn_2_Loading(true)
 
         setTimeout(() => {
-            console.log("Requisição de troca de senha")
             navigate("/recuperacao")
         }, 1000)
     }
@@ -42,16 +41,13 @@ export const Login = () => {
             api.post("/auth/login", {email: email, password: password})
             .then((data) => {
                 localStorage.setItem("na_token", data.data.token)
-                console.log(data.data)
                 setUser(data.data)
 
                 if (data.data.role === 1 || data.data.role === 2 ) navigate("/inicio")
                 else navigate("/horarios")
                 
-                console.log("Sucesso", data)
             })
             .catch((err) => {
-                console.log("Falha", err)
                 if (err.code === "ERR_BAD_REQUEST") {
                     enqueueSnackbar("Email ou Senha inválidos!", {variant: "error"})
                 }
@@ -90,7 +86,6 @@ export const Login = () => {
                 border={1}
                 borderColor={"secondary.light"}
                 boxShadow={2}
-                // height={"50%"}
                 width={smDown ? "auto" : mdDown ? "70%" : "40%"}
                 maxWidth={"500px"}
                 borderRadius={"40px"}
@@ -100,7 +95,6 @@ export const Login = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
                 p={"30px"}
-                // m={"40px"}
                 gap={4}
             > 
                 <Typography  variant={smDown ? "h5" : "h4"} component="h2" textAlign={"center"}>
@@ -116,15 +110,6 @@ export const Login = () => {
                     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
                         <Button variant="contained"  color="secondary" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
                     </Box>
-                    {/* <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} width={smDown ? "90%": "50%"}>
-                        <Button variant="outlined" color="secondary" onClick={handleRequestChangePassword} disabled={buttonsDisable}>
-                            
-                                <Typography variant="button" color="inherit">
-                                    {!btn_2_Loading ? (<>Recuperar Senha </>): (<CircularProgress size="25px"/>)}
-                                </Typography>
-                        
-                        </Button>
-                    </Box> */}
                 </Box>
             </Box>
             <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>

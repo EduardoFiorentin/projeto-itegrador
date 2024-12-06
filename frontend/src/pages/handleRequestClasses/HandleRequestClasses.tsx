@@ -3,13 +3,11 @@ import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
 import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { BaseLayout } from "../../shared/layouts";
-import { Person } from "@mui/icons-material";
 import { api } from "../../shared/services";
 
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { formatIsoDate } from "../../shared/utils";
-import { DAYS_OF_WEEK } from "../../shared/constants/Days_of_week";
 import { useSnackbar } from "notistack";
 
 interface IClassRequest {
@@ -31,7 +29,6 @@ export const HandleRequestClasses = () => {
     
     setIsMenuHidden(false)
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
-    const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
 
     const navigate = useNavigate()
@@ -50,10 +47,9 @@ export const HandleRequestClasses = () => {
             }
         })
         .then(data => {
-            console.log("deu certo: ", data)
             setData(data.data)
         })
-        .catch(data => console.log("deu Errado: ", data))
+        .catch(data => {})
     }
 
     const handleRequest = (item: IClassRequest, status: "accepted"|"rejected") => {
@@ -67,7 +63,6 @@ export const HandleRequestClasses = () => {
         }
 
         
-        console.log("Item aceito: ", requestData)
 
         api.post("/classes/handle-requestClass", requestData, {
             headers: {
@@ -75,13 +70,11 @@ export const HandleRequestClasses = () => {
             }
         })
         .then(dt => {
-            console.log("deu certo: ", dt)
             enqueueSnackbar(dt.data, {variant: "success"})
             const newData = data.filter((itm: IClassRequest) => itm != item)
             setData(newData)
         })
         .catch(data => {
-            console.log("deu Errado: ", data)
             enqueueSnackbar(data.data, {variant: "error"})
         })
     } 
@@ -127,12 +120,8 @@ export const HandleRequestClasses = () => {
                                                 <Typography variant="body1">Prof. {sch.teacher_name.split(" ")[0]}</Typography> 
                                                 <Typography variant="body1">Al. {sch.student_name.split(" ")[0]}</Typography>
                                             </Box>
-                                            {/* <Typography variant="h5" fontWeight={"bold"}>{sch.teacher_name}</Typography> */}
                                         </Box>
                                         <Box height={"100%"} width={smDown ? "auto" :"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={2}>
-                                            {/* <Typography variant="h5" display={"flex"} justifyContent={"center"} alignItems={"center"} fontSize={20}>
-                                                
-                                            </Typography> */}
                                             <Box>
                                                 <Button sx={{backgroundColor: "#46FF3Ddd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "accepted")}>
                                                     <CheckIcon color="primary"/>

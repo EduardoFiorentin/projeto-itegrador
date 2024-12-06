@@ -20,7 +20,6 @@ export const Router = () => {
             {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "access_time", path: "/horarios"},
             {label: "Alunos", icon: "book", path: "/alunos"},
-            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
             {label: "Solicitações", icon: "event", path: "/solicitacoes"},
             {label: "Planos", icon: "view_list", path: "/planos"},                // novo plano / contratação de planos
         ] // SECRETÁRIA
@@ -28,7 +27,6 @@ export const Router = () => {
         const menu_options_2 = [
             {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "access_time", path: "/horarios"},
-            // {label: "Aulas", icon: "star", path: "/aulas"},               // tela de horarios já serve
             {label: "Solicitações", icon: "event", path: "/solicitacoes"},
         ] // PROFESSOR 
         
@@ -36,8 +34,7 @@ export const Router = () => {
             // {label: "Inicio", icon: "home", path: "/inicio"},
             {label: "Horários", icon: "star", path: "/horarios"},
             {label: "Agendamento", icon: "event", path: "/agendamento"},
-            {label: "Meu Plano", icon: "view_list", path: "star"},
-            // {label: "Aulas", icon: "star", path: "star"},                 // tela de horarios já serve
+            {label: "Minhas solicitações", icon: "event", path: "/solicitacoes"},
         ] // ALUNOS
       
         if (user?.role === 1) {
@@ -62,18 +59,16 @@ export const Router = () => {
             {/* Geral */}
             <Route path="/inicio" element={<Home/>}/>
             <Route path="/horarios" element={<Schedules/>}/>
-            {/* <Route path="/aulas" element={<Home/>}/> Já substituido pelo /horarios (mostra as aulas) */}
             <Route path="/agendamento" element={<Appointment/>}/>
 
             {/* Secretária */}
             <Route path="/alunos" element={<Students/>}/>
             <Route path="/solicitacoes" element={<HandleRequestClasses/>}/>
             <Route path="/planos" element={<Plans/>}/>
-            {/* <Route path="/agendamento" element={<Home/>}/> */}
 
 
             {/* Rota de direcionamento */}
-            {/* <Route path="*" element={<Navigate to="/"/>} /> */}
+            <Route path="*" element={<Navigate to="/horario"/>} />
         </Routes>
     )
 }

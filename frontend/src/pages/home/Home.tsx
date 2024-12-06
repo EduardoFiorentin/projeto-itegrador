@@ -57,11 +57,9 @@ export const Home = () => {
             }
         })
         .then(data => {
-            console.log("deu certo: ", data)
             setData(data.data)
         })
         .catch(data => {
-            console.log("deu Errado: ", data)
             if (data.response.status === 401) {
                 enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
                 navigate("/entrar")
@@ -295,7 +293,6 @@ export const Home = () => {
                                                     <Typography variant="subtitle1" sx={{ padding: "8px" }} textAlign={"center"}>Falha ao carregar os registros</Typography>
                                                 )
                                             }
-                                        {/* </Box> */}
                                         </DashbordCardScroll>
                                     </Box>
                                 </Box>

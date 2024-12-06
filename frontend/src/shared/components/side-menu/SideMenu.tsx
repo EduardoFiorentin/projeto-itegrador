@@ -44,13 +44,11 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
 
     // pegar tamanho atual da tela
     // retorna true se o tamanho está abaixo de md (900px)
-    const smDown = useMediaQuery(theme.breakpoints.down("sm"))
     const mdDown = useMediaQuery(theme.breakpoints.down("md"))
     const {user} = useUserInfoContext()
     const navigate = useNavigate()
 
     const {isMenuOpen, toggleMenuOpen, menuOptions, isMenuHidden} = useMenuContext() 
-    // const { themeName, toggleTheme } = useAppThemeContext()
 
     const handleLogOut = () => {
         
@@ -125,7 +123,6 @@ export const SideMenu: React.FC<{children?: React.ReactNode}> = ({children}) => 
                 </Box>
             </Drawer>
 
-            {/* height="100vh" width={"80vw"} */}
             <Box paddingLeft={(mdDown || isMenuHidden) ? 0 : "200px"} sx={{
                 backgroundColor: "inherit"
             }}>

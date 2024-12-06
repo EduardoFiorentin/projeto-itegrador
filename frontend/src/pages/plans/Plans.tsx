@@ -39,20 +39,15 @@ export const Plans = () => {
     
     
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
-        console.log(errors)
-        
         api.post("/plans/contract", data, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
             }
         })
         .then(data => {
-            console.log(data)
             enqueueSnackbar("Plano contratado com sucesso!", {variant: "success"})
         })
         .catch(error => {
-            console.log(error)
             enqueueSnackbar("Erro!", {variant: "error"})
         })
         
@@ -67,11 +62,10 @@ export const Plans = () => {
             }
         })
         .then(data => {
-            console.log(data)
             setPlans(data.data)
         })
         .catch(error => {
-            console.log(error)
+            enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
         })
     }
 

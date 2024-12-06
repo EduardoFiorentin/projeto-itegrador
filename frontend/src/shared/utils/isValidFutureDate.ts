@@ -1,7 +1,5 @@
 export function isValidFutureDate(dateString: string) {
 
-    console.log("Data verificada: ", dateString)
-
     const dateRegex = /^2\d{3}-\d{2}-\d{2}$/;
     if (!dateRegex.test(dateString)) {
         return false;
