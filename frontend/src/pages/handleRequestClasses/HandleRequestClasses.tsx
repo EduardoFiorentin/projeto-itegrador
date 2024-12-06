@@ -102,7 +102,7 @@ export const HandleRequestClasses = () => {
 
 
     return (
-        user !== null && user?.role === 1 || user?.role === 2 ? (
+        (user !== null) ? (
             <BaseLayout title="Solicitações de Agendamento" returnPath="/">
                 <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"}>
                     <Box width={"95%"} height="80vh" maxWidth={"800px"} pt={"20px"} sx={{backgroundColor: "primary.light"}}  borderRadius={"16px"}>
@@ -143,11 +143,15 @@ export const HandleRequestClasses = () => {
                                             </Box>
                                         </Box>
                                         <Box height={"100%"} width={smDown ? "auto" :"25%"} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={2}>
-                                            <Box>
-                                                <Button sx={{backgroundColor: "#46FF3Ddd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "accepted")}>
-                                                    <CheckIcon color="primary"/>
-                                                </Button>
-                                            </Box>
+                                            {
+                                              (user.role === 1 || user.role === 2) && (
+                                                <Box>
+                                                    <Button sx={{backgroundColor: "#46FF3Ddd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "accepted")}>
+                                                        <CheckIcon color="primary"/>
+                                                    </Button>
+                                                </Box>
+                                              )
+                                            }
                                             <Box>
                                                 <Button sx={{backgroundColor: "#FF3D40dd", border: "1px solid gray"}} onClick={() => handleRequest(sch, "rejected")}>
                                                     <ClearIcon color="primary"/>

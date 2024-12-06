@@ -14,7 +14,7 @@ export const handleValidate = async (req: Request, res: Response, next: NextFunc
         
         const role = req.user?.role
         
-        if (role && (role != "1" && role != "2")) {
+        if (role && (role != "1" && role != "2" && role != "3")) {
             res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
             return
         }
@@ -49,7 +49,7 @@ export const handle = async (req: Request, res: Response) => {
             return
         }
 
-        if (change === 'accepted') {
+        if (change === 'accepted' && (req.user?.role == "1" || req.user?.role == "2")) {
             
             // atualiza o registro de solicitação 
             await database.none(`
@@ -71,8 +71,14 @@ export const handle = async (req: Request, res: Response) => {
                 DELETE FROM request_classes WHERE data=$1 and wday=$2 and starth=$3 and endh=$4;
             `, [ data, wday_code, starth, endh])
                 
-            res.status(StatusCodes.OK).send("Solicitação rejeitada!")
+            if (req.user?.role == "3") res.status(StatusCodes.OK).send("Solicitação cancelada!")
+            else res.status(StatusCodes.OK).send("Solicitação rejeitada!")
             return  
+        }
+
+        else {
+            res.status(StatusCodes.BAD_REQUEST).send("Não foi possível autenticar o usuário!")
+            return
         }
     } 
     catch(err) {

@@ -7,7 +7,7 @@ export const getAllValidate = (req: Request, res: Response, next: NextFunction) 
 
         const role = req.user?.role
         
-        if (role && (role != "1" && role != "2")) {
+        if (role && (role != "1" && role != "2" && role != "3")) {
             res.status(StatusCodes.BAD_REQUEST).send("Você não tem autorização para realizar esta operação!")
             return
         }
@@ -48,6 +48,22 @@ export const getAll = async (req: Request, res: Response) => {
                 JOIN days_of_week dw on rc.wday=dw.code
                 JOIN modality m on m.code=rc.modality
                 where rc.status = 'pendent' and tu.email=$1
+                order by data, starth
+                ;
+                `, [req.user?.email])
+    
+        
+            res.status(StatusCodes.OK).json(classes)
+        }
+        else if (req.user?.role == "3") {
+            const classes = await database.manyOrNone(`
+                SELECT rc.status, su.name as student_name, tu.name as teacher_name, rc.data, dw.name as wday, rc.starth, rc.endh, m.name as modality
+                FROM request_classes rc
+                JOIN users su on rc.student_cpf=su.cpf
+                JOIN users tu on rc.teacher_cpf=tu.cpf
+                JOIN days_of_week dw on rc.wday=dw.code
+                JOIN modality m on m.code=rc.modality
+                where rc.status = 'pendent' and su.email=$1
                 order by data, starth
                 ;
                 `, [req.user?.email])
