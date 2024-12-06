@@ -32,8 +32,8 @@ export const Router = () => {
         
         const menu_options_3 = [
             // {label: "Inicio", icon: "home", path: "/inicio"},
-            {label: "Horários", icon: "star", path: "/horarios"},
-            {label: "Agendamento", icon: "event", path: "/agendamento"},
+            {label: "Horários", icon: "access_time", path: "/horarios"},
+            {label: "Agendamento", icon: "view_list", path: "/agendamento"},
             {label: "Minhas solicitações", icon: "event", path: "/solicitacoes"},
         ] // ALUNOS
       
