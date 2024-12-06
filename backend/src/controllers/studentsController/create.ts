@@ -17,11 +17,15 @@ export const createStudentValidate = async (req: Request, res: Response, next: N
         }
         
         if (
-            !name || !cpf || !email || !password || !birth_date || !address || !phone_number || !plan_code || !accesscode ||
-            cpf.length != 11
+            !name || !cpf || !email || !password || !birth_date || !address || !phone_number || !plan_code || !accesscode
 
         ) {
-            res.status(StatusCodes.BAD_REQUEST).send("Dados no formato incorreto!")
+            res.status(StatusCodes.BAD_REQUEST).send("Dados estão faltando!")
+            return
+        }
+
+        if (cpf.length != 11) {
+            res.status(StatusCodes.BAD_REQUEST).send("Cpf com tamanho incorreto!")
             return
         }
 

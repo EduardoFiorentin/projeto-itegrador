@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useSnackbar } from "notistack";
 import { api } from "../../shared/services";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
     user_cpf: string,
@@ -29,6 +30,7 @@ export const Plans = () => {
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
 
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate()
 
     const {
         register,
@@ -47,8 +49,15 @@ export const Plans = () => {
         .then(data => {
             enqueueSnackbar("Plano contratado com sucesso!", {variant: "success"})
         })
-        .catch(error => {
-            enqueueSnackbar("Erro!", {variant: "error"})
+        .catch(err => {
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else enqueueSnackbar("Não foi possível fazer a contratação!", {variant: "error"})
         })
         
     }
@@ -64,8 +73,15 @@ export const Plans = () => {
         .then(data => {
             setPlans(data.data)
         })
-        .catch(error => {
-            enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
+        .catch(err => {
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
         })
     }
 

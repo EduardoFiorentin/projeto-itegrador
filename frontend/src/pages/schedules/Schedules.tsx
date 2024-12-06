@@ -75,8 +75,15 @@ export const Schedules = () => {
         .then(data => {
             setData(data.data)
         })
-        .catch(data => {
-            enqueueSnackbar("Não foi possível carregar horarios")
+        .catch(err => {
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else enqueueSnackbar("Não foi possível carregar os horarios!", {variant: "error"})
         })
 
     }

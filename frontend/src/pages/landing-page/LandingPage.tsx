@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { useMenuContext } from "../../shared/contexts"
-import React from "react";
 import {
   AppBar,
   Toolbar,

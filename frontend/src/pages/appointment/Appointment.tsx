@@ -68,7 +68,7 @@ export const Appointment = () => {
                 navigate("/entrar")
             }
             else {
-                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+                enqueueSnackbar("Não foi possível carregar os professores!", {variant: "error"})
             }
         })
     }
@@ -95,7 +95,7 @@ export const Appointment = () => {
                 navigate("/entrar")
             }
             else {
-                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+                enqueueSnackbar("Não foi possível carregar os horarios!", {variant: "error"})
             }
         })
     }
@@ -116,7 +116,7 @@ export const Appointment = () => {
                 navigate("/entrar")
             }
             else {
-                enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+                enqueueSnackbar("Não foi possível carregar as modalidades!", {variant: "error"})
             }
         })
     }
@@ -136,7 +136,7 @@ export const Appointment = () => {
                     navigate("/entrar")
                 }
                 else {
-                    enqueueSnackbar("Ocorreu um erro na solicitação!", {variant: "error"})
+                    enqueueSnackbar("Não foi possível carregar as aulas em grupo!", {variant: "error"})
                 }
             })
     }

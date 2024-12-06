@@ -39,6 +39,10 @@ export const HandleRequestClasses = () => {
     useEffect(() => {
         getClassRequests()
     }, [])
+    
+    useEffect(() => {
+        if (user == null) navigate('/entrar')
+    }, [user])
 
     const getClassRequests = () => {
         api.get("/classes/getall-requestClasses", {
@@ -49,7 +53,19 @@ export const HandleRequestClasses = () => {
         .then(data => {
             setData(data.data)
         })
-        .catch(data => {})
+        .catch(err => {
+            console.log(err)
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else {
+                enqueueSnackbar("Não foi possível carregar as requisições de aula!", {variant: "error"})
+            }
+        })
     }
 
     const handleRequest = (item: IClassRequest, status: "accepted"|"rejected") => {
@@ -62,8 +78,6 @@ export const HandleRequestClasses = () => {
             change: status
         }
 
-        
-
         api.post("/classes/handle-requestClass", requestData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("na_token")}`
@@ -74,8 +88,15 @@ export const HandleRequestClasses = () => {
             const newData = data.filter((itm: IClassRequest) => itm != item)
             setData(newData)
         })
-        .catch(data => {
-            enqueueSnackbar(data.data, {variant: "error"})
+        .catch(err => {
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else enqueueSnackbar(err.data, {variant: "error"})
         })
     } 
 

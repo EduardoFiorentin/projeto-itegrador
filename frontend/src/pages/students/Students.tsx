@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useSnackbar } from "notistack";
 import { api } from "../../shared/services";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
     name: string,
@@ -48,6 +49,7 @@ export const Students = () => {
     const [confirm, setConfirm] = useState(false)
 
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate()
 
     const {
         register,
@@ -66,8 +68,8 @@ export const Students = () => {
         .then(data => {
             enqueueSnackbar("Usuário cadastrado com sucesso!", {variant: "success"})
         })
-        .catch(error => {
-            enqueueSnackbar("Erro ao cadastrar usuário!", {variant: "error"})
+        .catch(err => {
+            enqueueSnackbar(err.response.data, {variant: "error"})
         })
         
     }
@@ -83,8 +85,15 @@ export const Students = () => {
         .then(data => {
             setPlans(data.data)
         })
-        .catch(error => {
-            enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
+        .catch(err => {
+            if (err.code === "ERR_NETWORK") {
+                enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+            }
+            else if (err.response.status === 401) {
+                enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                navigate("/entrar")
+            }
+            else enqueueSnackbar("Não foi possível carregar os planos!", {variant: "error"})
         })
     }
 
@@ -100,13 +109,19 @@ export const Students = () => {
             .then(data => {
                 setUsers(data.data)
             })
-            .catch(error => {
-                enqueueSnackbar("Não foi possível pesquisar usuários!", {variant: "error"})
+            .catch(err => {
+                if (err.code === "ERR_NETWORK") {
+                    enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
+                }
+                else if (err.response.status === 401) {
+                    enqueueSnackbar("Erro de autenticação! Faça login novamente para continuar.", {variant: "error"})
+                    navigate("/entrar")
+                }
+                else enqueueSnackbar(err.response.data, {variant: "error"})
             })
 
         } else {
             setUsers([])
-            if (confirm) enqueueSnackbar("Digite e selecione um nome para pesquisar", {variant: "warning"})
         }
     }
 
