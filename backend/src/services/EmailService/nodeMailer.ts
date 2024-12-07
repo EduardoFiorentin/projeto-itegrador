@@ -10,16 +10,17 @@ const logger = winston.createLogger({
     transports: [new winston.transports.Console()]
 });
 
-export const sendMail = async (from: string, to: string, subject: string, html: string) => {
+export const sendMail = async ( to: string, subject: string, html: string) => {
     try {
         await transporter.sendMail({
-            from: from,
+            from: "Nobre Arte <eduardoviniciusfiorentin@gmail.com>",
             to: to,
             subject: subject,
             html: html
         })        
     }
     catch (err) {
+        console.log(err)
         throw err
     }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useMenuContext, useUserInfoContext } from "../../shared/contexts"
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Icon, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { BaseLayout } from "../../shared/layouts";
 import { api } from "../../shared/services";
@@ -272,6 +272,9 @@ export const Home = () => {
                                                                 <Typography variant="body2">
                                                                     {item.name}
                                                                 </Typography>
+                                                                {!item.granted && (<Typography variant="caption" p={"5px"} fontSize={"10px"}>
+                                                                    {item.descr}
+                                                                </Typography>)}
                                                             </Box>
                                                             <Box minWidth={"30%"} maxWidth={"30%"}> 
                                                                 <Typography fontWeight={"bold"}>

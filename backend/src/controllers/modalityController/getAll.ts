@@ -24,7 +24,7 @@ export const getAllValidate = (req: Request, res: Response, next: NextFunction) 
 
 export const getAll = async (req: Request, res: Response) => {
     try {
-        const modality = await database.many(`select name, code from modality;`)
+        const modality = await database.many(`select name, code from modality where name != 'Café Marcial';`)
 
         res.status(200).json(modality)
     }
