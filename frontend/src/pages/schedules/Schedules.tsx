@@ -97,9 +97,6 @@ export const Schedules = () => {
         if (user == null) navigate('/entrar')
     }, [user])
 
-
-
-
     return (
         <BaseLayout title="Horários" returnPath="/">
             <Box display={"flex"} gap={2} flexDirection={lgDown ? "column" : "row"} alignItems={"center"} justifyContent={"center"}>

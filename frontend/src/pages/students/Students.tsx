@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { useSnackbar } from "notistack";
 import { api } from "../../shared/services";
 import { useNavigate } from "react-router-dom";
+import { useUserInfoContext } from "../../shared/contexts";
 
 type Inputs = {
     name: string,
@@ -43,6 +44,8 @@ export const Students = () => {
     const theme = useTheme() 
     const lgDown = useMediaQuery(theme.breakpoints.down("lg"))
     const smDown = useMediaQuery(theme.breakpoints.down("sm"))
+
+    const {user} = useUserInfoContext()
 
     const [users, setUsers] = useState<IUser[]>([])
     const [search, setSearch] = useState<string>('')
@@ -130,6 +133,9 @@ export const Students = () => {
     }, [])
 
     useEffect(() => searchUser(), [search, confirm])
+    useEffect(() => {
+        if (user == null) navigate('/entrar')
+    }, [user])
 
     const [btnSelect, setBtnSelect] = useState<1|2>(1)
 

@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { useSnackbar } from "notistack";
 import { api } from "../../shared/services";
 import { useNavigate } from "react-router-dom";
+import { useUserInfoContext } from "../../shared/contexts";
 
 type Inputs = {
     user_cpf: string,
@@ -31,6 +32,11 @@ export const Plans = () => {
 
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate()
+
+    const {user} = useUserInfoContext()
+    useEffect(() => {
+        if (user == null) navigate('/entrar')
+    }, [user])
 
     const {
         register,

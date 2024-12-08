@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { database } from "../../services";
-import { VALID_EMAILS } from "../../constants/valid_emails";
-import { sendMail } from "../../services/EmailService/nodeMailer";
 
 export const handleValidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -63,8 +61,6 @@ export const handle = async (req: Request, res: Response) => {
                 INSERT INTO personal_classes (canceled, modality, teacher, wday, starth, endh, student, cdate) 
                 VALUES (false, $1, $2, $3, $4, $5, $6, $7);  
                 `, [class_request.modality, class_request.teacher_cpf, class_request.wday, class_request.starth, class_request.endh, class_request.student_cpf, class_request.data])
-
-
                 
             res.status(StatusCodes.OK).send("Solicitação confirmada!")
             return 

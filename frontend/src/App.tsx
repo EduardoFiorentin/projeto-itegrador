@@ -1,12 +1,11 @@
 import {Button} from "@mui/material"
 import { Router } from "./routes"
-import { BrowserRouter, RouterProvider } from "react-router-dom"
-import { MenuProvider, useMenuContext } from "./shared/contexts/MenuContext"
+import { BrowserRouter } from "react-router-dom"
+import { MenuProvider } from "./shared/contexts/MenuContext"
 import { AppThemeProvider } from "./shared/contexts/ThemeContext"
 import { SideMenu } from "./shared/components/side-menu/SideMenu"
 import { UserInfoProvider } from "./shared/contexts"
 import { SnackbarProvider } from "notistack"
-import { useEffect } from "react"
 
 function App() {
 
