@@ -25,8 +25,32 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ├── backend/                     # Aplicação backend
 │   ├── dist/                    # Código transpilado e pronto para produção
 │   └── src/                     # Código-fonte do backend
+│       ├── constants/
+│       ├── controllers/         # Conexões com banco de dados postgres
+|           ├──  accessController/
+|           ├── authController/ 
+|           ├── dashbordController/
+|           ├── groupClassesController/ 
+|           ├── modalityController/ 
+|           ├── personalClassesControllers/
+|           ├── plansController
+|           ├── requestClassesControllers/
+|           ├── schedulesController/ 
+|           ├── studentsController/
+|           └── usersController
+│       ├── interfaces/         # Interfaces do sistema 
+│       ├── models/             # Scripts de banco de dados relacionais 
+│       ├── queries/            # Queries
+|           └── Schedules
+│       ├── services/           # Serviços de conexão externa 
+|           ├── AuthService/
+|           ├──  Communication/ 
+|           ├──  EmailService/
+|           └──  PostgresDB 
+│       ├── utils/               # Funções auxiliares 
 │       ├── routes/              # Definições de rotas do backend
-│       ├── app.ts               # Arquivo principal de configuração da aplicação
+│       ├── app.ts               # Arquivo principal de configuração da 
+|
 │       └── server.ts            # Arquivo de inicialização do servidor
 ```
 
