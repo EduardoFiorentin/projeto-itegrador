@@ -54,7 +54,6 @@ export const HandleRequestClasses = () => {
             setData(data.data)
         })
         .catch(err => {
-            console.log(err)
             if (err.code === "ERR_NETWORK") {
                 enqueueSnackbar("Erro ao conectar-se com o servidor!", {variant: "error"})
             }

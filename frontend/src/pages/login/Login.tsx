@@ -110,20 +110,6 @@ export const Login = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>
-                <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("emanuela@gmail.com")
-                    setPassword("emanuela")
-                }}>Secretaria</Button>
-                <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("joao@gmail.com")
-                    setPassword("joao")
-                }}>Professor</Button>
-                <Button color="secondary" variant="outlined" onClick={() => {
-                    setEmail("fabricio@gmail.com")
-                    setPassword("fabricio")
-                }}>Aluno</Button>
-            </Box>
         </Box>
     )
 }

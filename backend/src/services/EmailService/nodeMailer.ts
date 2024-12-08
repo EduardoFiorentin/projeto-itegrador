@@ -20,7 +20,6 @@ export const sendMail = async ( to: string, subject: string, html: string) => {
         })        
     }
     catch (err) {
-        console.log(err)
         throw err
     }
 

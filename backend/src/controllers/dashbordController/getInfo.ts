@@ -35,7 +35,7 @@ export const getInfo = async (req: Request, res: Response) => {
         // Substituir o valor da data diretamente na consulta ou usar um placeholder
         const personal_classes = await database.one(
             "SELECT COUNT(*) AS count FROM personal_classes WHERE cdate >= $1;",
-            [today] // Passar a data formatada como parâmetro
+            [today]
         );
         data.personal_classes_count = personal_classes.count
 
@@ -43,7 +43,7 @@ export const getInfo = async (req: Request, res: Response) => {
         // numero de aulas em grupo por semana
         const group_classes = await database.one(
             "SELECT COUNT(*) AS count FROM group_classes;",
-            [today] // Passar a data formatada como parâmetro
+            [today]
         );
         data.group_classes_count = group_classes.count
 

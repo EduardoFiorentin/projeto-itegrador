@@ -50,8 +50,6 @@ export const subscribe = async (req: Request, res: Response) => {
         // verifica se há um plano ativo e se a data solicitada está coberta por ele 
         const {active, limit_acess} = await getStudentActivePlan(student_cpf, date)
 
-        console.log("ativo: ", active, limit_acess)
-
         if (!active) {
             res.status(StatusCodes.BAD_REQUEST).send("Data solicitada está fora do limite de um plano ativo.")
             return
@@ -76,7 +74,6 @@ export const subscribe = async (req: Request, res: Response) => {
 
     }
     catch(err) {
-        // if (err instanceof )
         const error = err as {code: string, details: string}
 
         // 23505 - violação de unicidade na tabela de inscrição nas aulas 

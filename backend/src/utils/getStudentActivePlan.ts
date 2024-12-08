@@ -16,7 +16,6 @@ export async function getStudentActivePlan(cpf: string, date: string): Promise<{
         `, [cpf, date])
 
         // tem plano ativo e a data solicitada está dentro do limite 
-        console.log("Plano: ", plan) 
         if (plan.length != 0 && isDateBetween(date, plan.cdate, plan.expdate)) {
             return {
                 active: true,
@@ -31,7 +30,6 @@ export async function getStudentActivePlan(cpf: string, date: string): Promise<{
         }
     }
     catch (err) {
-        console.log("Erro ao pegar plano", err)
         return {
             active: false,
             limit_acess: 0
