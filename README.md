@@ -10,6 +10,7 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 ```plaintext
 ├── documentação/                # Documentação do projeto
 │   ├── requisitos/              # Documentos de requisitos
+│   ├── scripts/                 # Scripts de criação do banco de dados
 │   └── diagramas/               # Diagramas de arquitetura
 |       ├── Arquitetura/         # Diagramas da arquitetura do sistema
 │       └── Banco de dados/      # Diagramas da arquitetura do banco de dados 
@@ -50,7 +51,6 @@ Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Ba
 │       ├── utils/               # Funções auxiliares 
 │       ├── routes/              # Definições de rotas do backend
 │       ├── app.ts               # Arquivo principal de configuração da 
-|
 │       └── server.ts            # Arquivo de inicialização do servidor
 ```
 
