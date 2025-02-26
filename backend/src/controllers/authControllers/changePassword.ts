@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {StatusCodes} from "http-status-codes"
 import { MailService } from "../../services";
-import { JwtService } from "../../services";
+// import { JwtService } from "../../services";
 
 // Altera a senha do usuário
 

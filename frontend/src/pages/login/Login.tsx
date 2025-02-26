@@ -109,6 +109,31 @@ export const Login = () => {
                         <Button variant="contained"  color="secondary" disabled={buttonsDisable} onClick={handleLogin}>Entrar</Button>
                     </Box>
                 </Box>
+                <Box display={"flex"} flexDirection={"row"} gap={4} mt={2}>
+            </Box>
+            </Box>
+            <Box>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("emanuela@gmail.com")
+                    setPassword("emanuela")
+                }}>emanuela-s</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("joao@gmail.com")
+                    setPassword("joao")
+                }}>joao-p</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("juliano@gmail.com")
+                    setPassword("juliano")
+                }}>juliano-p</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("fabricio@gmail.com")
+                    setPassword("fabricio")
+                }}>Fabricio-a</Button>
+                <Button color="secondary" variant="outlined" onClick={() => {
+                    setEmail("eduardofiorentin336@gmail.com")
+                    setPassword("eduardo")
+                }}>Eduardo-a</Button>
+
             </Box>
         </Box>
     )
