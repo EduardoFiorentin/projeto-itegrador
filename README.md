@@ -1,6 +1,37 @@
 # Projeto integrador 
 ## Introdução
-Este projeto foi deselvolvido em conjunto nas disciplinas de Programação 2, Banco de dados 1 e Engenharia de Software 1 com o objetivo de entrevistar e desenvolver um sistema para uma empresa.
+Este projeto foi deselvolvido como requisito parcial para aprovação nas disciplinas de Programação 2, Banco de dados 1 e Engenharia de Software 1. 
+
+A proposta base do trabalho era entrevistar uma empresa real, pertencente a um segmento de livre escolha dos integrantes do grupo, 
+identificar as necessidades da empresa e, então, propor e implementar um sistema que atendesse suas demandas.
+
+Para a disciplina de Engenharia de software 1, foi solicitado: 
+- Realização de entrevistas com pelo menos 3 funcionários da empresa com diferentes níveis de acesso;
+- Estruturação do diagrama de casos de uso do sistema para descrever as interações de cada usuário;
+
+Nosso grupo escolheu a academia de boxe Nobre Arte, localizada na cidade de Chapecó-SC. Ao todo, 3 pessoas ligadas à empresa foram entrevistadas, sendo 1 secretária, 1 professor 1 aluno.
+
+Para a disciplina de banco de dados 1, foi solicitado:
+- Uso do banco de dados postgres;
+- Estruturação do diagrama entidade/relacionamento;
+- Estruturação do diagrama lógico relacional;
+- Estruturação do modelo físico (scripts de montagem da base de dados);
+
+
+Os diagramas se encontram em: `documentação/diagramas/Banco de dados`
+O modelo físico da base de dados se encontra em: `documentação/scripts/database.sql`
+
+
+Para a disciplina de Programação 2, foi solicitado:
+- Montagem de um sistema web com front-end desenvolvido em ReactJS e back-end desenvolvido em NodeJS;
+- A aplicação front-end deveria ter pelo menos 3 telas;
+- A aplicação back-end deveria ter pelo menos 3 CRUDS e uso obrigatório do banco de dados proposto nas entregas para a disciplina de Banco de Dados 1;
+   
+Devido à limitação de tempo para a finalização do projeto, o escopo da versão entregue foi reduzido ao controle de agendamento de aulas eentradas de alunos na academia. 
+
+Demonstração do sistema: 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-IsbJvGxdGw?si=70vXlJ7J3JdGuBM7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ### Integrantes 
 - Eduardo V. P. Fiorentin   - 2211100002
 - Fabricio S. Maia          - 2221100005
