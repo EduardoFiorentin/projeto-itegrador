@@ -29,8 +29,7 @@ Para a disciplina de Programação 2, foi solicitado:
    
 Devido à limitação de tempo para a finalização do projeto, o escopo da versão entregue foi reduzido ao controle de agendamento de aulas eentradas de alunos na academia. 
 
-Demonstração do sistema: 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-IsbJvGxdGw?si=70vXlJ7J3JdGuBM7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+Veja uma demonstração do sistema funcionando (aqui)[https://www.youtube.com/embed/-IsbJvGxdGw?si=70vXlJ7J3JdGuBM7]: 
 
 ### Integrantes 
 - Eduardo V. P. Fiorentin   - 2211100002
